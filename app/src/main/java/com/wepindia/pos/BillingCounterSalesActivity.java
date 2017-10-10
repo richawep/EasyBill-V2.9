@@ -4835,11 +4835,11 @@ public class BillingCounterSalesActivity extends WepPrinterBaseActivity implemen
                                         tvDiscountAmount.setText(String.format("%.2f", fTotalDiscount));
                                         tvBillNumber.setText(txtReprintBillNo.getText().toString());
 
-                                        tvIGSTValue.setText(String.format("%.2f", cursor.getFloat(cursor.getColumnIndex("IGSTAmount"))));
-                                        tvTaxTotal.setText(String.format("%.2f", cursor.getFloat(cursor.getColumnIndex("CGSTAmount"))));
-                                        tvServiceTaxTotal.setText(String.format("%.2f", cursor.getFloat(cursor.getColumnIndex("SGSTAmount"))));
-                                        tvSubTotal.setText(String.format("%.2f", cursor.getFloat(cursor.getColumnIndex("TaxableValue"))));
-                                        tvBillAmount.setText(String.format("%.2f", cursor.getFloat(cursor.getColumnIndex("BillAmount"))));
+                                        tvIGSTValue.setText(String.format("%.2f", cursor.getDouble(cursor.getColumnIndex("IGSTAmount"))));
+                                        tvTaxTotal.setText(String.format("%.2f", cursor.getDouble(cursor.getColumnIndex("CGSTAmount"))));
+                                        tvServiceTaxTotal.setText(String.format("%.2f", cursor.getDouble(cursor.getColumnIndex("SGSTAmount"))));
+                                        tvSubTotal.setText(String.format("%.2f", cursor.getDouble(cursor.getColumnIndex("TaxableValue"))));
+                                        tvBillAmount.setText(String.format("%.2f", cursor.getDouble(cursor.getColumnIndex("BillAmount"))));
 
                                         LoadItemsForReprintBill(LoadItemForReprint);
                                         Cursor crsrBillDetail = db.getBillDetail_counter(Integer.valueOf(txtReprintBillNo.getText().toString()));
