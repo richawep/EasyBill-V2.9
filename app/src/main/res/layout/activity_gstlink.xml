@@ -148,9 +148,103 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true">
 
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    >
+
+                    <RelativeLayout
+                        android:id="@+id/PostGSTR1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/menu_box_marigin"
+                        android:layout_weight="1"
+                        android:onClick="onClickPostGstr1">
+
+                        <ImageView
+                            android:id="@+id/img1"
+                            android:layout_width="140dp"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="DineIn"
+                            android:padding="3dp"
+                            android:src="@drawable/ic_upload" />
+
+                        <TextView
+                            android:id="@+id/tv1"
+                            android:layout_width="140dp"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/img1"
+                            android:gravity="center"
+                            android:text="Post GSTR1 Invoices"
+                            android:textSize="@dimen/menu_box_font_size" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/postGSTR2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_20dp_720dp_15dp_600dp"
+                        android:layout_weight="1"
+                        android:layout_toRightOf="@+id/PostGSTR1"
+                        android:onClick="onClickSaveGstr2">
+
+                        <ImageView
+                            android:id="@+id/img20"
+                            android:layout_width="140dp"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="DineIn"
+                            android:padding="3dp"
+                            android:src="@drawable/ic_upload"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_marginStart="0dp" />
+
+                        <TextView
+                            android:id="@+id/tv20"
+                            android:layout_width="140dp"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/img20"
+                            android:gravity="center"
+                            android:text="Post GSTR2 Invoices"
+                            android:textSize="@dimen/menu_box_font_size" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/fileGSTR1"
+                        android:layout_toRightOf="@+id/postGSTR2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/menu_box_marigin"
+                        android:layout_weight="1"
+                        android:onClick="onClickFileGstr1">
+
+                        <ImageView
+                            android:id="@+id/img10"
+                            android:layout_width="140dp"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="DineIn"
+                            android:padding="3dp"
+                            android:src="@drawable/icon_file" />
+
+                        <TextView
+                            android:id="@+id/tv10"
+                            android:layout_width="140dp"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/img10"
+                            android:gravity="center"
+                            android:text="WeP ASP Portal"
+                            android:textSize="@dimen/menu_box_font_size" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:gravity="center"
@@ -165,7 +259,7 @@
                         android:weightSum="5">
 
                         <RelativeLayout
-                            android:id="@+id/PostGSTR1"
+                            android:id="@+id/PostGSTR1_change"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="@dimen/menu_box_marigin"
@@ -173,7 +267,7 @@
                             android:onClick="onClickPostGstr1">
 
                             <ImageView
-                                android:id="@+id/img1"
+                                android:id="@+id/img1_change"
                                 android:layout_width="140dp"
                                 android:layout_height="wrap_content"
                                 android:contentDescription="DineIn"
@@ -181,10 +275,10 @@
                                 android:src="@drawable/ic_upload" />
 
                             <TextView
-                                android:id="@+id/tv1"
+                                android:id="@+id/tv1_change"
                                 android:layout_width="140dp"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/img1"
+                                android:layout_below="@+id/img1_change"
                                 android:gravity="center"
                                 android:text="Post GSTR1 Invoices"
                                 android:textSize="@dimen/menu_box_font_size" />
@@ -296,7 +390,7 @@
                         </RelativeLayout>
 
                         <RelativeLayout
-                            android:id="@+id/fileGSTR1"
+                            android:id="@+id/fileGSTR1_change"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="@dimen/menu_box_marigin"
@@ -304,7 +398,7 @@
                             android:onClick="onClickFileGstr1">
 
                             <ImageView
-                                android:id="@+id/img10"
+                                android:id="@+id/img10_change"
                                 android:layout_width="140dp"
                                 android:layout_height="wrap_content"
                                 android:contentDescription="DineIn"
@@ -312,10 +406,10 @@
                                 android:src="@drawable/icon_file" />
 
                             <TextView
-                                android:id="@+id/tv10"
+                                android:id="@+id/tv10_change"
                                 android:layout_width="140dp"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/img10"
+                                android:layout_below="@+id/img10_change"
                                 android:gravity="center"
                                 android:text="File GSTR1"
                                 android:textSize="@dimen/menu_box_font_size" />
@@ -386,7 +480,7 @@
                         </RelativeLayout>
 
                         <RelativeLayout
-                            android:id="@+id/postGSTR2"
+                            android:id="@+id/postGSTR2_change"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="@dimen/menu_box_marigin"
@@ -394,7 +488,7 @@
                             android:onClick="onClickSaveGstr2">
 
                             <ImageView
-                                android:id="@+id/img20"
+                                android:id="@+id/img20_change"
                                 android:layout_width="140dp"
                                 android:layout_height="wrap_content"
                                 android:contentDescription="DineIn"
@@ -405,10 +499,10 @@
                                 android:layout_marginStart="12dp" />
 
                             <TextView
-                                android:id="@+id/tv20"
+                                android:id="@+id/tv20_change"
                                 android:layout_width="140dp"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/img20"
+                                android:layout_below="@+id/img20_change"
                                 android:gravity="center"
                                 android:text="Post GSTR2 Invoices"
                                 android:textSize="@dimen/menu_box_font_size" />
