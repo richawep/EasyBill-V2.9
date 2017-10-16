@@ -127,7 +127,7 @@ public class CustomerDetailActivity extends WepBaseActivity {
         Date d = new Date();
         CharSequence s = DateFormat.format("dd-MM-yyyy", d.getTime());
         //tvTitleDate.setText("Date : " + s);
-        com.wep.common.app.ActionBarUtils.setupToolbar(CustomerDetailActivity.this,toolbar,getSupportActionBar(),"Customer",strUserName," Date:"+s.toString());
+        com.wep.common.app.ActionBarUtils.setupToolbar(CustomerDetailActivity.this,toolbar,getSupportActionBar(),"Customers",strUserName," Date:"+s.toString());
 
         try {
             dbCustomer.CreateDatabase();
