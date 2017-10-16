@@ -85,10 +85,9 @@ public class StockActivity extends WepBaseActivity implements TextWatcher {
     // Variables
 
     String strMenuCode = "", strUserName = "";
-    SimpleCursorAdapter deptdataAdapter, categdataAdapter;
-    String[] Name;
-    String[] ImageUri;
-    int[] MenuCode;
+    //String[] Name;
+    //String[] ImageUri;
+    //int[] MenuCode;
     Cursor crsrSettings = null;
     private Toolbar toolbar;
     String FASTBILLINGMODE = "1";
@@ -579,8 +578,6 @@ public class StockActivity extends WepBaseActivity implements TextWatcher {
         txtRate2.setText("0");
         txtRate3.setText("0");
         btnUpdate.setEnabled(false);
-        Cursor crsrItems;
-        crsrItems = dbStock.getAllItems();
     }
 
     public void UpdateStock(View v) {
@@ -877,7 +874,7 @@ public class StockActivity extends WepBaseActivity implements TextWatcher {
     }
 
     // Get Items by CategCode
-    private void GetItemDetails(int iCategCode) {
+    /*private void GetItemDetails(int iCategCode) {
         Cursor Items = null;
         Items = dbStock.getCatbyItems(iCategCode);
         if (Items.moveToFirst()) {
@@ -900,10 +897,10 @@ public class StockActivity extends WepBaseActivity implements TextWatcher {
             ImageUri = new String[0];
             MenuCode = new int[0];
         }
-    }
+    }*/
 
     // Get Items by DeptCode
-    private void GetItemDetailsByDept(int iDeptCode) {
+    /*private void GetItemDetailsByDept(int iDeptCode) {
         Cursor Items = null;
         Items = dbStock.getItems(iDeptCode);
         if (Items.moveToFirst()) {
@@ -926,7 +923,7 @@ public class StockActivity extends WepBaseActivity implements TextWatcher {
             ImageUri = new String[0];
             MenuCode = new int[0];
         }
-    }
+    }*/
 
     OnItemClickListener GridItemImageClick = new OnItemClickListener() {
 

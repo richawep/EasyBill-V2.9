@@ -2716,7 +2716,7 @@ public class BillingCounterSalesActivity extends WepPrinterBaseActivity implemen
    /* *//*************************************************************************************************************************************
      * Loads KOT order items to billing table
      *
-     * @param crsrBillItems : Cursor with KOT order item details
+     * @param  : Cursor with KOT order item details
      *************************************************************************************************************************************//*
     private void LoadKOTItems(Cursor crsrBillItems) {
         EditTextInputHandler etInputValidate = new EditTextInputHandler();

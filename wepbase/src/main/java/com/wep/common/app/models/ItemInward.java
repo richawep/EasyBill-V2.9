@@ -8,9 +8,10 @@ public class ItemInward {
     // Private variable
     String strItemname, strItemBarcode, strImageUri;
     int iMenuCode;
-    double fAveragerate, fQuantity;
+    double rate, fQuantity;
     double IGSTRate, IGSTAmount, CGSTRate, CGSTAmount,SGSTRate, SGSTAmount, cessRate, cessAmount;
     String UOM,HSNCode,TaxationType , SupplyType, pos;
+    double rate1 =0;
 
     public ItemInward(String strItemname, String strItemBarcode, String strImageUri, int iMenuCode, double fAveragerate, double fQuantity, double IGSTRate, double IGSTAmount, double CGSTRate,
                       double CGSTAmount, double SGSTRate, double SGSTAmount,double cessRate, double cessAmount, String MOU, String HSNCode, String taxationType, String supplyType, String pos) {
@@ -18,7 +19,7 @@ public class ItemInward {
         this.strItemBarcode = strItemBarcode;
         this.strImageUri = strImageUri;
         this.iMenuCode = iMenuCode;
-        this.fAveragerate = fAveragerate;
+        this.rate = fAveragerate;
         this.fQuantity = fQuantity;
         this.IGSTRate = IGSTRate;
         this.IGSTAmount = IGSTAmount;
@@ -44,7 +45,7 @@ public class ItemInward {
         this.strItemBarcode = strItemBarcode;
         this.strImageUri = strImageUri;
         this.iMenuCode = iMenuCode;
-        this.fAveragerate = fAveragerate;
+        this.rate = fAveragerate;
         this.fQuantity = fQuantity;
         this.IGSTRate = IGSTRate;
         this.IGSTAmount = IGSTAmount;
@@ -65,7 +66,7 @@ public class ItemInward {
         this.strItemBarcode = "";
         this.strImageUri = "";
         this.iMenuCode = -1;
-        this.fAveragerate = 0;
+        this.rate = 0;
         this.fQuantity = 0;
         this.IGSTRate = 0;
         this.IGSTAmount = 0;
@@ -80,7 +81,10 @@ public class ItemInward {
         TaxationType = "";
         SupplyType = "";
         this.pos = "";
+
     }
+
+
 
     public String getStrItemname() {
         return strItemname;
@@ -114,12 +118,12 @@ public class ItemInward {
         this.iMenuCode = iMenuCode;
     }
 
-    public double getfAveragerate() {
-        return fAveragerate;
+    public double getRate() {
+        return rate;
     }
 
-    public void setfAveragerate(double fAveragerate) {
-        this.fAveragerate = fAveragerate;
+    public void setRate(double rate) {
+        this.rate = rate;
     }
 
     public double getfQuantity() {

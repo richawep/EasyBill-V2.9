@@ -319,7 +319,11 @@ public class ReportHelper{
 			Date.setWidth(80);
 			Date.setTextSize(15);
 			Date.setTextColor(Color.WHITE);
-			Date.setText("ItemCode");
+			if(ReportName.equalsIgnoreCase("Inward Stock Report") )
+				Date.setText("SNo");
+			else
+				Date.setText("ItemCode");
+
 
 
 

@@ -75,7 +75,14 @@ public class InwardActivity extends WepBaseActivity {
 
 
     public void LaunchActivity(View v){
-        if (v.getContentDescription().toString().equalsIgnoreCase("PurchaseOrder"))
+        if (v.getContentDescription().toString().equalsIgnoreCase("InwardPriceStock"))
+        {
+            Intent intentInwardStock = new Intent(myContext, InwardStockActivity.class);
+            intentInwardStock.putExtra("USER_ID", strUserId);
+            intentInwardStock.putExtra("USER_NAME", strUserName);
+            startActivityForResult(intentInwardStock,1);
+
+        } else if (v.getContentDescription().toString().equalsIgnoreCase("PurchaseOrder"))
         {
             Intent intentPO = new Intent(myContext, PurchaseOrderActivity.class);
             intentPO.putExtra("USER_ID", strUserId);

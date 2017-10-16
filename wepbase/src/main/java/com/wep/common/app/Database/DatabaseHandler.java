@@ -4579,11 +4579,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
-    public int updateItem_Inw(int supplierCode, int menuCode, String itemName , float quantity, float rate ) {
+    public int updateItem_Inw(int supplierCode, int menuCode, String itemName , double quantity, double rate ) {
         cvDbValues = new ContentValues();
         cvDbValues.put(KEY_Rate, rate);
+        cvDbValues.put(KEY_AverageRate, rate);
         cvDbValues.put(KEY_Quantity, quantity);
-        return dbFNB.update(TBL_ITEM_Inward, cvDbValues, "MenuCode=" + menuCode, null);
+        return dbFNB.update(TBL_ITEM_Inward, cvDbValues, KEY_ItemName+" LIKE '" + itemName+"'", null);
         //return dbFNB.update(TBL_ITEM_Inward, cvDbValues, "SupplierCode=" + supplierCode+" AND "+KEY_ItemName+" LIKE '"+itemName+"'", null);
     }
 
@@ -4611,6 +4612,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cvDbValues.put("DineInPrice1", Rate1);
         cvDbValues.put("DineInPrice2", Rate2);
         cvDbValues.put("DineInPrice3", Rate3);
+        return dbFNB.update(TBL_ITEM_Outward, cvDbValues, "MenuCode=" + MenuCode, null);
+    }
+
+    public int updateItemStock(int MenuCode, double Stock, double Rate1) {
+        cvDbValues = new ContentValues();
+
+        cvDbValues.put("Quantity", Stock);
+        cvDbValues.put("DineInPrice1", Rate1);
         return dbFNB.update(TBL_ITEM_Outward, cvDbValues, "MenuCode=" + MenuCode, null);
     }
 
@@ -5983,6 +5992,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return dbFNB.query(TBL_StockInward, new String[]{"*"}, KEY_BusinessDate+" LIKE '"+businessDate+"'",
                 null, null, null, null);
     }
+    public Cursor getStockInwardForBusinessdateForItem(String Itemname ,String businessDate) {
+        return dbFNB.query(TBL_StockInward, new String[]{"*"}, KEY_BusinessDate+" LIKE '"+businessDate+"' AND "+KEY_ItemName+" LIKE '"+Itemname+"'",
+                null, null, null, null);
+    }
     public long insertStockInward(ItemStock item, String businessDate_str) {
         long l = 0;
         ContentValues cvdbValues = new ContentValues();
@@ -6006,7 +6019,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         long l = 0;
         ContentValues cvdbValues = new ContentValues();
         cvdbValues.put(KEY_OpeningStock, item.getOpeningStock());
-        l = dbFNB.update(TBL_StockInward, cvdbValues, KEY_MenuCode+" ="+item.getMenuCode()+" AND "+
+        cvdbValues.put(KEY_Rate, item.getRate());
+        l = dbFNB.update(TBL_StockInward, cvdbValues, KEY_ItemName+" LIKE '"+item.getItemName()+"' AND "+
                 KEY_BusinessDate+" LIKE '"+businessDate_str+"'", null);
         return l;
     }
@@ -6015,7 +6029,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         long l = 0;
         ContentValues cvdbValues = new ContentValues();
         cvdbValues.put(KEY_ClosingStock, item.getClosingStock());
-        l = dbFNB.update(TBL_StockInward, cvdbValues, KEY_MenuCode+" ="+item.getMenuCode()+" AND "+
+        l = dbFNB.update(TBL_StockInward, cvdbValues,KEY_ItemName+" LIKE '"+item.getItemName()+"' AND "+
                 KEY_BusinessDate+" LIKE '"+businessDate_str+"'", null);
         return l;
     }
@@ -6563,7 +6577,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cvDbValues.put(KEY_ItemBarcode, objItem.getStrItemBarcode());
         cvDbValues.put(KEY_ImageUri, objItem.getStrImageUri());
         cvDbValues.put(KEY_Quantity, objItem.getfQuantity());
-        cvDbValues.put(KEY_AverageRate, objItem.getfAveragerate());
+        cvDbValues.put(KEY_AverageRate, objItem.getRate());
         cvDbValues.put(KEY_UOM, objItem.getUOM());
         cvDbValues.put(KEY_CGSTRate, objItem.getCGSTRate());
         cvDbValues.put(KEY_SGSTRate, objItem.getSGSTRate());
@@ -6583,7 +6597,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cvDbValues.put(KEY_ItemBarcode, objItem.getStrItemBarcode());
         cvDbValues.put(KEY_ImageUri, objItem.getStrImageUri());
         cvDbValues.put(KEY_Quantity, objItem.getfQuantity());
-        cvDbValues.put(KEY_AverageRate, objItem.getfAveragerate());
+        cvDbValues.put(KEY_AverageRate, objItem.getRate());
         cvDbValues.put(KEY_UOM, objItem.getUOM());
         cvDbValues.put(KEY_CGSTRate, objItem.getCGSTRate());
         cvDbValues.put(KEY_SGSTRate, objItem.getSGSTRate());
@@ -6762,6 +6776,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return dbFNB.delete(TBL_INGREDIENTS, KEY_ItemName + " LIKE '" + itemname + "'", null);
     }
 
+    public int DeleteAllSubmittedIngredients() {
+        return dbFNB.delete(TBL_INGREDIENTS, null, null);
+    }
+
     public Cursor getIngredientsForMenuCode(int menucode) {
         Cursor cursor = null;
         String selectQuery = "Select *  FROM " + TBL_INGREDIENTS + " WHERE " + KEY_MenuCode +
@@ -6840,10 +6858,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String whereClause = KEY_ItemName + " LIKE '" + itemname_str + "'";
         return dbFNB.update(TBL_GOODSINWARD, cvDbValues, whereClause, null);
     }
+    public long updateIngredient(int MenuCode, String itemname_str, double quantity_f, double rate, int SupplierCount) {
+        cvDbValues = new ContentValues();
+        cvDbValues.put(KEY_ItemName, itemname_str);
+        cvDbValues.put(KEY_Quantity, quantity_f);
+        cvDbValues.put(KEY_Value, rate);
+        cvDbValues.put(KEY_SupplierCount, SupplierCount);
+
+        String whereClause = KEY_ItemName + " like '" + itemname_str+"'";
+        return dbFNB.update(TBL_GOODSINWARD, cvDbValues, whereClause, null);
+    }
 
     public int deleteItemInGoodsInward(String  itemname) {
 
         return dbFNB.delete(TBL_GOODSINWARD, KEY_ItemName + " LIKE '"+itemname+"'", null);
+    }
+    public int deleteAllItemInGoodsInward() {
+
+        return dbFNB.delete(TBL_GOODSINWARD, null, null);
     }
 
 

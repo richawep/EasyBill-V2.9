@@ -97,7 +97,7 @@ public class ItemInwardAdapter extends BaseAdapter {
         ItemInward item = itemList.get(position);
         viewHolder.Sno.setText(String.valueOf(position+1));
         viewHolder.ItemName.setText(item.getStrItemname());
-        viewHolder.AverageRate.setText(String.format("%.2f",item.getfAveragerate()));
+        viewHolder.AverageRate.setText(String.format("%.2f",item.getRate()));
         viewHolder.Stock.setText(String.format("%.2f",item.getfQuantity()));
         viewHolder.UOM.setText(item.getUOM());
 
@@ -112,6 +112,7 @@ public class ItemInwardAdapter extends BaseAdapter {
 
             AlertDialog.Builder builder = new AlertDialog.Builder(activityContext)
                     .setTitle("Delete")
+                    .setIcon(R.drawable.ic_launcher)
                     .setMessage("Are you sure you want to Delete this Item. " +
                             "\nThis item will no longer be available in SupplierItemLinkage, Purchase Order, GoodsInwardNote and IngredientManagement.\n"+
                             "\nPlease note that this item will not delete from inward stock database for current business date")

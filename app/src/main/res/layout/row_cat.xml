@@ -6,6 +6,18 @@
     android:padding="20dp">
 
 
+
+    <TextView
+        android:id="@+id/textViewSno"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:text="1"
+        android:layout_marginEnd="@dimen/_5dp_720dp_4dp_600dp"
+        android:visibility="gone"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
     <TextView
         android:id="@+id/textViewTitle"
         android:layout_width="match_parent"

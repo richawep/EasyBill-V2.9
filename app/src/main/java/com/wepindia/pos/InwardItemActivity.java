@@ -17,6 +17,8 @@ import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -51,7 +53,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class InwardItemActivity extends WepBaseActivity {
 
@@ -1008,24 +1009,76 @@ public class InwardItemActivity extends WepBaseActivity {
 
                 //long lRowId = dbInwardItem.addItem_InwardDatabase(itemInwardObj);
             }
-            if(mFlag==false )
-            {
-                dbInwardItem.clearInwardItemdatabase();
-                dbInwardItem.clearInwardStock(businessDate);
-                dbInwardItem.clearSupplierLinkage();
+            if(mFlag==false ) {
+                int i = dbInwardItem.clearInwardItemdatabase();
+                i = dbInwardItem.clearInwardStock(businessDate);
+                i = dbInwardItem.clearSupplierLinkage();
                 InwardItemList.clear();
                 //InwardItemAdapter.notifyDataSetChanged(InwardItemList);
 
-                for(ItemInward item :inwardList)
-                {
+                for (ItemInward item : inwardList) {
                     long lRowId = dbInwardItem.addItem_InwardDatabase(item);
-                    StockInwardMaintain stock_outward = new StockInwardMaintain(InwardItemActivity.this, dbInwardItem);
-                    stock_outward.saveOpeningStock_Inward(currentDate);
+                    Cursor item_present_crsr = dbInwardItem.getItem_GoodsInward(item.getStrItemname());
+                    if (item_present_crsr != null && item_present_crsr.moveToFirst()) {
+                        // already present , needs to update
+                        double qty = item_present_crsr.getDouble(item_present_crsr.getColumnIndex("Quantity"));
+                        item.setfQuantity(item.getfQuantity() + qty);
+                        long l = dbInwardItem.updateIngredient(item.getStrItemname(), item.getfQuantity(), item.getRate(), 0); // richa_todo
+                        if (l > 0) {
+                            Log.d(" GoodsInwardNote ", item.getStrItemname() + " updated  successfully at " + l);
+                            // updating stock inward
+
+                            double openingStock = 0, closingStock = 0;
+                            StockInwardMaintain stock_inward = new StockInwardMaintain(myContext, dbInwardItem);
+                            Cursor crsr_inward_stock = dbInwardItem.getInwardStock(item.getStrItemname());
+                            int menuCode = 0;
+                            if (crsr_inward_stock != null && crsr_inward_stock.moveToFirst()) {
+                                openingStock = crsr_inward_stock.getDouble(crsr_inward_stock.getColumnIndex("OpeningStock"));
+                                closingStock = crsr_inward_stock.getDouble(crsr_inward_stock.getColumnIndex("ClosingStock"));
+                                menuCode = crsr_inward_stock.getInt(crsr_inward_stock.getColumnIndex("MenuCode"));
+                                double additionalQty = item.getfQuantity();
+                                stock_inward.updateOpeningStock_Inward(businessDate, menuCode, item.getStrItemname(),
+                                        openingStock + additionalQty, item.getRate());
+                                stock_inward.updateClosingStock_Inward(businessDate, menuCode, item.getStrItemname(),
+                                        closingStock + additionalQty);
+                            }else
+                            {
+                                stock_inward.addIngredientToStock_Inward(businessDate, menuCode, item.getStrItemname(),
+                                        item.getfQuantity(), item.getRate());
+                            }
+
+                        }
+                    } else {
+                        // new entry
+                        //richa_todo
+                        long l = dbInwardItem.addIngredient(item.getStrItemname(), item.getfQuantity(), item.getUOM(),
+                                item.getRate(), 0);
+                        if (l > 0) {
+                            Log.d(" GoodsInwardNote ", item.getStrItemname() + " added  successfully at " + l);
+
+                            // updating Stock inward
+                            int menuCode = 0;
+                            double openingStock = 0, closingStock = 0;
+                            StockInwardMaintain stock_inward = new StockInwardMaintain(myContext, dbInwardItem);
+                            Cursor crsr_inward_stock = dbInwardItem.getInwardStock(item.getStrItemname());
+                            if (crsr_inward_stock != null && crsr_inward_stock.moveToFirst()) {
+                                openingStock = crsr_inward_stock.getDouble(crsr_inward_stock.getColumnIndex("OpeningStock"));
+                                closingStock = crsr_inward_stock.getDouble(crsr_inward_stock.getColumnIndex("ClosingStock"));
+                                menuCode = crsr_inward_stock.getInt(crsr_inward_stock.getColumnIndex("MenuCode"));
+                                double additionalQty = item.getfQuantity();
+                                stock_inward.updateOpeningStock_Inward(businessDate, menuCode, item.getStrItemname(),
+                                        openingStock + additionalQty, item.getRate());
+                                stock_inward.updateClosingStock_Inward(businessDate, menuCode, item.getStrItemname(),
+                                        closingStock + additionalQty);
+                            }
+                            stock_inward.addIngredientToStock_Inward(businessDate, menuCode, item.getStrItemname(),
+                                    item.getfQuantity(), item.getRate());
+                        }
+
+                    }
                 }
 
             }
-
-
         } catch (Exception exp) {
             exp.printStackTrace();
         }
@@ -1104,7 +1157,7 @@ public class InwardItemActivity extends WepBaseActivity {
                 autocomplete_inw_ItemName.setText(item.getStrItemname());
                 tvMenuCode.setText(String.valueOf(item.getiMenuCode()));
                 et_inw_ItemBarcode.setText(item.getStrItemBarcode());
-                et_inw_averagerate_entered.setText(String.format("%.2f",item.getfAveragerate()));
+                et_inw_averagerate_entered.setText(String.format("%.2f",item.getRate()));
                 et_inw_quantity.setText(String.format("%.2f",item.getfQuantity()));
                 et_inw_HSNCode.setText(item.getHSNCode());
                 et_Inw_CGSTRate.setText(String.format("%.2f",item.getCGSTRate()));
@@ -1460,6 +1513,7 @@ public class InwardItemActivity extends WepBaseActivity {
             if(!mou_temp.equalsIgnoreCase(uom_already_saved))
             {
                 MsgBox.setTitle("Warning")
+                        .setIcon(R.drawable.ic_launcher)
                         .setMessage(item_name+" is already present in database with unit "+uom_already_saved+". " +
                                 "\nTo change the unit , kindly delete this item and add it again.")
                         .setPositiveButton("Ok",null)
@@ -1468,6 +1522,7 @@ public class InwardItemActivity extends WepBaseActivity {
             }else
             {
                 MsgBox.setTitle("Warning")
+                        .setIcon(R.drawable.ic_launcher)
                         .setMessage(item_name+" is already present in database with unit "+uom_already_saved+". ")
                         .setPositiveButton("Ok",null)
                         .show();
@@ -1535,6 +1590,7 @@ public class InwardItemActivity extends WepBaseActivity {
 
 
                 MsgBox.setTitle("Item not found in database. Do you want to add it ?")
+                        .setIcon(R.drawable.ic_launcher)
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 ItemInward item =  new ItemInward( 0, itemname,  strBarcode, imageURI, HSNCode,averageRate,quantity, uom,
@@ -1652,6 +1708,7 @@ public class InwardItemActivity extends WepBaseActivity {
         String item_name = autocomplete_inw_ItemName.getText().toString().toUpperCase();
         if (item_name.equalsIgnoreCase("")) {
             MsgBox.setTitle("Warning")
+                    .setIcon(R.drawable.ic_launcher)
                     .setMessage("Please enter item name")
                     .show();
             return;
@@ -1664,6 +1721,7 @@ public class InwardItemActivity extends WepBaseActivity {
         String uom = spnrUOM.getSelectedItem().toString();
         if (uom.equalsIgnoreCase("") || uom.equalsIgnoreCase("Select")) {
             MsgBox.setTitle("Warning")
+                    .setIcon(R.drawable.ic_launcher)
                     .setMessage("Please select item UoM")
                     .setPositiveButton("Ok",null)
                     .show();
@@ -1708,6 +1766,7 @@ public class InwardItemActivity extends WepBaseActivity {
 
         if (et_inw_quantity.getText().toString().equalsIgnoreCase("")) {
             MsgBox.setTitle("Warning")
+                    .setIcon(R.drawable.ic_launcher)
                     .setMessage("Please enter item's quantity ")
                     .setPositiveButton("Ok",null)
                     .show();
@@ -1718,6 +1777,7 @@ public class InwardItemActivity extends WepBaseActivity {
             if(quantity<0 || quantity>9999.99)
             {
                 MsgBox.setTitle("Warning")
+                        .setIcon(R.drawable.ic_launcher)
                         .setMessage("Please enter item's quantity between 0 and 9999.99")
                         .setPositiveButton("Ok",null)
                         .show();
@@ -1726,6 +1786,7 @@ public class InwardItemActivity extends WepBaseActivity {
         }
         if (et_inw_averagerate_entered.getText().toString().equalsIgnoreCase("")) {
             MsgBox.setTitle("Warning")
+                    .setIcon(R.drawable.ic_launcher)
                     .setMessage("Please enter item's average rate")
                     .setPositiveButton("Ok",null)
                     .show();
@@ -1736,6 +1797,7 @@ public class InwardItemActivity extends WepBaseActivity {
             if(averageRate<0 || averageRate>9999.99)
             {
                 MsgBox.setTitle("Warning")
+                        .setIcon(R.drawable.ic_launcher)
                         .setMessage("Please enter item's average rate between 0 and 9999.99")
                         .setPositiveButton("Ok",null)
                         .show();
@@ -1760,6 +1822,7 @@ public class InwardItemActivity extends WepBaseActivity {
     public void ResetQuantity(View v)
     {
         MsgBox.setTitle("Warning")
+                .setIcon(R.drawable.ic_launcher)
                 .setMessage("Please note only quantity for this item and supplier will be reset to 0. " +
                         "\nAll other changes, if any , will be discarded")
                 .setNegativeButton("Cancel", null)
@@ -1865,6 +1928,7 @@ public class InwardItemActivity extends WepBaseActivity {
         if (mou_temp.equalsIgnoreCase("Unit") || mou_temp.equalsIgnoreCase("Select Unit"))
         {
             MsgBox.setTitle("Error")
+                    .setIcon(R.drawable.ic_launcher)
                     .setMessage("Please Select the Unit for the item.")
                     .setPositiveButton("OK",null)
                     .show();
@@ -1997,6 +2061,64 @@ public class InwardItemActivity extends WepBaseActivity {
     @Override
     public void onHomePressed() {
         ActionBarUtils.navigateHome(this);    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_with_delete, menu);
+        for (int j = 0; j < menu.size(); j++) {
+            MenuItem item = menu.getItem(j);
+            item.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        }
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        //noinspection SimplifiableIfStatement
+        if (id == android.R.id.home)
+        {
+            finish();
+        }
+        else if (id == R.id.action_home)
+        {
+            onHomePressed();
+        }
+        else if (id == R.id.action_screen_shot)
+        {
+            com.wep.common.app.ActionBarUtils.takeScreenshot(this,findViewById(android.R.id.content).getRootView());
+        }
+        else if (id == R.id.action_clear)
+        {
+            new AlertDialog.Builder(this)
+                    .setTitle("Confirmation")
+                    .setIcon(R.drawable.ic_launcher)
+                    .setMessage("Are you sure to delete all the existing Items , if any? ")
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            //Toast.makeText(myContext, "clear", Toast.LENGTH_SHORT).show();
+                            long lResult = dbInwardItem.deleteAllInwardItem();
+
+                            if(lResult>0)
+                            {
+                                InwardItemList.clear();
+                                InwardItemAdapter.notifyDataSetChanged(InwardItemList);
+                                loadSpinnerData();
+                                ResetItem();
+                                Toast.makeText(myContext, "Items Deleted Successfully", Toast.LENGTH_SHORT).show();
+                                Log.d("InwardItemActicity","No of items deleted : "+lResult);
+                                dbInwardItem.deleteAllItemInGoodsInward();
+                                int i = dbInwardItem.clearInwardStock(businessDate);
+                                i = dbInwardItem.clearSupplierLinkage();
+                            }
+                        }})
+                    .setNegativeButton(android.R.string.no, null).show();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 
 }

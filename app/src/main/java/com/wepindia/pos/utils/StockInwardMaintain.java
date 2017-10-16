@@ -105,28 +105,41 @@ public class StockInwardMaintain {
             {
                 // no outward item in database
                 Log.d("Stockinwardmaintain","SaveStock() : No outward item present");
-            } else {
-                if (!stockAlreadyPresent) {
-                    do {
-                        // new entry
-                        ItemStock item = new ItemStock();
-                        item.setMenuCode(itemCursor.getInt(itemCursor.getColumnIndex("MenuCode")));
-                        item.setItemName(itemCursor.getString(itemCursor.getColumnIndex("ItemName")));
-                        item.setOpeningStock(itemCursor.getDouble(itemCursor.getColumnIndex("Quantity")));
-                        item.setClosingStock(itemCursor.getDouble(itemCursor.getColumnIndex("Quantity")));
-                        double rate = 0;//itemCursor.getDouble(itemCursor.getColumnIndex("Value"));
-                        item.setRate(rate);
-                        Log.d("SaveStock():", item.getItemName() + " @ " + businessdate);
-                        long status = db.insertStockInward(item, businessdate);
-                        if (status < 1) {
-                            Log.d("Stockoutwardmaintain", " SaveStock() : cannot save stock for item :" + item.getItemName());
-                        }
-                    } while (itemCursor.moveToNext());
+            }
+            else
+            {
+                do {
+                    // new entry
+                    long status = 0;
+                    ItemStock item = new ItemStock();
+                    item.setMenuCode(itemCursor.getInt(itemCursor.getColumnIndex("MenuCode")));
+                    item.setItemName(itemCursor.getString(itemCursor.getColumnIndex("ItemName")));
+                    item.setOpeningStock(itemCursor.getDouble(itemCursor.getColumnIndex("Quantity")));
+                    item.setClosingStock(itemCursor.getDouble(itemCursor.getColumnIndex("Quantity")));
+                    double rate = 0;//itemCursor.getDouble(itemCursor.getColumnIndex("Value"));
+                    item.setRate(rate);
+                    Log.d("SaveStock():", item.getItemName() + " @ " + businessdate);
+                    Cursor itemAlreadyPresent = db.getStockInwardForBusinessdateForItem(item.getItemName(), businessdate);
+                    if(itemAlreadyPresent !=null && itemAlreadyPresent.moveToFirst()){
+                        double openingStock = itemAlreadyPresent.getDouble(itemAlreadyPresent.getColumnIndex("OpeningStock"));
+                        double closingStock = itemAlreadyPresent.getDouble(itemAlreadyPresent.getColumnIndex("ClosingStock"));
+                        item.setOpeningStock(item.getOpeningStock()+openingStock);
+                        item.setClosingStock(item.getClosingStock()+closingStock);
+                        status = db.updateOpeningStockInward(item, businessdate);
+                        status = db.updateClosingStockInward(item, businessdate);
+                    }
+                    else
+                    {
+                         status = db.insertStockInward(item, businessdate);
+                    }
+                    if (status < 1) {
+                        Log.d("Stockoutwardmaintain", " SaveStock() : cannot save stock for item :" + item.getItemName());
+                    }
+                } while (itemCursor.moveToNext());
 //                Toast.makeText(myContext, "Opening Stock Saved for " + businessdate, Toast.LENGTH_SHORT).show();
-                }else{
 
-                }
-            }}catch (Exception e)
+            }
+        }catch (Exception e)
         {
             e.printStackTrace();
             MsgBox.Show("Error", e.getMessage());

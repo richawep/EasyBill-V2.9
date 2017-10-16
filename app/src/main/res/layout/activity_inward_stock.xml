@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.wepindia.pos.InwardStockActivity">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_wep" />
+
+    <LinearLayout
+        android:id="@+id/boxTop"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:layout_above="@+id/tvHorizontalLine"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_weight="0.7">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/RV_itemList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/tvVerticalLine"
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:background="#000000" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:orientation="vertical"
+            android:layout_weight="1.3">
+
+            <TableRow
+                android:id="@+id/rowItemLongName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true">
+
+                <TextView
+                    android:id="@+id/tvItemLongName"
+                    android:layout_width="@dimen/_200dp_720dp_150dp_600dp"
+                    android:layout_height="wrap_content"
+                    android:text="Item Name"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoTextItemLongNameValue"
+                    android:layout_width="@dimen/_200dp_720dp_150dp_600dp"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="flagNoExtractUi"
+                    android:drawableRight="@drawable/searchicon_img"
+                    android:inputType="text"
+                    android:completionThreshold="1"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/rowItemExistingStock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rowItemLongName">
+
+                <TextView
+                    android:id="@+id/tvItemExistingStock"
+                    android:layout_width="@dimen/_200dp_720dp_150dp_600dp"
+                    android:layout_height="wrap_content"
+                    android:text="Existing Stock"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <TextView
+                    android:id="@+id/tvItemExistingStockValue"
+                    android:layout_width="@dimen/_200dp_720dp_150dp_600dp"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/rowItemNewStock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rowItemExistingStock">
+
+                <TextView
+                    android:id="@+id/tvItemNewStock"
+                    android:layout_width="@dimen/_200dp_720dp_150dp_600dp"
+                    android:layout_height="wrap_content"
+                    android:text="New Stock"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <EditText
+                    android:id="@+id/etItemNewStock"
+                    android:layout_width="@dimen/_200dp_720dp_150dp_600dp"
+                    android:layout_height="wrap_content"
+                    android:ems="5"
+                    android:inputType="numberDecimal"
+                    android:selectAllOnFocus="true" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/rowItemRate1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rowItemNewStock">
+
+                <TextView
+                    android:id="@+id/tvItemRate1"
+                    android:layout_width="@dimen/_200dp_720dp_150dp_600dp"
+                    android:layout_height="wrap_content"
+                    android:text="Rate"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <EditText
+                    android:id="@+id/etItemRate1"
+                    android:layout_width="@dimen/_200dp_720dp_150dp_600dp"
+                    android:layout_height="wrap_content"
+                    android:ems="5"
+                    android:inputType="numberDecimal"
+                    android:selectAllOnFocus="true" />
+
+            </TableRow>
+            <TextView
+                android:id="@+id/textView19"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/_5dp_720dp_4dp_600dp"
+                android:layout_marginTop="@dimen/_5dp_720dp_4dp_600dp"
+                android:text="*Please note, new stock will be added to existing stock\n**Only rate and quantity are configurable here."
+                android:textColor="@color/red" />
+        </RelativeLayout>
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tvHorizontalLine"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_above="@+id/boxBtn"
+        android:background="#000000" />
+
+    <LinearLayout
+        android:id="@+id/boxBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:padding="@dimen/_5dp_720dp_4dp_600dp">
+
+        <com.wep.common.app.views.WepButton
+            android:id="@+id/btnUpdateStock"
+            android:layout_width="@dimen/_100dp_720dp_95dp_600dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_btn"
+            android:onClick="UpdateStock"
+            android:text="Update"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/button_14sp_720dp_12sp_600dp"
+            android:theme="@style/WepButtonWithMarigin" />
+
+        <com.wep.common.app.views.WepButton
+            android:id="@+id/btnClearStock"
+            android:layout_width="@dimen/_100dp_720dp_95dp_600dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/background_btn"
+            android:onClick="ClearStock"
+            android:text="Clear"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/button_14sp_720dp_12sp_600dp"
+            android:theme="@style/WepButtonWithMarigin" />
+
+        <com.wep.common.app.views.WepButton
+            android:id="@+id/btnCloseStock"
+            android:layout_width="@dimen/_100dp_720dp_95dp_600dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/background_btn"
+            android:onClick="CloseStock"
+            android:text="Close"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/button_14sp_720dp_12sp_600dp"
+            android:theme="@style/WepButtonWithMarigin" />
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1934,6 +1934,7 @@ public class ReportFragment extends Fragment implements View.OnClickListener {
         else{
             // adding stock
             double totbillAmt =0;
+            int count =0;
             do {
                 TableRow rowReport = new TableRow(myContext);
                 rowReport.setLayoutParams(new ViewGroup.LayoutParams
@@ -1942,7 +1943,7 @@ public class ReportFragment extends Fragment implements View.OnClickListener {
                 TextView ItemCode = new TextView(myContext);
                 ItemCode.setTextSize(15);
                 int menuCode = cursorStock_start.getInt(cursorStock_start.getColumnIndex("MenuCode"));
-                ItemCode.setText(String.valueOf(menuCode));
+                ItemCode.setText(String.valueOf(++count));
                 ItemCode.setPadding(5,0,0,0);
 //                String id = String.valueOf(menuCode);
                 itemCodeList.add(menuCode);

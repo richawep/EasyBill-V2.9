@@ -1081,7 +1081,7 @@ public class GoodsInwardNoteActivity extends WepBaseActivity {
                     int menuCode = item_inward_det.getInt(item_inward_det.getColumnIndex("MenuCode"));
                     double rate = po.getValue();
                     long ll = dbGoodsInwardNote.updateItem_Inw(SupplierCode, menuCode, itemname_str ,
-                            Float.parseFloat(String.format("%.2f",qty_prev)), Float.parseFloat(String.format("%.2f", rate) ));
+                            Double.parseDouble(String.format("%.2f",qty_prev)), Double.parseDouble(String.format("%.2f", rate) ));
                     if(ll>0)
                     {
                         Toast.makeText(myContext, itemname_str+" is updated in Inward item as "+qty_prev+" "+po.getUOM(), Toast.LENGTH_SHORT).show();
