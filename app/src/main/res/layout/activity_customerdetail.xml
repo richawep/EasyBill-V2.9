@@ -97,12 +97,12 @@
                     android:orientation="horizontal"
                     android:weightSum="2">
 
-                    <FrameLayout
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="15dp"
                         android:layout_marginTop="5dp"
-                        android:layout_weight="1.2">
+                        android:layout_weight="1.4">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -215,39 +215,65 @@
                                     android:inputType="numberDecimal"
                                     android:text="0" />
                             </TableRow>
+                            <TableRow
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/tvCustomerCreditLimit"
+                                    android:layout_width="150dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="Credit Limit"
+                                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                                <EditText
+                                    android:id="@+id/etCreditCreditLimit"
+                                    android:layout_width="225dp"
+                                    android:layout_height="wrap_content"
+                                    android:ems="5"
+                                    android:inputType="numberDecimal"
+                                    android:text="0.00" />
+                            </TableRow>
 
 
                         </LinearLayout>
-
-                    </FrameLayout>
+                        <TextView
+                            android:id="@+id/tv_CustomerDetailMsg"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/red"
+                            android:text="Kindly click on customer to update"
+                            android:layout_alignParentBottom="true"
+                            />
+                    </RelativeLayout>
 
                     <TextView
                         android:id="@+id/tvVerticalLine"
                         android:layout_width="2dp"
+                        android:layout_marginStart="5dp"
                         android:layout_height="match_parent"
                         android:background="#000000" />
 
                     <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
                         android:layout_marginTop="5dp"
-                        android:layout_weight="0.8">
+                        android:layout_weight="0.6">
 
                         <ScrollView
                             android:id="@+id/scrlCustomerTable"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="10dp"
-                            android:layout_marginRight="10dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"
                             android:background="#DDDDDD">
 
                             <TableLayout
                                 android:id="@+id/tblCustomer"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:collapseColumns="1,5,6,9">
+                                android:collapseColumns="1,5,6,9,10">
 
                                 <TableRow
                                     android:id="@+id/rowCaption"
@@ -257,10 +283,10 @@
 
                                     <TextView
                                         android:id="@+id/tvCaptionSno"
-                                        android:layout_width="20dp"
+                                        android:layout_width="35dp"
                                         android:layout_height="wrap_content"
                                         android:gravity="center"
-                                        android:text="S.No"
+                                        android:text="SNo"
                                         android:textAppearance="?android:attr/textAppearanceSmall"
                                         android:textColor="@color/txtColorAccent"
                                         android:textSize="@dimen/table_text_heading_16sp_720dp_14sp_600dp" />
@@ -279,6 +305,7 @@
                                         android:layout_width="170dp"
                                         android:layout_height="wrap_content"
                                         android:text="Name"
+                                        android:layout_marginStart="@dimen/_10dp_720dp_7dp_600dp"
                                         android:textAppearance="?android:attr/textAppearanceSmall"
                                         android:textColor="@color/txtColorAccent"
                                         android:textSize="@dimen/table_text_heading_16sp_720dp_14sp_600dp" />
@@ -286,9 +313,9 @@
 
                                     <TextView
                                         android:id="@+id/tvCaptionLastTransaction"
-                                        android:layout_width="110dp"
+                                        android:layout_width="200dp"
                                         android:layout_height="wrap_content"
-                                        android:gravity="center"
+
                                         android:text="Last Transn."
                                         android:textAppearance="?android:attr/textAppearanceSmall"
                                         android:textColor="@color/txtColorAccent"
@@ -296,9 +323,9 @@
 
                                     <TextView
                                         android:id="@+id/tvCaptionTotalTransaction"
-                                        android:layout_width="@dimen/_165dp_720dp_145dp_600dp"
+                                        android:layout_width="200dp"
                                         android:layout_height="wrap_content"
-                                        android:gravity="center"
+
                                         android:text="Total Transn."
                                         android:textAppearance="?android:attr/textAppearanceSmall"
                                         android:textColor="@color/txtColorAccent"
@@ -324,9 +351,9 @@
 
                                     <TextView
                                         android:id="@+id/tvCaptionCreditAmount"
-                                        android:layout_width="100dp"
+                                        android:layout_width="200dp"
                                         android:layout_height="wrap_content"
-                                        android:gravity="center"
+
                                         android:text="Credit Amt"
                                         android:textAppearance="?android:attr/textAppearanceSmall"
                                         android:textColor="@color/txtColorAccent"

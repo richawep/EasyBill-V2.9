@@ -55,21 +55,22 @@ import com.wep.common.app.views.WepButton;
 import com.wepindia.pos.GenericClasses.DecimalDigitsInputFilter;
 import com.wepindia.pos.GenericClasses.MessageDialog;
 import com.wepindia.pos.utils.ActionBarUtils;
+import com.wepindia.pos.utils.GSTINValidation;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CustomerDetailActivity extends WepBaseActivity {
 
     // Context object
     Context myContext;
 
-    private final int CHECK_INTEGER_VALUE = 0;
-    private final int CHECK_DOUBLE_VALUE = 1;
-    private final int CHECK_STRING_VALUE = 2;
+
 
     // DatabaseHandler object
     DatabaseHandler dbCustomer = new DatabaseHandler(CustomerDetailActivity.this);
@@ -77,10 +78,11 @@ public class CustomerDetailActivity extends WepBaseActivity {
     MessageDialog MsgBox;
     List<String> labelsItemName = null;
     // View handlers
-    EditText txtName, txtPhone, txtAddress, txtSearchPhone, txtCreditAmount ,txGSTIN;
+    EditText txtName, txtPhone, txtAddress, txtSearchPhone, txtCreditAmount ,txGSTIN, txtCustomerCreditLimit;
     WepButton btnAdd, btnEdit,btnClearCustomer,btnCloseCustomer;
     TableLayout tblCustomer;
     AutoCompleteTextView txtSearchName;
+    TextView tv_CustomerDetailMsg;
     String upon_rowClick_Phn = "";
     // Variables
     String Id, Name, Phone, Address, LastTransaction, TotalTransaction, CreditAmount, strUserName = "", strCustGSTIN ="";
@@ -133,10 +135,12 @@ public class CustomerDetailActivity extends WepBaseActivity {
             dbCustomer.CreateDatabase();
             dbCustomer.OpenDatabase();
 
+            tv_CustomerDetailMsg = (TextView) findViewById(R.id.tv_CustomerDetailMsg);
             txtAddress = (EditText) findViewById(R.id.etCustomerAddress);
             txtName = (EditText) findViewById(R.id.etCustomerName);
             txtPhone = (EditText) findViewById(R.id.etCustomerPhone);
             txtCreditAmount = (EditText) findViewById(R.id.etCreditAmount);
+            txtCustomerCreditLimit = (EditText) findViewById(R.id.etCreditCreditLimit);
             txtCreditAmount.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(7,2)});
             txtSearchName = (AutoCompleteTextView) findViewById(R.id.etSearchCustomerName);
             txtSearchPhone = (EditText) findViewById(R.id.etSearchCustomerPhone);
@@ -185,8 +189,11 @@ public class CustomerDetailActivity extends WepBaseActivity {
                                 txtName.setText(crsrCust.getString(crsrCust.getColumnIndex("CustName")));
                                 txtPhone.setText(crsrCust.getString(crsrCust.getColumnIndex("CustContactNumber")));
                                 txtAddress.setText(crsrCust.getString(crsrCust.getColumnIndex("CustAddress")));
-                                txtCreditAmount.setText(crsrCust.getString(crsrCust.getColumnIndex("CreditAmount")));
+                                txtCreditAmount.setText(String.format("%.2f",crsrCust.getDouble(crsrCust.getColumnIndex("CreditAmount"))));
+                                txtCustomerCreditLimit.setText(String.format("%.2f",crsrCust.getDouble(crsrCust.getColumnIndex("CreditLimit"))));
                                 String gstin = crsrCust.getString(crsrCust.getColumnIndex("GSTIN"));
+                                Id = (crsrCust.getString(crsrCust.getColumnIndex("CustId")));
+                                upon_rowClick_Phn = txtPhone.getText().toString();
                                 if (gstin==null)
                                     gstin = "";
                                 txGSTIN.setText(gstin);
@@ -194,6 +201,10 @@ public class CustomerDetailActivity extends WepBaseActivity {
                                 ClearCustomerTable();
                                 DisplayCustomerSearch(txtSearchPhone.getText().toString());
                                 txtSearchName.setText("");
+                                btnAdd.setEnabled(false);
+                                btnEdit.setEnabled(true);
+
+                                //tv_CustomerDetailMsg.setVisibility(View.VISIBLE);
                                 //}
                             } else {
                                 MsgBox.Show("", "Customer is not Found, Please Add Customer before Order");
@@ -220,18 +231,21 @@ public class CustomerDetailActivity extends WepBaseActivity {
                     try {
                         Cursor crsrCust = dbCustomer.getCustomerList(txtSearchName.getText().toString());
                         if (crsrCust.moveToFirst()) {
-                            txtName.setText(crsrCust.getString(crsrCust.getColumnIndex("CustName")));
+                            /*txtName.setText(crsrCust.getString(crsrCust.getColumnIndex("CustName")));
                             txtPhone.setText(crsrCust.getString(crsrCust.getColumnIndex("CustContactNumber")));
                             txtAddress.setText(crsrCust.getString(crsrCust.getColumnIndex("CustAddress")));
-                            txtCreditAmount.setText(crsrCust.getString(crsrCust.getColumnIndex("CreditAmount")));
+                            txtCreditAmount.setText(String.format("%.2f",crsrCust.getDouble(crsrCust.getColumnIndex("CreditAmount"))));
+                            txtCustomerCreditLimit.setText(String.format("%.2f",crsrCust.getDouble(crsrCust.getColumnIndex("CreditLimit"))));
                             String gstin = crsrCust.getString(crsrCust.getColumnIndex("GSTIN"));
                             if (gstin==null)
                                 gstin = "";
-                            txGSTIN.setText(gstin);
+                            txGSTIN.setText(gstin);*/
                             //txGSTIN.setText(crsrCust.getString(crsrCust.getColumnIndex("GSTIN")));
                             ClearCustomerTable();
                             DisplayCustomerSearchbyName(txtSearchName.getText().toString());
                             txtSearchPhone.setText("");
+                            btnAdd.setEnabled(false);
+                            tv_CustomerDetailMsg.setVisibility(View.VISIBLE);
                             //}
                         } else {
                             MsgBox.Show("", "Customer is not Found, Please Add Customer before Order");
@@ -312,7 +326,7 @@ public class CustomerDetailActivity extends WepBaseActivity {
         crsrCustomer = dbCustomer.getCustomer(PhoneNo);
 
         TableRow rowCustomer = null;
-        TextView tvSno, tvId, tvName, tvLastTransaction, tvTotalTransaction, tvPhone, tvAddress, tvCreditAmount;
+        TextView tvSno, tvId, tvName, tvLastTransaction, tvTotalTransaction, tvPhone, tvAddress, tvCreditAmount, tvCreditLimit;
         ImageButton btnImgDelete;
         int i = 1;
         if (crsrCustomer != null && crsrCustomer.getCount() > 0) {
@@ -325,7 +339,7 @@ public class CustomerDetailActivity extends WepBaseActivity {
                     tvSno = new TextView(myContext);
                     tvSno.setTextSize(18);
                     tvSno.setText(String.valueOf(i));
-                    tvSno.setGravity(Gravity.LEFT);
+                    tvSno.setGravity(1);
                     rowCustomer.addView(tvSno);
 
                     tvId = new TextView(myContext);
@@ -335,6 +349,7 @@ public class CustomerDetailActivity extends WepBaseActivity {
 
                     tvName = new TextView(myContext);
                     tvName.setTextSize(18);
+                    tvName.setPadding(7,0,0,0);
                     tvName.setText(crsrCustomer.getString(crsrCustomer.getColumnIndex("CustName")));
                     rowCustomer.addView(tvName);
 
@@ -359,12 +374,14 @@ public class CustomerDetailActivity extends WepBaseActivity {
                     rowCustomer.addView(tvAddress);
 
                     tvCreditAmount = new TextView(myContext);
-                    //tvCreditAmount.setText(crsrCustomer.getString(crsrCustomer.getColumnIndex("CreditAmount")));
+                    tvCreditAmount.setTextSize(18);
                     double amt = crsrCustomer.getDouble(crsrCustomer.getColumnIndex("CreditAmount"));
                     tvCreditAmount.setText(String.format("%.2f",amt));
-                    tvCreditAmount.setGravity(Gravity.END);
+                    tvCreditAmount.setGravity(Gravity.LEFT);
                     tvCreditAmount.setPadding(0,0,10,0);
                     rowCustomer.addView(tvCreditAmount);
+
+
 
                     // Delete
                     int res = getResources().getIdentifier("delete", "drawable", this.getPackageName());
@@ -379,9 +396,13 @@ public class CustomerDetailActivity extends WepBaseActivity {
                     if (gstin==null)
                         gstin = "";
                     tvGSTIN.setText(gstin);
-                    //tvGSTIN.setText(crsrCustomer.getString(crsrCustomer.getColumnIndex("GSTIN")));
                     tvGSTIN.setGravity(1);
                     rowCustomer.addView(tvGSTIN);
+
+                    tvCreditLimit = new TextView(myContext);
+                    double limit = crsrCustomer.getDouble(crsrCustomer.getColumnIndex("CreditLimit"));
+                    tvCreditLimit.setText(String.format("%.2f",limit));
+                    rowCustomer.addView(tvCreditLimit);
 
                     rowCustomer.setOnClickListener(new View.OnClickListener() {
 
@@ -398,6 +419,8 @@ public class CustomerDetailActivity extends WepBaseActivity {
                                 TextView rowAddress = (TextView) Row.getChildAt(6);
                                 TextView rowCreditAmount = (TextView) Row.getChildAt(7);
                                 TextView gstin = (TextView)Row.getChildAt(9);
+                                TextView rowCreditLimit = (TextView) Row.getChildAt(10);
+
 
                                 Id = rowId.getText().toString();
                                 LastTransaction = rowLastTransaction.getText().toString();
@@ -405,9 +428,11 @@ public class CustomerDetailActivity extends WepBaseActivity {
 
                                 txtName.setText(rowName.getText());
                                 txtPhone.setText(rowPhone.getText());
+                                upon_rowClick_Phn = rowPhone.getText().toString();
                                 txtAddress.setText(rowAddress.getText());
                                 txtCreditAmount.setText(rowCreditAmount.getText());
                                 txGSTIN.setText(gstin.getText().toString());
+                                txtCustomerCreditLimit.setText(rowCreditLimit.getText());
 
                                 btnAdd.setEnabled(false);
                                 btnEdit.setEnabled(true);
@@ -432,7 +457,7 @@ public class CustomerDetailActivity extends WepBaseActivity {
         crsrCustomer = dbCustomer.getCustomerList(CustomerName);
 
         TableRow rowCustomer = null;
-        TextView tvSno, tvId, tvName, tvLastTransaction, tvTotalTransaction, tvPhone, tvAddress, tvCreditAmount;
+        TextView tvSno, tvId, tvName, tvLastTransaction, tvTotalTransaction, tvPhone, tvAddress, tvCreditAmount, tvCreditLimit;
         ImageButton btnImgDelete;
         int i = 1;
         if (crsrCustomer != null && crsrCustomer.getCount() > 0) {
@@ -455,18 +480,19 @@ public class CustomerDetailActivity extends WepBaseActivity {
 
                     tvName = new TextView(myContext);
                     tvName.setTextSize(18);
+                    tvName.setPadding(7,0,0,0);
                     tvName.setText(crsrCustomer.getString(crsrCustomer.getColumnIndex("CustName")));
                     rowCustomer.addView(tvName);
 
                     tvLastTransaction = new TextView(myContext);
                     tvLastTransaction.setTextSize(18);
-                    tvLastTransaction.setGravity(1);
+                    tvLastTransaction.setGravity(Gravity.LEFT);
                     tvLastTransaction.setText(crsrCustomer.getString(crsrCustomer.getColumnIndex("LastTransaction")));
                     rowCustomer.addView(tvLastTransaction);
 
                     tvTotalTransaction = new TextView(myContext);
                     tvTotalTransaction.setTextSize(18);
-                    tvTotalTransaction.setGravity(1);
+                    tvTotalTransaction.setGravity(Gravity.LEFT);
                     tvTotalTransaction.setText(crsrCustomer.getString(crsrCustomer.getColumnIndex("TotalTransaction")));
                     rowCustomer.addView(tvTotalTransaction);
 
@@ -480,6 +506,7 @@ public class CustomerDetailActivity extends WepBaseActivity {
 
                     tvCreditAmount = new TextView(myContext);
                     double amt = crsrCustomer.getDouble(crsrCustomer.getColumnIndex("CreditAmount"));
+                    tvCreditAmount.setTextSize(18);
                     tvCreditAmount.setText(String.format("%.2f",amt));
                     tvCreditAmount.setGravity(Gravity.LEFT);
                     tvCreditAmount.setPadding(0,0,10,0);
@@ -502,6 +529,11 @@ public class CustomerDetailActivity extends WepBaseActivity {
                     tvGSTIN.setGravity(1);
                     rowCustomer.addView(tvGSTIN);
 
+                    tvCreditLimit = new TextView(myContext);
+                    double limit = crsrCustomer.getDouble(crsrCustomer.getColumnIndex("CreditLimit"));
+                    tvCreditLimit.setText(String.format("%.2f",limit));
+                    rowCustomer.addView(tvCreditLimit);
+
                     rowCustomer.setOnClickListener(new View.OnClickListener() {
 
                         public void onClick(View v) {
@@ -517,6 +549,7 @@ public class CustomerDetailActivity extends WepBaseActivity {
                                 TextView rowAddress = (TextView) Row.getChildAt(6);
                                 TextView rowCreditAmount = (TextView) Row.getChildAt(7);
                                 TextView gstin = (TextView) Row.getChildAt(9);
+                                TextView rowCreditLimit = (TextView) Row.getChildAt(10);
 
                                 Id = rowId.getText().toString();
                                 LastTransaction = rowLastTransaction.getText().toString();
@@ -524,8 +557,10 @@ public class CustomerDetailActivity extends WepBaseActivity {
 
                                 txtName.setText(rowName.getText());
                                 txtPhone.setText(rowPhone.getText());
+                                upon_rowClick_Phn = rowPhone.getText().toString();
                                 txtAddress.setText(rowAddress.getText());
                                 txtCreditAmount.setText(rowCreditAmount.getText());
+                                txtCustomerCreditLimit.setText(rowCreditLimit.getText());
                                 txGSTIN.setText(gstin.getText().toString());
 
                                 btnAdd.setEnabled(false);
@@ -547,17 +582,6 @@ public class CustomerDetailActivity extends WepBaseActivity {
         }
     }
 
-    /*public String doubleconverter(double value) //Got here 6.743240136E7 or something..
-    {
-        DecimalFormat formatter;
-
-        if (value - (int) value > 0.0)
-            formatter = new DecimalFormat("0.00"); //Here you can also deal with rounding if you wish..
-        else
-            formatter = new DecimalFormat("0");
-
-        return formatter.format(value);
-    }*/
 
     @SuppressWarnings("deprecation")
     private void DisplayCustomer() {
@@ -565,7 +589,7 @@ public class CustomerDetailActivity extends WepBaseActivity {
         crsrCustomer = dbCustomer.getAllCustomer();
 
         TableRow rowCustomer = null;
-        TextView tvSno, tvId, tvName, tvLastTransaction, tvTotalTransaction, tvPhone, tvAddress, tvCreditAmount;
+        TextView tvSno, tvId, tvName, tvLastTransaction, tvTotalTransaction, tvPhone, tvAddress, tvCreditAmount,tvCreditLimit;
         ImageButton btnImgDelete;
         int i = 1;
         if (crsrCustomer != null && crsrCustomer.getCount() > 0) {
@@ -576,8 +600,7 @@ public class CustomerDetailActivity extends WepBaseActivity {
                     rowCustomer.setBackgroundResource(R.drawable.row_background);
 
                     tvSno = new TextView(myContext);
-                    tvSno.setTextSize(14);
-                    tvSno.setWidth(100);
+                    tvSno.setTextSize(18);
                     tvSno.setText(String.valueOf(i));
                     tvSno.setGravity(1);
                     rowCustomer.addView(tvSno);
@@ -589,21 +612,21 @@ public class CustomerDetailActivity extends WepBaseActivity {
 
                     tvName = new TextView(myContext);
                     tvName.setTextSize(18);
-                    tvName.setWidth(120);
+                    tvName.setPadding(7,0,0,0);
                     tvName.setText(crsrCustomer.getString(crsrCustomer.getColumnIndex("CustName")));
                     rowCustomer.addView(tvName);
 
                     tvLastTransaction = new TextView(myContext);
                     tvLastTransaction.setTextSize(18);
                     tvLastTransaction.setGravity(Gravity.LEFT);
-                    tvLastTransaction.setPadding(15,0,0,0);
+                    //tvLastTransaction.setPadding(15,0,0,0);
                     tvLastTransaction.setText(String.format("%.2f",crsrCustomer.getDouble(crsrCustomer.getColumnIndex("LastTransaction"))));
                     rowCustomer.addView(tvLastTransaction);
 
                     tvTotalTransaction = new TextView(myContext);
                     tvTotalTransaction.setTextSize(18);
                     tvTotalTransaction.setGravity(Gravity.LEFT);
-                    tvTotalTransaction.setPadding(38,0,0,0);
+                    //tvTotalTransaction.setPadding(38,0,0,0);
                     tvTotalTransaction.setText(String.format("%.2f",crsrCustomer.getDouble(crsrCustomer.getColumnIndex("TotalTransaction"))));
                     rowCustomer.addView(tvTotalTransaction);
 
@@ -620,7 +643,7 @@ public class CustomerDetailActivity extends WepBaseActivity {
                     tvCreditAmount.setText(String.format("%.2f",amt));
                     tvCreditAmount.setTextSize(18);
                     tvCreditAmount.setGravity(Gravity.LEFT);
-                    tvCreditAmount.setPadding(15,0,0,0);
+                    //tvCreditAmount.setPadding(15,0,0,0);
                     rowCustomer.addView(tvCreditAmount);
 
                     // Delete
@@ -636,6 +659,11 @@ public class CustomerDetailActivity extends WepBaseActivity {
                     tvGSTIN.setGravity(1);
                     rowCustomer.addView(tvGSTIN);
 
+                    tvCreditLimit = new TextView(myContext);
+                    double limit = crsrCustomer.getDouble(crsrCustomer.getColumnIndex("CreditLimit"));
+                    tvCreditLimit.setText(String.format("%.2f",limit));
+                    rowCustomer.addView(tvCreditLimit);
+
                     rowCustomer.setOnClickListener(new View.OnClickListener() {
 
                         public void onClick(View v) {
@@ -650,6 +678,7 @@ public class CustomerDetailActivity extends WepBaseActivity {
                                 TextView rowPhone = (TextView) Row.getChildAt(5);
                                 TextView rowAddress = (TextView) Row.getChildAt(6);
                                 TextView rowCreditAmount = (TextView) Row.getChildAt(7);
+                                TextView rowCreditLimit = (TextView) Row.getChildAt(10);
                                 TextView gstin = (TextView) Row.getChildAt(9);
 
                                 Id = rowId.getText().toString();
@@ -661,6 +690,7 @@ public class CustomerDetailActivity extends WepBaseActivity {
                                 upon_rowClick_Phn = rowPhone.getText().toString();
                                 txtAddress.setText(rowAddress.getText());
                                 txtCreditAmount.setText(rowCreditAmount.getText());
+                                txtCustomerCreditLimit.setText(rowCreditLimit.getText());
                                 txGSTIN.setText(gstin.getText().toString());
 
                                 btnAdd.setEnabled(false);
@@ -687,6 +717,7 @@ public class CustomerDetailActivity extends WepBaseActivity {
 
             AlertDialog.Builder builder = new AlertDialog.Builder(myContext)
                     .setTitle("Delete")
+                    .setIcon(R.drawable.ic_launcher)
                     .setMessage("Are you sure you want to Delete this Customer.")
                     .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
@@ -696,10 +727,13 @@ public class CustomerDetailActivity extends WepBaseActivity {
                             TextView CustName = (TextView) tr.getChildAt(2);
 
                             long lResult = dbCustomer.DeleteCustomer(Integer.valueOf(CustId.getText().toString()));
-                            MsgBox.Show("", "Customer Deleted Successfully");
-                            ((ArrayAdapter<String>)(txtSearchName.getAdapter())).remove(CustName.getText().toString());
-                            ClearCustomerTable();
-                            DisplayCustomer();
+                            if(lResult>0)
+                            {
+                                MsgBox.Show("Confirmation", "Customer Deleted Successfully");
+                                ((ArrayAdapter<String>)(txtSearchName.getAdapter())).remove(CustName.getText().toString());
+                                ClearCustomerTable();
+                                DisplayCustomer();
+                            }
 
                             dialog.dismiss();
                         }
@@ -742,11 +776,11 @@ public class CustomerDetailActivity extends WepBaseActivity {
     }
 
     private void InsertCustomer(String strAddress, String strContactNumber, String strName, double fLastTransaction,
-                                double fTotalTransaction, double fCreditAmount, String gstin) {
+                                double fTotalTransaction, double fCreditAmount, String gstin, double creditLimit) {
         long lRowId;
 
         Customer objCustomer = new Customer(strAddress, strName, strContactNumber, fLastTransaction, fTotalTransaction,
-                fCreditAmount, gstin);
+                fCreditAmount, gstin,creditLimit);
 
         lRowId = dbCustomer.addCustomer(objCustomer);
 
@@ -767,15 +801,19 @@ public class CustomerDetailActivity extends WepBaseActivity {
         txtName.setText("");
         txtPhone.setText("");
         txtAddress.setText("");
-        txtCreditAmount.setText("0");
+        txtCreditAmount.setText("0.00");
+        txtCustomerCreditLimit.setText("0.00");
         txtSearchPhone.setText("");
         txtSearchName.setText("");
         txGSTIN.setText("");
         upon_rowClick_Phn="";
+        tv_CustomerDetailMsg.setVisibility(View.GONE);
         btnAdd.setEnabled(true);
         btnEdit.setEnabled(false);
 
     }
+
+
 
     public void AddCustomer(View v) {
         Name = txtName.getText().toString();
@@ -798,40 +836,18 @@ public class CustomerDetailActivity extends WepBaseActivity {
                 if (GSTIN == null) {
                     GSTIN = "";
                 }
-                boolean mFlag = false;
-                try {
-                    if(GSTIN.trim().length() == 0)
-                    {mFlag = true;}
-                    else if (GSTIN.trim().length() > 0 && GSTIN.length() == 15) {
-                        String[] part = GSTIN.split("(?<=\\D)(?=\\d)|(?<=\\d)(?=\\D)");
-                        if (CHECK_INTEGER_VALUE == checkDataypeValue(part[0], "Int")
-                                && CHECK_STRING_VALUE == checkDataypeValue(part[1],"String")
-                                && CHECK_INTEGER_VALUE == checkDataypeValue(part[2],"Int")
-                                && CHECK_STRING_VALUE == checkDataypeValue(part[3],"String")
-                                && CHECK_INTEGER_VALUE == checkDataypeValue(part[4],"Int")
-                                && CHECK_STRING_VALUE == checkDataypeValue(part[5],"String")
-                                && CHECK_INTEGER_VALUE == checkDataypeValue(part[6],"Int")) {
+                boolean mFlag =  GSTINValidation.checkGSTINValidation(GSTIN);
 
-                               /* int length = gstin.length() -1;
-                                if(Integer.parseInt(String.valueOf(gstin.charAt(length))) ==  checksumGSTIN(gstin.substring(0,length)))*/
-                            mFlag = true;
-                        } else {
-                            mFlag = false;
-                        }
-                    } else {
-                        mFlag = false;
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    mFlag = false;
-                }
                 if(mFlag)
                 {
 
                     double dCreditAmount = txtCreditAmount.getText().toString().trim().equals("")?0.00:
                             Double.parseDouble(String.format("%.2f", Double.parseDouble(txtCreditAmount.getText().toString().trim())));
 
-                    InsertCustomer(Address, Phone, Name, 0, 0, dCreditAmount,GSTIN);
+                    double dCreditLimit = txtCustomerCreditLimit.getText().toString().trim().equals("")?0.00:
+                            Double.parseDouble(String.format("%.2f", Double.parseDouble(txtCustomerCreditLimit.getText().toString().trim())));
+
+                    InsertCustomer(Address, Phone, Name, 0, 0, dCreditAmount,GSTIN, dCreditLimit);
                     Toast.makeText(myContext, "Customer Added Successfully", Toast.LENGTH_LONG).show();
                     ResetCustomer();
                     ClearCustomerTable();
@@ -845,26 +861,6 @@ public class CustomerDetailActivity extends WepBaseActivity {
         }
     }
 
-    public static int checkDataypeValue(String value, String type) {
-        int flag =0;
-        try {
-            switch(type) {
-                case "Int":
-                    Integer.parseInt(value);
-                    flag = 0;
-                    break;
-                case "Double" : Double.parseDouble(value);
-                    flag = 1;
-                    break;
-                default : flag =2;
-            }
-        } catch (NumberFormatException nfe) {
-            nfe.printStackTrace();
-            flag = -1;
-        }
-        return flag;
-    }
-
 
     public void EditCustomer(View v) {
         Name = txtName.getText().toString();
@@ -872,6 +868,7 @@ public class CustomerDetailActivity extends WepBaseActivity {
         Address = txtAddress.getText().toString();
         CreditAmount = txtCreditAmount.getText().toString();
         String GSTIN = txGSTIN.getText().toString().trim().toUpperCase();
+
         if(!Phone.equalsIgnoreCase(upon_rowClick_Phn))
         {
             Cursor cursor = dbCustomer.getCustomer(Phone);
@@ -885,39 +882,21 @@ public class CustomerDetailActivity extends WepBaseActivity {
         if (GSTIN == null) {
             GSTIN = "";
         }
-        boolean mFlag = false;
-        try {
-            if(GSTIN.trim().length() == 0)
-            {mFlag = true;}
-            else if (GSTIN.trim().length() > 0 && GSTIN.length() == 15) {
-                String[] part = GSTIN.split("(?<=\\D)(?=\\d)|(?<=\\d)(?=\\D)");
-                if (CHECK_INTEGER_VALUE == checkDataypeValue(part[0], "Int")
-                        && CHECK_STRING_VALUE == checkDataypeValue(part[1],"String")
-                        && CHECK_INTEGER_VALUE == checkDataypeValue(part[2],"Int")
-                        && CHECK_STRING_VALUE == checkDataypeValue(part[3],"String")
-                        && CHECK_INTEGER_VALUE == checkDataypeValue(part[4],"Int")
-                        && CHECK_STRING_VALUE == checkDataypeValue(part[5],"String")
-                        && CHECK_INTEGER_VALUE == checkDataypeValue(part[6],"Int")) {
-                    mFlag = true;
-                } else {
-                    mFlag = false;
-                }
-            } else {
-                mFlag = false;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            mFlag = false;
-        }
+        boolean mFlag = GSTINValidation.checkGSTINValidation(GSTIN);
         if (mFlag)
         {
             double dCreditAmount = txtCreditAmount.getText().toString().trim().equals("")?0.00:
                     Double.parseDouble(String.format("%.2f", Double.parseDouble(txtCreditAmount.getText().toString().trim())));
 
+            double dCreditLimit = txtCustomerCreditLimit.getText().toString().trim().equals("")?0.00:
+                    Double.parseDouble(String.format("%.2f", Double.parseDouble(txtCustomerCreditLimit.getText().toString().trim())));
+
+
             Log.d("Customer Selection", "Id: " + Id + " Name: " + Name + " Phone:" + Phone + " Address:" + Address
-                    + " Last Transn.:" + LastTransaction + " Total Transan.:" + TotalTransaction+" GSTIN : "+GSTIN);
+                    + " Last Transn.:" + LastTransaction + " Total Transan.:" + TotalTransaction+" GSTIN : "+GSTIN
+                    +" Credit Limit : "+dCreditLimit);
             int iResult = dbCustomer.updateCustomer(Address, Phone, Name, Integer.parseInt(Id),
-                    Double.parseDouble(LastTransaction), Double.parseDouble(TotalTransaction), dCreditAmount, GSTIN);
+                    Double.parseDouble(LastTransaction), Double.parseDouble(TotalTransaction), dCreditAmount, GSTIN,dCreditLimit);
             Log.d("updateCustomer", "Updated Rows: " + String.valueOf(iResult));
             Toast.makeText(myContext, "Customer Updated Successfully", Toast.LENGTH_LONG).show();
             ResetCustomer();

@@ -26,6 +26,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -1048,9 +1049,13 @@ public class PayBillActivity extends FragmentActivity implements FragmentLogin.O
         View promptsView = li.inflate(R.layout.pay_bill_dialog, null);
         final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(PayBillActivity.this);
         alertDialogBuilder.setView(promptsView);
+        final RelativeLayout rel6 = (RelativeLayout) promptsView.findViewById(R.id.rel6);
         final EditText editTextMobile = (EditText) promptsView.findViewById(R.id.editTextMobile);
         final EditText editTextName = (EditText) promptsView.findViewById(R.id.editTextName);
-        final EditText editTextBalance = (EditText) promptsView.findViewById(R.id.editTextBalance);
+        final EditText editTextCreditAmount = (EditText) promptsView.findViewById(R.id.editTextCreditAmount);
+        final EditText editTextCreditLimit = (EditText) promptsView.findViewById(R.id.editTextCreditLimit);
+        final EditText editTextAmountToPay = (EditText) promptsView.findViewById(R.id.editTextAmountToPay);
+        final EditText editTextAmountAllowed = (EditText) promptsView.findViewById(R.id.editTextAmountAllowed);
 
         final TextView textViewBalanceUpdate = (TextView) promptsView.findViewById(R.id.textViewBalanceUpdate);
         final TextView textViewMessage = (TextView) promptsView.findViewById(R.id.textViewMessage);
@@ -1063,33 +1068,56 @@ public class PayBillActivity extends FragmentActivity implements FragmentLogin.O
                 ((AlertDialog) alertDialog).cancel();
             }
         });
-        final Button btnNutral = (Button) promptsView.findViewById(R.id.btnNutral);
-        btnNutral.setText(btnTxtNutral);
+        //final Button btnNutral = (Button) promptsView.findViewById(R.id.btnNutral);
+        /*btnNutral.setText(btnTxtNutral);
         btnNutral.setVisibility(View.INVISIBLE);
         btnNutral.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((AlertDialog) alertDialog).cancel();
-                /*float fCreditAmount = dbPayBill.getCustomerCreditAmount(Integer.parseInt(strCustId));
-                if(fCreditAmount <= 0)
-                {
-                    edtPettyCash.setText(getEffectivePaybleAmountForCreditCustomerNegative()+"");
-                }
-                else
-                {
-                    edtPettyCash.setText(getEffectivePaybleAmountForCreditCustomer()+"");
-                }*/
-
                 edtPettyCash.setText(String.format("%.2f",getEffectivePaybleAmountForCreditCustomer()));
             }
-        });
+        });*/
         final Button btnOk = (Button) promptsView.findViewById(R.id.btnOk);
         btnOk.setText(btnTxtOkay);
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                double newBlnc = getUpdatedAmountForCreditCustomer(toPayAmount,getEffectivePaybleAmountForCreditCustomer());
-                if(btnNutral.getVisibility() == View.VISIBLE)
+                if(btnOk.getText().toString().equalsIgnoreCase("Pay"))
+                {
+                    MsgBox.Show("Insufficient Information","Kindly enter the registered mobile number");
+                    return;
+                }
+                double effectiveAmountTopay = getEffectivePaybleAmountForCreditCustomer();
+
+                double creditAmount = Double.parseDouble(editTextCreditAmount.getText().toString());
+                double creditLimit = Double.parseDouble(editTextCreditLimit.getText().toString());
+                double newBlnc = getUpdatedAmountForCreditCustomer(toPayAmount,effectiveAmountTopay);
+                if(newBlnc >= 0)
+                {
+                    edtPettyCash.setText(String.format("%.2f",effectiveAmountTopay));
+                }
+                if(newBlnc < 0)
+                {
+                    //if(creditAmount != 0)
+                    //double signedCreditAmount = Math.abs(creditAmount);
+                    //double signedCreditAmount = Math.abs(creditAmount);
+                    if(Math.abs(effectiveAmountTopay - creditAmount ) <=Math.abs(creditLimit))
+                    {
+                        edtPettyCash.setText(String.format("%.2f",effectiveAmountTopay));
+                    }
+                    else
+                    {
+                        if(BILLAMOUNTROUNDOFF ==1)
+                            edtPettyCash.setText(String.format("%.2f", Math.floor(creditLimit-Math.abs(creditAmount))));
+                        else
+                            edtPettyCash.setText(String.format("%.2f",creditLimit-Math.abs(creditAmount)));
+
+                    }
+                }
+                ((AlertDialog) alertDialog).dismiss();
+
+                /*if(btnNutral.getVisibility() == View.VISIBLE)
                 {
                     //Exceed Payble Amount
                     //edtPettyCash.setText(toPayAmount+"");
@@ -1105,9 +1133,19 @@ public class PayBillActivity extends FragmentActivity implements FragmentLogin.O
                 }
                 else
                 {
-                    edtPettyCash.setText(String.format("%.2f",getEffectivePaybleAmountForCreditCustomer()));
+                    if(!tvCustId.getText().toString().equals("0"))
+                    {
+                        edtPettyCash.setText(String.format("%.2f",getEffectivePaybleAmountForCreditCustomer()));
+                        ((AlertDialog) alertDialog).cancel();
+                    }
+
+                    else
+                    {
+                        textViewBalanceUpdate.setText( "Kindly enter the registered mobile number");
+                        textViewBalanceUpdate.setVisibility(View.VISIBLE);
+                    }
                 }
-                ((AlertDialog) alertDialog).cancel();
+*/
             }
         });
 
@@ -1125,50 +1163,48 @@ public class PayBillActivity extends FragmentActivity implements FragmentLogin.O
                                 Cursor cursor = dbPayBill.getPayBillCustomer(custId);
                                 cursor.moveToFirst();
                                 String custName = cursor.getString(cursor.getColumnIndex("CustName"));
-                                double custBalance = cursor.getDouble(cursor.getColumnIndex("CreditAmount"));
-                                toPayAmount = custBalance;
+                                double creditAmount = cursor.getDouble(cursor.getColumnIndex("CreditAmount"));
+                                double creditLimit = cursor.getDouble(cursor.getColumnIndex("CreditLimit"));
+                                toPayAmount = creditAmount;
                                 editTextName.setText(custName);
-                                editTextBalance.setText(String.format("%.2f",custBalance));
-                                //Balance After Payment: 100-46=54
-                                double newBlnc = getUpdatedAmountForCreditCustomer(custBalance,getEffectivePaybleAmountForCreditCustomer());
-                                if(newBlnc >= 0)
-                                {
-                                    textViewBalanceUpdate.setText("Balance After Payment: "+custBalance+"-"+getEffectivePaybleAmountForCreditCustomer()+"="+newBlnc);
-                                    textViewBalanceUpdate.setVisibility(View.VISIBLE);
-                                    btnNutral.setVisibility(View.INVISIBLE);
-                                    btnOk.setText("Pay");
-                                }
-                                else if(newBlnc < 0)
-                                {
-                                    if(custBalance != 0)
-                                    {
-                                        textViewBalanceUpdate.setText("");
-                                        textViewMessage.setVisibility(View.VISIBLE);
-                                        textViewMessage.setText(getString(R.string.text_message_payment_zero));
-                                        textViewBalanceUpdate.setVisibility(View.VISIBLE);
-                                        btnNutral.setVisibility(View.VISIBLE);
-                                        btnNutral.setText("Credit & Pay");
-                                        btnOk.setText("Partial Payment");
-                                    }
-                                    else
-                                    {
-                                        textViewBalanceUpdate.setText("");
-                                        textViewMessage.setVisibility(View.VISIBLE);
-                                        textViewMessage.setText(getString(R.string.text_message_payment_zero_negative));
-                                        textViewBalanceUpdate.setVisibility(View.VISIBLE);
-                                        btnNutral.setVisibility(View.VISIBLE);
-                                        btnNutral.setText("Credit & Pay");
-                                        btnOk.setText("Others");
-                                    }
-                                }
-                                else
+                                editTextCreditAmount.setText(String.format("%.2f",creditAmount));
+                                editTextCreditLimit.setText(String.format("%.2f",creditLimit));
+                                double effectiveAmountTopay = getEffectivePaybleAmountForCreditCustomer();
+                                editTextAmountToPay.setText(String.format("%.2f",effectiveAmountTopay));
+
+
+                                if((-1 * creditLimit) >= creditAmount)
                                 {
                                     textViewBalanceUpdate.setText("");
                                     textViewMessage.setVisibility(View.VISIBLE);
+                                    textViewMessage.setText(getString(R.string.text_message_payment_CreditLimit_reached));
                                     textViewBalanceUpdate.setVisibility(View.VISIBLE);
-                                    btnNutral.setVisibility(View.VISIBLE);
-                                    btnNutral.setText("Credit & Pay");
-                                    btnOk.setText("Pay Partialy");
+                                    btnOk.setText("Pay");
+                                    btnOk.setEnabled(false);
+                                    return;
+                                }
+                                //Balance After Payment: 100-46=54
+                                double newBlnc = getUpdatedAmountForCreditCustomer(creditAmount,effectiveAmountTopay);
+                                //if(newBlnc >= 0)
+                                if((creditAmount-effectiveAmountTopay  ) >=(-1*creditLimit))
+                                {
+                                    textViewBalanceUpdate.setText("Balance After Payment: "+String.format("%.2f",creditAmount)+"-"+String.format("%.2f",effectiveAmountTopay)+"="+String.format("%.2f",newBlnc));
+                                    textViewBalanceUpdate.setVisibility(View.VISIBLE);
+                                   // btnNutral.setVisibility(View.INVISIBLE);
+                                    btnOk.setText("Credit & Pay");
+                                }
+                                else {
+                                    textViewBalanceUpdate.setText("");
+                                    textViewMessage.setVisibility(View.VISIBLE);
+                                    textViewBalanceUpdate.setVisibility(View.VISIBLE);
+                                    //btnNutral.setVisibility(View.VISIBLE);
+                                    //btnNutral.setText("Credit & Pay");
+                                    btnOk.setText("Pay Partially");
+                                    rel6.setVisibility(View.VISIBLE);
+                                    if(BILLAMOUNTROUNDOFF==1)
+                                        editTextAmountAllowed.setText(String.format("%.2f",Math.floor(creditLimit+creditAmount)));
+                                    else
+                                        editTextAmountAllowed.setText(String.format("%.2f",creditLimit+creditAmount));
                                     textViewMessage.setText(getString(R.string.text_message_payment_zero_negative));
                                 }
 
@@ -1178,27 +1214,31 @@ public class PayBillActivity extends FragmentActivity implements FragmentLogin.O
                         }
                         else
                         {
-                            MsgBox.Show("", "Customer is not Found, Please Add Customer for Petty Cash");
+                            MsgBox.Show("Error", "Customer is not Found, Please Add Customer for Petty Cash");
                         }
                     }
                     else
                     {
                         editTextName.setText("");
-                        editTextBalance.setText("");
+                        editTextCreditAmount.setText("");
+                        editTextCreditLimit.setText("");
+                        editTextAmountAllowed.setText("");
                         textViewBalanceUpdate.setVisibility(View.INVISIBLE);
                         textViewMessage.setVisibility(View.INVISIBLE);
-                        btnNutral.setVisibility(View.INVISIBLE);
+                        //btnNutral.setVisibility(View.INVISIBLE);
                         btnOk.setText("Pay");
                         /*btnNutral.setText("Credit & Pay");
                         btnOk.setText("Pay Partialy");*/
                     }
                 } catch (Exception ex) {
                     editTextName.setText("");
-                    editTextBalance.setText("");
+                    editTextCreditAmount.setText("");
+                    editTextCreditLimit.setText("");
                     textViewBalanceUpdate.setVisibility(View.INVISIBLE);
                     textViewMessage.setVisibility(View.INVISIBLE);
-                    btnNutral.setVisibility(View.INVISIBLE);
+                    //btnNutral.setVisibility(View.INVISIBLE);
                     MsgBox.Show("Error", ex.getMessage());
+                    ex.printStackTrace();
                 }
             }
 
@@ -1212,6 +1252,7 @@ public class PayBillActivity extends FragmentActivity implements FragmentLogin.O
         alertDialogBuilder.setCancelable(false);
         alertDialog = alertDialogBuilder.create();
         alertDialog.setTitle("Credit Customer");
+        alertDialog.setIcon(R.drawable.ic_launcher);
         alertDialog.show();
 
     }

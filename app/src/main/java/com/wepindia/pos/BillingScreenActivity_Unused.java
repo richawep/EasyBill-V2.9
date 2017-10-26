@@ -5660,7 +5660,7 @@ public class BillingScreenActivity_Unused extends WepPrinterBaseActivity {
         long lRowId;
 
         Customer objCustomer = new Customer(strAddress, strName, strContactNumber, fLastTransaction, fTotalTransaction,
-                fCreditAmount, gstin);
+                fCreditAmount, gstin,0.00);
 
         lRowId = dbBillScreen.addCustomer(objCustomer);
         /*edtCustId.setText(String.valueOf(lRowId));*/

@@ -23,6 +23,7 @@ import com.wep.common.app.Database.DatabaseHandler;
 import com.wep.common.app.WepBaseActivity;
 import com.wepindia.pos.GenericClasses.MessageDialog;
 import com.wepindia.pos.utils.ActionBarUtils;
+import com.wepindia.pos.utils.GSTINValidation;
 
 import java.util.Date;
 
@@ -37,9 +38,6 @@ public class OwnerDetailsActivity extends WepBaseActivity {
     String strUserName;
     Spinner spinner1, spinner2;
 
-    private final int CHECK_INTEGER_VALUE = 0;
-    private final int CHECK_DOUBLE_VALUE = 1;
-    private final int CHECK_STRING_VALUE = 2;
     private boolean mFlag = false;
 
     @Override
@@ -88,32 +86,11 @@ public class OwnerDetailsActivity extends WepBaseActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String str = Gstin.getText().toString().trim().toUpperCase();
-                try {
-                    if(str.trim().length() == 0)
-                    {mFlag = true;}
-                    else if (str.trim().length() > 0 && str.length() == 15) {
-                        String[] part = str.split("(?<=\\D)(?=\\d)|(?<=\\d)(?=\\D)");
-                        if (CHECK_INTEGER_VALUE == checkDataypeValue(part[0], "Int")
-                                && CHECK_STRING_VALUE == checkDataypeValue(part[1],"String")
-                                && CHECK_INTEGER_VALUE == checkDataypeValue(part[2],"Int")
-                                && CHECK_STRING_VALUE == checkDataypeValue(part[3],"String")
-                                && CHECK_INTEGER_VALUE == checkDataypeValue(part[4],"Int")
-                                && CHECK_STRING_VALUE == checkDataypeValue(part[5],"String")
-                                && (CHECK_INTEGER_VALUE == checkDataypeValue(str.substring(14),"Int") ||
-                                        CHECK_STRING_VALUE == checkDataypeValue(str.substring(14),"String"))) {
-
-                            mFlag = true;
-                        } else {
-                            mFlag = false;
-                        }
-                    } else {
-                        mFlag = false;
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    mFlag = false;
+                String GSTIN = Gstin.getText().toString().trim().toUpperCase();
+                if (GSTIN == null) {
+                    GSTIN = "";
                 }
+
 
                 if (Name.getText().toString().equalsIgnoreCase("") ||
                         Email.getText().toString().equalsIgnoreCase("") ||
@@ -129,6 +106,7 @@ public class OwnerDetailsActivity extends WepBaseActivity {
                 }  else{
                     try {
                        // boolean cc = isValidEmailAddress(Email.getText().toString().trim());
+                        mFlag =  GSTINValidation.checkGSTINValidation(GSTIN);
                         if (!isValidEmailAddress(Email.getText().toString().trim()))
                         {
                             MsgBox.Show("Invalid Information","Please Enter Valid Email id");

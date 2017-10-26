@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.wep.common.app.Database.DatabaseHandler;
 
 import com.wepindia.pos.R;
+import com.wepindia.pos.utils.GSTINValidation;
 
 public class FragmentSettingsDisplayOwnerDetail extends Fragment {
 
@@ -25,10 +26,6 @@ public class FragmentSettingsDisplayOwnerDetail extends Fragment {
     Spinner spinner1, spinner2;
     Context myContext;
     Button btnClose, btnApply;
-
-    private final int CHECK_INTEGER_VALUE = 0;
-    private final int CHECK_DOUBLE_VALUE = 1;
-    private final int CHECK_STRING_VALUE = 2;
 
 
     @Override
@@ -140,7 +137,7 @@ public class FragmentSettingsDisplayOwnerDetail extends Fragment {
         {
             Toast.makeText(myContext, "GSTIN can either be empty or of 15 characters", Toast.LENGTH_SHORT).show();
             return;
-        }if(!checkGSTINValidation(gstin))
+        }if(!GSTINValidation.checkGSTINValidation(gstin))
         {
             Toast.makeText(myContext, "Invalid GSTIN", Toast.LENGTH_SHORT).show();
             return;
@@ -153,57 +150,5 @@ public class FragmentSettingsDisplayOwnerDetail extends Fragment {
             Toast.makeText(myContext, "Details updated successfully", Toast.LENGTH_SHORT).show();
     }
 
-    private boolean checkGSTINValidation(String str )
-    {
-        boolean mFlag = false;
-        try {
-            if(str.trim().length() == 0)
-            {mFlag = true;}
-            else if (str.trim().length() > 0 && str.length() == 15) {
-                String[] part = str.split("(?<=\\D)(?=\\d)|(?<=\\d)(?=\\D)");
-                if (CHECK_INTEGER_VALUE == checkDataypeValue(part[0], "Int")
-                        && CHECK_STRING_VALUE == checkDataypeValue(part[1],"String")
-                        && CHECK_INTEGER_VALUE == checkDataypeValue(part[2],"Int")
-                        && CHECK_STRING_VALUE == checkDataypeValue(part[3],"String")
-                        && CHECK_INTEGER_VALUE == checkDataypeValue(part[4],"Int")
-                        && CHECK_STRING_VALUE == checkDataypeValue(part[5],"String")
-                        && (CHECK_INTEGER_VALUE == checkDataypeValue(str.substring(14),"Int") ||
-                        CHECK_STRING_VALUE == checkDataypeValue(str.substring(14),"String"))) {
 
-                    mFlag = true;
-                } else {
-                    mFlag = false;
-                }
-            } else {
-                mFlag = false;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            mFlag = false;
-        }
-
-        finally {
-            return mFlag;
-        }
-    }
-
-    public static int checkDataypeValue(String value, String type) {
-        int flag =0;
-        try {
-            switch(type) {
-                case "Int":
-                    Integer.parseInt(value);
-                    flag = 0;
-                    break;
-                case "Double" : Double.parseDouble(value);
-                    flag = 1;
-                    break;
-                default : flag =2;
-            }
-        } catch (NumberFormatException nfe) {
-            nfe.printStackTrace();
-            flag = -1;
-        }
-        return flag;
-    }
 }

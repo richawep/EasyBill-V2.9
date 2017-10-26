@@ -7904,6 +7904,7 @@ private void LoadModifyKOTItems_old(Cursor crsrBillItems) {
                 }
 
                 l(2, true);
+                updateOutwardStock();
                 PrintNewBill();
                 Toast.makeText(myContext, "Bill Saved Successfully", Toast.LENGTH_SHORT).show();
                 if (jBillingMode == 1) {
@@ -8785,7 +8786,7 @@ private void LoadModifyKOTItems_old(Cursor crsrBillItems) {
                     String gstin = etCustGSTIN.getText().toString().trim().toUpperCase();
                     if (gstin == null) {
                         gstin = "";
-                    }
+                    } // no new customer can be added here , therefore no gstin validation required here
                     InsertCustomer(edtCustAddress.getText().toString(), edtCustPhoneNo.getText().toString(),
                             edtCustName.getText().toString(), 0, 0, 0, gstin);
                     //ResetCustomer();
@@ -8805,7 +8806,7 @@ private void LoadModifyKOTItems_old(Cursor crsrBillItems) {
         long lRowId;
 
         Customer objCustomer = new Customer(strAddress, strName, strContactNumber, fLastTransaction, fTotalTransaction,
-                fCreditAmount, gstin);
+                fCreditAmount, gstin,0.00);
 
         lRowId = dbBillScreen.addCustomer(objCustomer);
         /*edtCustId.setText(String.valueOf(lRowId));*/

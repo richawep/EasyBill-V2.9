@@ -63,10 +63,10 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="Balance :" />
+            android:text="Credit Amount :" />
 
         <EditText
-            android:id="@+id/editTextBalance"
+            android:id="@+id/editTextCreditAmount"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/label3"
@@ -75,11 +75,82 @@
             android:inputType="numberSigned" />
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/rel4"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rel3"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:id="@+id/label4"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="Credit Limit :" />
+
+        <EditText
+            android:id="@+id/editTextCreditLimit"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/label4"
+            android:enabled="false"
+            android:hint="Balance"
+            android:inputType="numberSigned" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rel5"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rel4"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:id="@+id/label5"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="Amount to Pay :" />
+
+        <EditText
+            android:id="@+id/editTextAmountToPay"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/label5"
+            android:enabled="false"
+            android:hint="Balance"
+            android:inputType="numberSigned" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rel6"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rel5"
+        android:visibility="gone"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:id="@+id/label6"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="Maximum allowed payment :" />
+
+        <EditText
+            android:id="@+id/editTextAmountAllowed"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/label6"
+            android:enabled="false"
+            android:hint="0.00"
+            android:inputType="numberSigned" />
+    </RelativeLayout>
+
     <TextView
         android:id="@+id/textViewBalanceUpdate"
         android:layout_width="400dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/rel3"
+        android:layout_below="@+id/rel6"
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:padding="10dp"
@@ -104,13 +175,14 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textViewMessage"
         android:layout_centerHorizontal="true"
-        android:weightSum="3">
+        >
 
         <Button
             android:id="@+id/btnCancel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_margin="@dimen/_3dp_720dp_3dp_600dp"
             android:text="Cancel" />
 
         <Button
@@ -118,7 +190,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:visibility="invisible"
+            android:visibility="gone"
             android:text="Nutral" />
 
         <Button
@@ -126,6 +198,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_margin="@dimen/_3dp_720dp_3dp_600dp"
             android:text="OK" />
     </LinearLayout>
 </RelativeLayout>

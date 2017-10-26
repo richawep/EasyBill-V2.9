@@ -22,7 +22,7 @@ public class Customer {
 	String strCustName, strCustContactNumber, strCustAddress, strCustGSTIN;
 	int iCustId;
 	double fLastTransaction, fTotalTransaction;
-	double fCreditAmount;
+	double fCreditAmount, dCreditLimit;
 
 	// Default constructor
 	public Customer() {
@@ -34,18 +34,28 @@ public class Customer {
 		this.fLastTransaction = 0;
 		this.fTotalTransaction = 0;
 		this.fCreditAmount = 0;
+		this.dCreditLimit = 0;
 	}
 
 	// Parameterized construcor
 	public Customer(String CustAddress, String CustName, String CustContactNumber, double LastTransaction,
-					double TotalTransaction, double CreaditAmount,String gstin) {
+					double TotalTransaction, double CreaditAmount,String gstin, double dCreditLimit) {
 		this.strCustAddress = CustAddress;
 		this.strCustName = CustName;
 		this.strCustContactNumber = CustContactNumber;
 		this.fLastTransaction = LastTransaction;
 		this.fTotalTransaction = TotalTransaction;
 		this.fCreditAmount = CreaditAmount;
+		this.dCreditLimit = dCreditLimit;
 		this.strCustGSTIN= gstin;
+	}
+
+	public double getdCreditLimit() {
+		return dCreditLimit;
+	}
+
+	public void setdCreditLimit(double dCreditLimit) {
+		this.dCreditLimit = dCreditLimit;
 	}
 
 	public String getStrCustGSTIN() {

@@ -252,6 +252,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_LastTransaction = "LastTransaction";
     private static final String KEY_TotalTransaction = "TotalTransaction";
     private static final String KEY_CreditAmount = "CreditAmount";
+    private static final String KEY_CreditLimit = "CreditLimit";
 
     // Description
     private static final String KEY_DescriptionId = "DescriptionId";
@@ -1135,7 +1136,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     String QUERY_CREATE_TABLE_CUSTOMER = "CREATE TABLE " + TBL_CUSTOMER + " (" + KEY_CustAddress + " TEXT, " +
             KEY_CustContactNumber + " NUMERIC, " + KEY_CustId + " INTEGER PRIMARY KEY, " + KEY_CustName + " TEXT, " +
             KEY_LastTransaction + " REAL, " + KEY_TotalTransaction + " REAL, " + KEY_CreditAmount +
-            " REAL, " + KEY_GSTIN + " TEXT)";
+            " REAL, "+ KEY_CreditLimit +" REAL, " + KEY_GSTIN + " TEXT)";
 
     String QUERY_CREATE_TABLE_DELETEDKOT = "CREATE TABLE " + TBL_DELETEDKOT + "(" + KEY_Reason + " TEXT, " +
             KEY_EmployeeId + " NUMERIC," + KEY_SubUdfNumber + " NUMERIC," + KEY_TableNumber + " NUMERIC," +
@@ -4018,6 +4019,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cvDbValues.put("CustContactNumber", objCustomer.getCustContactNumber());
         cvDbValues.put("CustAddress", objCustomer.getCustAddress());
         cvDbValues.put("CreditAmount", objCustomer.getCreditAmount());
+        cvDbValues.put("CreditLimit", objCustomer.getdCreditLimit());
         cvDbValues.put(KEY_GSTIN, objCustomer.getStrCustGSTIN());
 
         return dbFNB.insert(TBL_CUSTOMER, null, cvDbValues);
@@ -4065,12 +4067,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public List<String> getAllCustomerName() {
         List<String> list = new ArrayList<String>();
         // Select All Query
-        String selectQuery = "SELECT  * FROM " + TBL_CUSTOMER;
+        String selectQuery = "SELECT  *  FROM " + TBL_CUSTOMER;
         Cursor cursor = dbFNB.rawQuery(selectQuery, null);// selectQuery,selectedArguments
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
-                list.add(cursor.getString(cursor.getColumnIndex("CustName")));
+                String name = cursor.getString(cursor.getColumnIndex("CustName"));
+                if(!list.contains(name))
+                    list.add(name);
             } while (cursor.moveToNext());
         }
         // returning lables
@@ -4098,7 +4102,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // -----Update Customer table-----
     public int updateCustomer(String strCustAddress, String strCustContactNumber, String strCustName, int iCustId,
-                              double fLastTransaction, double fTotalTransaction, double fCreditAmount, String gstin) {
+                              double fLastTransaction, double fTotalTransaction, double fCreditAmount, String gstin,
+                              double creditLimit) {
         cvDbValues = new ContentValues();
 
         cvDbValues.put("CustAddress", strCustAddress);
@@ -4107,6 +4112,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cvDbValues.put("LastTransaction", fLastTransaction);
         cvDbValues.put("TotalTransaction", fTotalTransaction);
         cvDbValues.put("CreditAmount", fCreditAmount);
+        cvDbValues.put("CreditLimit", creditLimit);
         cvDbValues.put(KEY_GSTIN, gstin);
 
         return dbFNB.update(TBL_CUSTOMER, cvDbValues, "CustId=" + iCustId, null);
@@ -7712,7 +7718,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     public Cursor getPayBillCustomer(String CustId) {
-        return dbFNB.rawQuery("Select CustId, CustName, CreditAmount from " + TBL_CUSTOMER + " Where CustId = '" + CustId + "'", null);
+        return dbFNB.rawQuery("Select CustId, CustName, CreditAmount, CreditLimit from " + TBL_CUSTOMER + " Where CustId = '" + CustId + "'", null);
     }
 
     public Cursor getPayBillCustomerByMobileNo(String MobileNi) {
