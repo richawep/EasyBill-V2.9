@@ -4833,9 +4833,9 @@ public class ReportFragment extends Fragment implements View.OnClickListener {
 
                                 // Total Items
                                 TextView Items = (TextView) rowItem.getChildAt(2);
-                                Items.setText(String.valueOf(Integer
-                                        .parseInt(Items.getText().toString()) + Integer
-                                        .parseInt(Report.getString(Report.getColumnIndex("Quantity")))));
+                                Items.setText(String.format("%.2f",Double
+                                        .parseDouble(Items.getText().toString()) + Double
+                                        .parseDouble(Report.getString(Report.getColumnIndex("Quantity")))));
 
                                 // Discount
                                 TextView Disc = (TextView) rowItem.getChildAt(3);
@@ -5107,9 +5107,9 @@ public class ReportFragment extends Fragment implements View.OnClickListener {
 
                             // Total Items
                             TextView Items = (TextView) rowItem.getChildAt(2);
-                            Items.setText(String.valueOf(Integer
-                                    .parseInt(Items.getText().toString()) + Integer
-                                    .parseInt(Report.getString(Report.getColumnIndex("Quantity")))));
+                            Items.setText(String.format("%.2f",Double
+                                    .parseDouble(Items.getText().toString()) + Double
+                                    .parseDouble(Report.getString(Report.getColumnIndex("Quantity")))));
 
                             // Discount
                             TextView Disc = (TextView) rowItem.getChildAt(3);
