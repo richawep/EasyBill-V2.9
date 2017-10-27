@@ -12,6 +12,7 @@ package com.wepindia.pos;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -273,6 +274,11 @@ public class LoginActivity extends WepBaseActivity {
             super.onPostExecute(aVoid);
             if(1 == progress )
             {
+                if(!isPDFSupported(LoginActivity.this))
+                {
+                    MsgBox.Show("Error","No pdf reader found to open file");
+                    return;
+                }
                 File file = new File(Environment.getExternalStorageDirectory().getPath() + "/EasyBill_Documents/" + FILENAME + ".pdf");
                 Intent target = new Intent(Intent.ACTION_VIEW);
                 target.setDataAndType(Uri.fromFile(file),"application/pdf");
@@ -289,6 +295,13 @@ public class LoginActivity extends WepBaseActivity {
             pd.dismiss();
 
         }
+    }
+
+    public static boolean isPDFSupported( Context context ) {
+        Intent i = new Intent( Intent.ACTION_VIEW );
+        final File tempFile = new File( context.getExternalFilesDir( Environment.DIRECTORY_DOWNLOADS ), "test.pdf" );
+        i.setDataAndType( Uri.fromFile( tempFile ), "application/pdf" );
+        return context.getPackageManager().queryIntentActivities( i, PackageManager.MATCH_DEFAULT_ONLY ).size() > 0;
     }
 
     // Login button event
