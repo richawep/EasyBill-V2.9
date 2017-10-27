@@ -13,6 +13,8 @@ import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -53,7 +55,8 @@ public class OwnerDetailsActivity extends WepBaseActivity {
 
         Date d = new Date();
         CharSequence s = DateFormat.format("dd-MM-yyyy", d.getTime());
-        com.wep.common.app.ActionBarUtils.setupToolbar(OwnerDetailsActivity.this, toolbar, getSupportActionBar(), "Owner Details", strUserName, " Date:" + s.toString());
+        //com.wep.common.app.ActionBarUtils.setupToolbarMenu(OwnerDetailsActivity.this, toolbar, getSupportActionBar(), "Owner Details", strUserName, " Date:" + s.toString());
+        com.wep.common.app.ActionBarUtils.setupToolbarMenu(this,toolbar,getSupportActionBar(),"Owner Details",strUserName," Date:"+s.toString());
 
         dbHelper = new DatabaseHandler(OwnerDetailsActivity.this);
         InitialseViewVariables();
@@ -336,5 +339,35 @@ public class OwnerDetailsActivity extends WepBaseActivity {
             flag = -1;
         }
         return flag;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(com.wep.common.app.R.menu.menu_wep_base, menu);
+        for (int j = 0; j < menu.size(); j++) {
+            MenuItem item = menu.getItem(j);
+            item.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        }
+        return true;
+    }
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == android.R.id.home) {
+            finish();
+        }else if (id == com.wep.common.app.R.id.action_screen_shot) {
+
+        }else if (id == com.wep.common.app.R.id.action_logout) {
+            Intent intentResult = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(intentResult);
+            this.finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

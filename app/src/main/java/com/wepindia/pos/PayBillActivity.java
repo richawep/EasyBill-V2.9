@@ -1665,7 +1665,10 @@ public class PayBillActivity extends FragmentActivity implements FragmentLogin.O
         /*if(response.equals("net::ERR_NAME_NOT_RESOLVED"))
             Toast.makeText(getApplicationContext(), "Payment Failed : Invalid RazorPay KeyId", Toast.LENGTH_SHORT).show();
         else*/
-        Toast.makeText(getApplicationContext(), "Payment Failed", Toast.LENGTH_SHORT).show();
+        if(response.equalsIgnoreCase("net::ERR_NAME_NOT_RESOLVED"))
+            Toast.makeText(getApplicationContext(), "Payment Failed due to internet connection", Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(getApplicationContext(), "Payment Failed", Toast.LENGTH_SHORT).show();
         try {
             Payment payment = new Payment();
             //Toast.makeText(this, "Payment Successful: " /*+ razorpayPaymentID*/, Toast.LENGTH_SHORT).show();
