@@ -49,8 +49,9 @@
 
         <activity
             android:name=".LoginActivity"
+            android:configChanges="screenSize|screenLayout|smallestScreenSize"
             android:screenOrientation="sensorLandscape"
-            android:windowSoftInputMode="stateHidden">
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -61,7 +62,7 @@
             android:name=".HomeActivity"
             android:configChanges="screenSize|screenLayout|smallestScreenSize"
             android:screenOrientation="sensorLandscape"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
         <activity
             android:name=".OwnerDetailsActivity"
             android:configChanges="screenSize|screenLayout|smallestScreenSize"
@@ -71,12 +72,12 @@
             android:name=".ConfigurationActivity"
             android:configChanges="screenSize|screenLayout|smallestScreenSize"
             android:screenOrientation="sensorLandscape"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
         <activity
             android:name=".VoucherActivity"
             android:configChanges="screenSize|screenLayout|smallestScreenSize"
             android:screenOrientation="sensorLandscape"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
         <activity
             android:name=".KOTModifierActivity"
             android:configChanges="screenSize|screenLayout|smallestScreenSize"
@@ -86,7 +87,7 @@
             android:name=".StatusActivity_unused"
             android:configChanges="screenSize|screenLayout|smallestScreenSize"
             android:screenOrientation="sensorLandscape"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
         <activity
             android:name=".KOTStatusActivity"
             android:configChanges="screenSize|screenLayout|smallestScreenSize"
@@ -116,7 +117,7 @@
             android:name=".EmployeeActivity_Unused"
             android:configChanges="screenSize|screenLayout|smallestScreenSize"
             android:screenOrientation="sensorLandscape"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
         <activity
             android:name=".ItemManagementActivity"
             android:configChanges="screenSize|screenLayout|smallestScreenSize"
@@ -124,24 +125,24 @@
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
         <activity
             android:name=".FilePickerActivity"
-            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize"
+            android:configChanges="screenSize|screenLayout|smallestScreenSize"
             android:screenOrientation="sensorLandscape"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden"/>
         <activity
             android:name=".StockActivity"
             android:configChanges="screenSize|screenLayout|smallestScreenSize"
             android:screenOrientation="sensorLandscape"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
         <activity
             android:name=".MasterActivity"
             android:configChanges="screenSize|screenLayout|smallestScreenSize"
             android:screenOrientation="sensorLandscape"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
         <activity
             android:name=".TenderActivity"
             android:configChanges="screenSize|screenLayout|smallestScreenSize"
             android:screenOrientation="sensorLandscape"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
         <activity
             android:name=".BillingScreenActivity_Unused"
             android:configChanges="screenSize|screenLayout|smallestScreenSize"
@@ -162,34 +163,34 @@
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
         <activity
             android:name=".TableActivity"
-            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize"
+            android:configChanges="screenSize|screenLayout|smallestScreenSize"
             android:screenOrientation="sensorLandscape"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
         <activity
             android:name=".SplitBillActivity"
             android:configChanges="screenSize|screenLayout|smallestScreenSize"
             android:screenOrientation="sensorLandscape"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
         <activity
             android:name=".TableShiftMergeActivity"
-            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize"
+            android:configChanges="screenSize|screenLayout|smallestScreenSize"
             android:screenOrientation="sensorLandscape"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
         <activity
             android:name=".ModifyKOTActivity"
-            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize"
+            android:configChanges="screenSize|screenLayout|smallestScreenSize"
             android:screenOrientation="sensorLandscape"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
         <activity
             android:name=".CustomerOrdersActivity"
             android:configChanges="screenSize|screenLayout|smallestScreenSize"
             android:screenOrientation="sensorLandscape"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
         <activity
             android:name=".DeliveryActivity"
             android:configChanges="screenSize|screenLayout|smallestScreenSize"
             android:screenOrientation="sensorLandscape"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
         <activity
             android:name=".RiderSettlementActivity"
             android:configChanges="screenSize|screenLayout|smallestScreenSize"
@@ -211,7 +212,7 @@
             android:name="com.mswipetech.wisepad.payment.PaymentActivity"
             android:configChanges="screenSize|screenLayout|smallestScreenSize"
             android:screenOrientation="sensorLandscape"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
         <activity
             android:name="com.mswipetech.wisepad.payment.MSwipePaymentActivity"
             android:configChanges="screenSize|screenLayout|smallestScreenSize"
@@ -230,17 +231,19 @@
             android:name=".UploadFilePickerActivity"
             android:configChanges="screenSize|screenLayout|smallestScreenSize"
             android:screenOrientation="sensorLandscape"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
         <activity
             android:name=".PayBillActivity"
             android:configChanges="screenSize|screenLayout|smallestScreenSize"
             android:screenOrientation="sensorLandscape"
-            android:theme="@android:style/Theme.Holo.Dialog"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden"
+            android:theme="@android:style/Theme.Holo.Dialog" />
         <activity
             android:name=".TaxConfigSubActivity"
+            android:configChanges="screenSize|screenLayout|smallestScreenSize"
             android:screenOrientation="sensorLandscape"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
+
         <activity android:name=".GST.GSTHomeActivity" />
         <activity android:name=".GST.GSTR1_Activity" />
         <activity android:name=".GST.GSTR1_b2b_Activity" />
@@ -329,8 +332,9 @@
 
         <activity
             android:name="com.wepindia.printers.sohamsa.DeviceListActivity"
+            android:configChanges="screenSize|screenLayout|smallestScreenSize"
             android:screenOrientation="sensorLandscape"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden"/>
         <activity
             android:name="com.wepindia.printers.heydey.PrinterFragment"
             android:screenOrientation="sensorLandscape"

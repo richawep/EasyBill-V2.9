@@ -19,11 +19,9 @@
     <bookmark url="file://$PROJECT_DIR$/app/src/main/java/com/wepindia/pos/BillingHomeDeliveryActivity.java" line="6756" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2b3634b2-61eb-4eec-9c17-c4e6f231d0c0" name="Default" comment="">
+    <list default="true" id="2b3634b2-61eb-4eec-9c17-c4e6f231d0c0" name="Default" comment=" screen blacks out upon opening the pdf, when pdf reader is not installed in tablet">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/wepindia/pos/LoginActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/wepindia/pos/LoginActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" afterPath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" />
     </list>
     <ignored path="wepfnb_datamini.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -66,8 +64,8 @@
       <file leaf-file-name="LoginActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wepindia/pos/LoginActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="298" column="0" selection-start-line="298" selection-start-column="0" selection-end-line="298" selection-end-column="0" />
+            <state relative-caret-position="374">
+              <caret line="302" column="47" selection-start-line="302" selection-start-column="47" selection-end-line="302" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -7079,13 +7077,6 @@
       <option name="presentableId" value="Default" />
       <updated>1490860409349</updated>
     </task>
-    <task id="LOCAL-00109" summary="Razorpay key configuration">
-      <created>1504858828150</created>
-      <option name="number" value="00109" />
-      <option name="presentableId" value="LOCAL-00109" />
-      <option name="project" value="LOCAL" />
-      <updated>1504858828150</updated>
-    </task>
     <task id="LOCAL-00110" summary="..">
       <created>1504863984696</created>
       <option name="number" value="00110" />
@@ -7422,7 +7413,14 @@
       <option name="project" value="LOCAL" />
       <updated>1509101286351</updated>
     </task>
-    <option name="localTasksCounter" value="158" />
+    <task id="LOCAL-00158" summary=" screen blacks out upon opening the pdf, when pdf reader is not installed in tablet">
+      <created>1509102784747</created>
+      <option name="number" value="00158" />
+      <option name="presentableId" value="LOCAL-00158" />
+      <option name="project" value="LOCAL" />
+      <updated>1509102784747</updated>
+    </task>
+    <option name="localTasksCounter" value="159" />
     <servers />
   </component>
   <component name="TodoView">
@@ -7538,7 +7536,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Outward item csv including department code, categ code, hsn and barcode" />
     <MESSAGE value="views being overlapped by soft keyboard" />
     <MESSAGE value="manual quantity and rate change in billing screens" />
     <MESSAGE value="image adapter issue in DineIn" />
@@ -7563,7 +7560,8 @@
     <MESSAGE value="stock not allowed to update if bill was made for that day in ItemManagement" />
     <MESSAGE value="issue in department and category report for quantity in decimal" />
     <MESSAGE value=" issue - reading from outward item csv file , sometimes takes space as special character.&#10; rectifying same in inward item csv read also" />
-    <option name="LAST_COMMIT_MESSAGE" value=" issue - reading from outward item csv file , sometimes takes space as special character.&#10; rectifying same in inward item csv read also" />
+    <MESSAGE value=" screen blacks out upon opening the pdf, when pdf reader is not installed in tablet" />
+    <option name="LAST_COMMIT_MESSAGE" value=" screen blacks out upon opening the pdf, when pdf reader is not installed in tablet" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -8238,8 +8236,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wepindia/pos/LoginActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="298" column="0" selection-start-line="298" selection-start-column="0" selection-end-line="298" selection-end-column="0" />
+        <state relative-caret-position="374">
+          <caret line="302" column="47" selection-start-line="302" selection-start-column="47" selection-end-line="302" selection-end-column="47" />
           <folding />
         </state>
       </provider>
