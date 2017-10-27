@@ -28,6 +28,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -115,16 +116,16 @@ public class LoginActivity extends WepBaseActivity {
 
             dbLogin.CreateDatabase();
             dbLogin.OpenDatabase();
-
+            //clickevent();
+            initSinglePrinter();
 
 
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        initSinglePrinter();
-    }
 
+    }
 
     private void initSinglePrinter() {
         sharedPreferences = Preferences.getSharedPreferencesForPrint(LoginActivity.this); // getSharedPreferences("PrinterConfigurationActivity", Context.MODE_PRIVATE);
@@ -138,6 +139,8 @@ public class LoginActivity extends WepBaseActivity {
         appCompatCheckBox.setChecked(sharedPreferences.getBoolean("isChecked",false));
         txtUserId.setText(sharedPreferences.getString("userNameTxt",""));
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -303,6 +306,11 @@ public class LoginActivity extends WepBaseActivity {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("userNameTxt",userNameTxt);
                 editor.putBoolean("isChecked",true);
+                editor.commit();
+            }else {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("userNameTxt","");
+                editor.putBoolean("isChecked",false);
                 editor.commit();
             }
             Cursor User = dbLogin.getUser(userNameTxt,userPassTxt);
