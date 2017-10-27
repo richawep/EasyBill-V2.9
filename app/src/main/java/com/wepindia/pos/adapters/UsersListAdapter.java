@@ -55,6 +55,7 @@ public class UsersListAdapter extends BaseAdapter {
     }
 
     static class ViewHolder {
+        TextView textViewSNo;
         TextView textViewId;
         TextView textViewName;
         TextView textViewRole;
@@ -67,6 +68,7 @@ public class UsersListAdapter extends BaseAdapter {
             LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.row_users,null);
             viewHolder = new ViewHolder();
+            viewHolder.textViewSNo = (TextView) convertView.findViewById(R.id.tvSNo);
             viewHolder.textViewId = (TextView) convertView.findViewById(R.id.tvUserId);
             viewHolder.textViewName = (TextView) convertView.findViewById(R.id.tvUserName);
             viewHolder.textViewRole = (TextView) convertView.findViewById(R.id.tvUserRole);
@@ -77,8 +79,9 @@ public class UsersListAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         User user = usersList.get(i);
+        viewHolder.textViewSNo.setText(String.valueOf(i+1));
+        viewHolder.textViewSNo.setPadding(3,0,0,0);
         viewHolder.textViewId.setText(user.getId()+"");
-        viewHolder.textViewId.setPadding(3,0,0,0);
         viewHolder.textViewName.setText(user.getUserName()+"");
         viewHolder.textViewRole.setText(handler.getRoleName(user.getUserRole()+""));
         return convertView;

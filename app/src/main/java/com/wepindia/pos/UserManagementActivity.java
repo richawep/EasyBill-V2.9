@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateFormat;
@@ -236,7 +237,7 @@ public class UserManagementActivity extends WepBaseActivity implements View.OnCl
             else
             {
                 // Save in Local DB
-                User user = new User(
+                final User user = new User(
                         txtName,
                         txtMobile,
                         editTextDesignation.getText().toString().trim(),
@@ -256,9 +257,33 @@ public class UserManagementActivity extends WepBaseActivity implements View.OnCl
                     } else
                         Toast.makeText(UserManagementActivity.this, "User Adding Failed", Toast.LENGTH_SHORT).show();
                 }
-                else */if (checkIfUserExist(txtLogin))
+                else */if (checkIfUserExist(txtLogin,txtPass))
             {
                 user.setId(userId);
+                final User uu = user;
+                MsgBox.setTitle("Duplicate")
+                        .setIcon(R.drawable.ic_launcher)
+                        .setMessage("User with this Login is already present. Do you want to update it")
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                userId = -1;
+                            }
+                        })
+                        .setPositiveButton("Update", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                long status = getDb().updateUser(uu);
+                                if (status > 0) {
+                                    Toast.makeText(UserManagementActivity.this, "User Updated Successfully", Toast.LENGTH_SHORT).show();
+                                    updateUsersList();
+                                    userId = -1;
+                                    resetValue();
+                                }
+                            }
+                        }).show();
+
+                /*user.setId(userId);
                 long status = getDb().updateUser(user);
                 if (status > 0) {
                     Toast.makeText(UserManagementActivity.this, "User Updated Successfully", Toast.LENGTH_SHORT).show();
@@ -266,7 +291,7 @@ public class UserManagementActivity extends WepBaseActivity implements View.OnCl
                     userId = -1;
                     resetValue();
                 } else
-                    Toast.makeText(UserManagementActivity.this, "Please enter a different login id", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UserManagementActivity.this, "Please enter a different login id", Toast.LENGTH_SHORT).show();*/
             }
             else
             {
@@ -327,12 +352,14 @@ public class UserManagementActivity extends WepBaseActivity implements View.OnCl
         }
     }
 
-    public boolean checkIfUserExist(String str) {
+    public boolean checkIfUserExist(String txtLogin , String txtPass) {
         boolean status = false;
         ArrayList<User> list = dataList;
         for (User user : list) {
-            if (user.getUserLogin().toString().equalsIgnoreCase(String.valueOf(str))) {
+            if ( (user.getUserLogin().toString().equalsIgnoreCase(String.valueOf(txtLogin))) &&
+                    (user.getUserPassword().toString().equalsIgnoreCase(String.valueOf(txtPass)))){
                 status = true;
+                userId = user.getId();
                 break;
             }
         }
