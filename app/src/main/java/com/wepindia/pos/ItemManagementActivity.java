@@ -688,7 +688,33 @@ protected void onPostExecute(Void aVoid) {
         txtStock = (EditText) findViewById(R.id.etItemStock);
         tvFileName = (TextView) findViewById(R.id.tvFileName);
 
-        txtStock.setOnClickListener(new View.OnClickListener() {
+        txtStock.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(btnEdit.isEnabled()==false)
+                    return false;
+                try{
+                    Date d = new SimpleDateFormat("dd-MM-yyyy").parse(businessDate);
+                    int invoiceno = dbItems.getLastBillNoforDate(String.valueOf(d.getTime()));
+                    if(invoiceno > 0)
+                    {
+                        // since already billing done for this businessdate, hence stock cannot be updated from here.
+                        // to update stock , goto Price & Stock module
+                        MsgBox.Show("Restriction", "You cannot update quantity after making bill for the day. \n\nTo update quantity , " +
+                                "please goto Price & Stock module \n\n Or make Day End  to update from here ");
+                        txtStock.setEnabled(false);
+                        //ResetItem();
+                        return false;
+                    }
+                }catch (Exception e)
+                {
+                    e.printStackTrace();
+                    Toast.makeText(myContext, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+                return false;
+            }
+        });
+        /*txtStock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -712,7 +738,7 @@ protected void onPostExecute(Void aVoid) {
                     Toast.makeText(myContext, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
-        });
+        });*/
         /*txtStock.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 @Override
 public void onFocusChange(View v, boolean hasFocus) {
@@ -2860,7 +2886,7 @@ public void onFocusChange(View v, boolean hasFocus) {
         edtIGSTTax.setText("0.00");
         edtcessTax.setText("0.00");
         edtMenuCode.setText("");
-
+        txtStock.setEnabled(true);
         etRate.setText("0.00");
         etQuantity.setText("0.00");
         etItemDiscount.setText("0.00");
