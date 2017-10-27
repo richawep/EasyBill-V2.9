@@ -1116,8 +1116,10 @@ public void onFocusChange(View v, boolean hasFocus) {
                         Toast.makeText(getApplicationContext(), "No File Found", Toast.LENGTH_SHORT).show();
                     } else {
                         String path = strUploadFilepath;
-                        FileInputStream inputStream = new FileInputStream(path);
-                        buffer = new BufferedReader(new InputStreamReader(inputStream));
+                       /* FileInputStream inputStream = new FileInputStream(path);
+                        buffer = new BufferedReader(new InputStreamReader(inputStream));*/
+                        buffer  = new BufferedReader(
+                                new InputStreamReader(new FileInputStream(path),"ISO-8859-1"));
                         setCSVFileToDB(dataList);
                     }
                 } catch (IOException e) {
@@ -1669,7 +1671,7 @@ public void onFocusChange(View v, boolean hasFocus) {
                     mHashMapItemCode.clear();
                     return;
                 }
-                Log.d("welcome", "readCSVValue: " + dataList);
+                //Log.d("welcome", "readCSVValue: " + dataList);
             }
         /*if(mUserCSVInvalidValue.equals(""))
             mCSVHashCheckflag = true;*/

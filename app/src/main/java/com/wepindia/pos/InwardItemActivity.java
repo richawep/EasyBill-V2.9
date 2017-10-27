@@ -344,8 +344,11 @@ public class InwardItemActivity extends WepBaseActivity {
                             Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_found_file), Toast.LENGTH_SHORT).show();
                         } else {
                             String path = strUploadFilepath;
-                            FileInputStream inputStream = new FileInputStream(path);
-                            mBufferReader = new BufferedReader(new InputStreamReader(inputStream));
+                            /*FileInputStream inputStream = new FileInputStream(path);
+                            mBufferReader = new BufferedReader(new InputStreamReader(inputStream));*/
+
+                            mBufferReader  = new BufferedReader(
+                                    new InputStreamReader(new FileInputStream(path),"ISO-8859-1"));
 
                             Cursor cursor = dbInwardItem.getCurrentDate();
 
