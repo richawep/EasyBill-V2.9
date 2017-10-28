@@ -157,7 +157,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:hint="enter GSTIN"
+                    android:hint="eg. 00ABCDE0123A1ZZ"
                     android:inputType="text"
 
                     android:maxLength="15" />

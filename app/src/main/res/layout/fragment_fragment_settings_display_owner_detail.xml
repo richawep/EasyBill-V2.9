@@ -190,7 +190,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:hint="enter GSTIN"
+                android:hint="eg. 00ABCDE0123A1ZZ"
+                android:maxLength="15"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
         </LinearLayout>
 
