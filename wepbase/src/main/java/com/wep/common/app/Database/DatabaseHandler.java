@@ -7308,7 +7308,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public int DeleteTableBooking_WithDetails(String CustName,String Time,String TableNo, String CustPhone) {
 
         String whereString = KEY_CustName+" LIKE '"+CustName+"' AND "+KEY_TimeForBooking+" LIKE '"+Time+"' AND "+KEY_TableNo+" = "+
-                Integer.parseInt(TableNo)+" AND "+KEY_MobileNo+" = "+Integer.parseInt(CustPhone);
+                Integer.parseInt(TableNo)+" AND "+KEY_MobileNo+" LIKE '"+CustPhone+"'";
         return dbFNB.delete(TBL_TABLEBOOKING, whereString, null);
     }
 
