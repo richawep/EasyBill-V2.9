@@ -182,7 +182,7 @@ public class TableBookingActivity extends WepBaseActivity implements TableBookin
                         public void onTimeSet(TimePicker view, int hourOfDay,
                                               int minute) {
                             String mins_str = String.valueOf(minute);
-                            if (minute > 0 && minute < 10) {
+                            if (minute >= 0 && minute < 10) {
                                 mins_str = "0" + minute;
                             }
                             tvTimeBooking.setText(hourOfDay + ":" + mins_str);
