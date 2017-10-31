@@ -204,14 +204,9 @@
                                             android:layout_height="wrap_content"
                                             android:text="Item Name"
                                             android:textAppearance="?android:attr/textAppearanceMedium" />
-                                        <EditText
-                                            android:layout_width="@dimen/_200dp_720dp_150dp_600dp"
-                                            android:layout_height="wrap_content"
-                                            android:text="hi"/>
 
                                         <AutoCompleteTextView
                                             android:id="@+id/autoTextItemLongNameValue"
-                                            android:visibility="gone"
                                             android:layout_width="@dimen/_200dp_720dp_150dp_600dp"
                                             android:layout_height="wrap_content"
                                             android:imeOptions="actionNext"
