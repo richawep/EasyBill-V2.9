@@ -3867,6 +3867,10 @@ public void onFocusChange(View v, boolean hasFocus) {
         /*Log.d("TAG",String.valueOf(dd));
         Log.d("TAG1",String.valueOf(event.getEventTime()-event.getDownTime()));
         Log.d("TAG",String.valueOf(event));*/
+        if (event.getKeyCode() == KeyEvent.KEYCODE_J ||event.getKeyCode() == KeyEvent.KEYCODE_CTRL_LEFT ||event.getKeyCode() == KeyEvent.KEYCODE_SHIFT_LEFT  )
+        {
+            return true ;
+        }
         if (dd<15 && dd >0)
         {
             View v = getCurrentFocus();

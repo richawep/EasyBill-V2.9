@@ -97,6 +97,7 @@ import java.util.regex.Pattern;
 
 public class BillingHomeDeliveryActivity extends WepPrinterBaseActivity implements TextWatcher {
 
+    String linefeed = "";
     String tx ="";
     DecimalFormat df_2, df_3;
     Pattern p = Pattern.compile("^(-?[0-9]+[\\.\\,][0-9]{1,2})?[0-9]*$");
@@ -2216,6 +2217,7 @@ public class BillingHomeDeliveryActivity extends WepPrinterBaseActivity implemen
         else
         {
             Log.d("AddItemToOrderTable", "ItemNotFound Exception");
+            MsgBox.Show("Oops ","Item not found");
         }
     }
 
@@ -8184,6 +8186,15 @@ public class BillingHomeDeliveryActivity extends WepPrinterBaseActivity implemen
         return super.onOptionsItemSelected(item);
     }
 
+    void additemtoKOT()
+    {
+        String barcode = autoCompleteTextViewSearchItemBarcode.getText().toString().trim();
+        System.out.println("Barcode = "+barcode);
+        Cursor crsr = dbBillScreen.getItem(barcode);
+        AddItemToOrderTable(crsr);
+        autoCompleteTextViewSearchItemBarcode.setText("");
+        linefeed="";
+    }
 
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
@@ -8199,41 +8210,55 @@ public class BillingHomeDeliveryActivity extends WepPrinterBaseActivity implemen
         /*Log.d("TAG",String.valueOf(dd));
         Log.d("TAG1",String.valueOf(event.getEventTime()-event.getDownTime()));
         Log.d("TAG",String.valueOf(event));*/
-        if (dd<15 && dd >0 && CUSTOMER_FOUND==0)
+       // System.out.println("Richa : "+event.getKeyCode()+" SC "+event.getScanCode());
+        //Toast.makeText(myContext, "Richa : "+event.getKeyCode()+" keycode = "+keyCode, Toast.LENGTH_SHORT).show();
+        if(event.getKeyCode() == KeyEvent.KEYCODE_ENTER)
         {
-            View v = getCurrentFocus();
-            //System.out.println(v);
-            //EditText etbar = (EditText)findViewById(R.id.etItemBarcode);
-            //EditText ed = (WepEditText)findViewById(v.getId());
+            //System.out.println("Richa : Enter encountered for barcode");
+            additemtoKOT();
+        }else if (event.getKeyCode() == KeyEvent.KEYCODE_J ||event.getKeyCode() == KeyEvent.KEYCODE_CTRL_LEFT   )
+        //}else if (event.getKeyCode() == KeyEvent.KEYCODE_J ||event.getKeyCode() == KeyEvent.KEYCODE_CTRL_LEFT ||event.getKeyCode() == KeyEvent.KEYCODE_SHIFT_LEFT  )
+        {
+            linefeed +=String.valueOf(event.getKeyCode());
+            if(linefeed.equalsIgnoreCase("38113")|| linefeed.equalsIgnoreCase("11338")) // line feed value
+                additemtoKOT();
+        }else
+        {
+            linefeed = "";
+            if (dd<15 && dd >0 && CUSTOMER_FOUND==0) {
+                View v = getCurrentFocus();
+                //System.out.println(v);
+                //EditText etbar = (EditText)findViewById(R.id.etItemBarcode);
+                //EditText ed = (WepEditText)findViewById(v.getId());
 
-            if (v.getId()!= R.id.aCTVSearchItemBarcode)
-            {
-                switch (v.getId())
-                {
-                    case R.id.aCTVSearchItem :aTViewSearchItem.setText(tx);
-                        break;
-                    case R.id.aCTVSearchMenuCode:  aTViewSearchMenuCode.setText(tx);
-                        break;
+                if (v.getId() != R.id.aCTVSearchItemBarcode) {
+                    switch (v.getId()) {
+                        case R.id.aCTVSearchItem:
+                            aTViewSearchItem.setText(tx);
+                            break;
+                        case R.id.aCTVSearchMenuCode:
+                            aTViewSearchMenuCode.setText(tx);
+                            break;
 
-                    case R.id.etCustGSTIN:
-                    case R.id.edtCustName:
-                    case R.id.edtCustPhoneNo:
-                    case R.id.edtCustAddress:
-                        EditText ed = (EditText)findViewById(v.getId());
-                        //String ed_str = ed.getText().toString();
-                        ed.setText(tx);
-                }
-                String bar_str = autoCompleteTextViewSearchItemBarcode.getText().toString();
-                bar_str += (char)event.getUnicodeChar();
-                autoCompleteTextViewSearchItemBarcode.setText(bar_str.trim());
-                autoCompleteTextViewSearchItemBarcode.showDropDown();
+                        case R.id.etCustGSTIN:
+                        case R.id.edtCustName:
+                        case R.id.edtCustPhoneNo:
+                        case R.id.edtCustAddress:
+                            EditText ed = (EditText) findViewById(v.getId());
+                            //String ed_str = ed.getText().toString();
+                            ed.setText(tx);
+                    }
+                    String bar_str = autoCompleteTextViewSearchItemBarcode.getText().toString();
+                    bar_str += (char) event.getUnicodeChar();
+                    autoCompleteTextViewSearchItemBarcode.setText(bar_str.trim());
+                    autoCompleteTextViewSearchItemBarcode.showDropDown();
 
-            }else if (v.getId()== R.id.aCTVSearchItemBarcode){
+                } else if (v.getId() == R.id.aCTVSearchItemBarcode) {
                 /*tx = autoCompleteTextViewSearchMenuCode.getText().toString();
                 String bar_str = autoCompleteTextViewSearchItemBarcode.getText().toString().trim();*/
-                tx += (char)event.getUnicodeChar();
-                autoCompleteTextViewSearchItemBarcode.setText(tx.trim());
-                autoCompleteTextViewSearchItemBarcode.showDropDown();
+                    tx += (char) event.getUnicodeChar();
+                    autoCompleteTextViewSearchItemBarcode.setText(tx.trim());
+                    autoCompleteTextViewSearchItemBarcode.showDropDown();
                 /*Toast.makeText(this, ""+bar_str+" : "+bar_str.length(), Toast.LENGTH_SHORT).show();
                 if(bar_str.length()>2)
                 {
@@ -8244,9 +8269,11 @@ public class BillingHomeDeliveryActivity extends WepPrinterBaseActivity implemen
                 }*/
 
 
-
+                }
             }
         }
+
+
         /*Toast.makeText(myContext, "keyUp:"+keyCode+" : "+dd, Toast.LENGTH_SHORT).show();*/
 
 

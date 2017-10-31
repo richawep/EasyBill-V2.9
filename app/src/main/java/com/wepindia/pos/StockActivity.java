@@ -68,6 +68,7 @@ public class StockActivity extends WepBaseActivity implements TextWatcher {
     // MessageDialog object
     MessageDialog MsgBox;
 
+    String linefeed = "";
     String tx ="";
     // View handlers
     AutoCompleteTextView ItemLongName, AutoCompleteItemBarcodeValue;
@@ -261,25 +262,30 @@ public class StockActivity extends WepBaseActivity implements TextWatcher {
         AutoCompleteItemBarcodeValue.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String barcode = AutoCompleteItemBarcodeValue.getText().toString();
-                Cursor cursorItem = (new DatabaseHandler(myContext)).getItemssbyBarCode(barcode);
-                if(cursorItem!=null && cursorItem.moveToFirst())
-                {
-                    strMenuCode = cursorItem.getString(cursorItem.getColumnIndex("MenuCode"));
-                    ItemLongName.setText(cursorItem.getString(cursorItem.getColumnIndex("ItemName")));
-                    //AutoCompleteItemBarcodeValue.setText(cursorItem.getString(cursorItem.getColumnIndex("ItemName")));
-                    tvExistingStock.setText(String.format("%.2f", cursorItem.getDouble(cursorItem.getColumnIndex("Quantity"))));
-                    txtRate1.setText(String.format("%.2f", cursorItem.getDouble(cursorItem.getColumnIndex("DineInPrice1"))));
-                    txtRate2.setText(String.format("%.2f", cursorItem.getDouble(cursorItem.getColumnIndex("DineInPrice2"))));
-                    txtRate3.setText(String.format("%.2f", cursorItem.getDouble(cursorItem.getColumnIndex("DineInPrice3"))));
-                    txtNewStock.setText("0");
-                    btnUpdate.setEnabled(true);
-                }else
-                {
-                    Log.d("ItemManagement","No Such item present");
+                onBarcodeSelected();
                 }
-            }
-        });
+            });
+    }
+
+    void onBarcodeSelected() {
+        String barcode = AutoCompleteItemBarcodeValue.getText().toString();
+        Cursor cursorItem = (new DatabaseHandler(myContext)).getItemssbyBarCode(barcode);
+        if(cursorItem!=null && cursorItem.moveToFirst()) {
+            strMenuCode = cursorItem.getString(cursorItem.getColumnIndex("MenuCode"));
+            ItemLongName.setText(cursorItem.getString(cursorItem.getColumnIndex("ItemName")));
+            //AutoCompleteItemBarcodeValue.setText(cursorItem.getString(cursorItem.getColumnIndex("ItemName")));
+            tvExistingStock.setText(String.format("%.2f", cursorItem.getDouble(cursorItem.getColumnIndex("Quantity"))));
+            txtRate1.setText(String.format("%.2f", cursorItem.getDouble(cursorItem.getColumnIndex("DineInPrice1"))));
+            txtRate2.setText(String.format("%.2f", cursorItem.getDouble(cursorItem.getColumnIndex("DineInPrice2"))));
+            txtRate3.setText(String.format("%.2f", cursorItem.getDouble(cursorItem.getColumnIndex("DineInPrice3"))));
+            txtNewStock.setText("0");
+            btnUpdate.setEnabled(true);
+        }
+        else
+        {
+            Log.d("Stock Activity","Item not found");
+            MsgBox.Show("Oops","Item not found");
+        }
     }
     /*private AdapterView.OnItemClickListener itemsClick = new AdapterView.OnItemClickListener() {
         @Override
@@ -504,6 +510,7 @@ public class StockActivity extends WepBaseActivity implements TextWatcher {
 
     private void InitializeViews() {
         ItemLongName = (AutoCompleteTextView) findViewById(R.id.autoTextItemLongNameValue);
+        ItemLongName.requestFocus();
         AutoCompleteItemBarcodeValue = (AutoCompleteTextView) findViewById(R.id.AutoCompleteItemBarcodeValue);
         tvExistingStock = (TextView) findViewById(R.id.tvItemExistingStockValue);
         txtNewStock = (EditText) findViewById(R.id.etItemNewStock);
@@ -977,38 +984,60 @@ public class StockActivity extends WepBaseActivity implements TextWatcher {
         ActionBarUtils.navigateHome(this);
     }
 
+    void additemtoKOT()
+    {
+        String barcode = AutoCompleteItemBarcodeValue.getText().toString().trim();
+        System.out.println("Barcode = "+barcode);
+        onBarcodeSelected();
+        AutoCompleteItemBarcodeValue.setText("");
+        linefeed="";
+        //txtRate1.setFocusable(true);
+    }
+
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
 
         long dd = event.getEventTime()-event.getDownTime();
-        if (dd<15 && dd >0)
+        System.out.println("Richa : "+event.getKeyCode()+" SC "+event.getScanCode());
+        if(event.getKeyCode() == KeyEvent.KEYCODE_ENTER)
         {
-            View v = getCurrentFocus();
-            AutoCompleteTextView etbar = (AutoCompleteTextView)findViewById(R.id.AutoCompleteItemBarcodeValue);
-
-
-            if (v.getId()!= R.id.AutoCompleteItemBarcode)
+            //System.out.println("Richa : Enter encountered for barcode");
+            additemtoKOT();
+        }else if (event.getKeyCode() == KeyEvent.KEYCODE_J ||event.getKeyCode() == KeyEvent.KEYCODE_CTRL_LEFT  )
+        {
+            linefeed +=String.valueOf(event.getKeyCode());
+            if(linefeed.equalsIgnoreCase("38113")|| linefeed.equalsIgnoreCase("11338")) // line feed value
+                additemtoKOT();
+        }else {
+            if (dd<15 && dd >0)
             {
+                View v = getCurrentFocus();
+                AutoCompleteTextView etbar = (AutoCompleteTextView)findViewById(R.id.AutoCompleteItemBarcodeValue);
 
-                switch (v.getId())
+
+                if (v.getId()!= R.id.AutoCompleteItemBarcode)
                 {
-                    case R.id.autoTextItemLongNameValue :ItemLongName.setText(tx);
-                        break;
-                    case R.id.etItemNewStock:
-                    case R.id.etItemRate1:
-                    case R.id.etItemRate2:
-                    case R.id.etItemRate3:
-                        EditText ed = (EditText)findViewById(v.getId());
-                        ed.setText(tx);
+
+                    switch (v.getId())
+                    {
+                        case R.id.autoTextItemLongNameValue :ItemLongName.setText(tx);
+                            break;
+                        case R.id.etItemNewStock:
+                        case R.id.etItemRate1:
+                        case R.id.etItemRate2:
+                        case R.id.etItemRate3:
+                            EditText ed = (EditText)findViewById(v.getId());
+                            ed.setText(tx);
+                    }
+                    String bar_str = etbar.getText().toString();
+                    bar_str += (char)event.getUnicodeChar();
+                    etbar.setText(bar_str);
+                    etbar.showDropDown();
+
                 }
-                String bar_str = etbar.getText().toString();
-                bar_str += (char)event.getUnicodeChar();
-                etbar.setText(bar_str);
-                etbar.showDropDown();
+
 
             }
-
-
         }
 
         return true;

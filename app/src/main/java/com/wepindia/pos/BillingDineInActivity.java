@@ -104,6 +104,8 @@ import java.util.regex.Pattern;
 
 public class BillingDineInActivity extends WepPrinterBaseActivity implements TextWatcher , TestItemsAdapter.OnItemsImageClickListener {
 
+
+    String linefeed = "";
     String tx ="";
     int CUSTOMER_FOUND =0;
     DecimalFormat df_2, df_3;
@@ -2603,6 +2605,7 @@ public class BillingDineInActivity extends WepPrinterBaseActivity implements Tex
         else
         {
             Log.d("AddItemToOrderTable", "ItemNotFound Exception");
+            MsgBox.Show("Oops ","Item not found");
         }
     }
 
@@ -8929,6 +8932,16 @@ private void LoadModifyKOTItems_old(Cursor crsrBillItems) {
         return super.onKeyDown(keyCode, event);
     }
 
+    void additemtoKOT()
+    {
+        String barcode = autoCompleteTextViewSearchItemBarcode.getText().toString().trim();
+        System.out.println("Barcode = "+barcode);
+        Cursor crsr = dbBillScreen.getItem(barcode);
+        AddItemToOrderTable(crsr);
+        autoCompleteTextViewSearchItemBarcode.setText("");
+        linefeed="";
+    }
+
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
                 /*char pressedKey = (char) event.getUnicodeChar();
@@ -8937,13 +8950,21 @@ private void LoadModifyKOTItems_old(Cursor crsrBillItems) {
 
         Toast.makeText(myContext, "keyUp:"+keyCode+" : "+event.toString(), Toast.LENGTH_SHORT).show();*/
         long dd = event.getEventTime()-event.getDownTime();
-                /*long time1= System.currentTimeMillis();
-        long time= SystemClock.uptimeMillis();*/
-        //long dd = time - event.getEventTime();
-                                /*Log.d("TAG",String.valueOf(dd));
-        Log.d("TAG1",String.valueOf(event.getEventTime()-event.getDownTime()));
-        Log.d("TAG",String.valueOf(event));*/
-        if (dd<15 && dd >0 && CUSTOMER_FOUND==0)
+        //System.out.println("Richa : "+event.getKeyCode()+" SC "+event.getScanCode());
+        //Toast.makeText(myContext, "Richa : "+event.getKeyCode()+" keycode = "+keyCode, Toast.LENGTH_SHORT).show();
+        if(event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+            System.out.println("Richa : Enter encountered for barcode");
+            additemtoKOT();
+        }else if (event.getKeyCode() == KeyEvent.KEYCODE_J ||event.getKeyCode() == KeyEvent.KEYCODE_CTRL_LEFT   )
+        //}else if (event.getKeyCode() == KeyEvent.KEYCODE_J ||event.getKeyCode() == KeyEvent.KEYCODE_CTRL_LEFT ||event.getKeyCode() == KeyEvent.KEYCODE_SHIFT_LEFT  )
+        {
+            linefeed +=String.valueOf(event.getKeyCode());
+            if(linefeed.equalsIgnoreCase("38113")|| linefeed.equalsIgnoreCase("11338")) // line feed value
+                additemtoKOT();
+        }else
+        {
+            linefeed = "";
+            if (dd<15 && dd >0 && CUSTOMER_FOUND==0) {
         {
             View v = getCurrentFocus();
             //System.out.println(v);
@@ -8976,7 +8997,7 @@ private void LoadModifyKOTItems_old(Cursor crsrBillItems) {
                 autoCompleteTextViewSearchItemBarcode.setText(tx.trim());
                 autoCompleteTextViewSearchItemBarcode.showDropDown();
             }
-        }
+        }}}
 
         return true;
     }

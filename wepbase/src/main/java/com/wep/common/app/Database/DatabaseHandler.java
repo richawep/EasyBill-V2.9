@@ -4431,7 +4431,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // -----Retrieve Single Item based on ItemBarcode-----
     public Cursor getItem(String Barcode) {
-        return dbFNB.query(TBL_ITEM_Outward, new String[]{"*"}, "ItemBarcode=" + Barcode, null, null, null, null);
+        return dbFNB.query(TBL_ITEM_Outward, new String[]{"*"}, "ItemBarcode LIKE '" + Barcode+"'", null, null, null, null);
     }
 
     // -----Retrieve Single Item based on Item MenuCode-----

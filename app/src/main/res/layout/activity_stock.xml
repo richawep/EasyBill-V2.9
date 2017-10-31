@@ -159,32 +159,11 @@
                                         android:layout_height="match_parent"
                                         android:layout_weight="1" />
 
-                                    <!--<TextView
-                                        android:layout_width="3dp"
-                                        android:layout_height="match_parent"
-                                        android:layout_marginRight="5dp"
-                                        android:background="#000000" />-->
 
                                 </LinearLayout>
 
 
-                                <!--<TextView
-                                    android:id="@+id/tvHorizontalLine2"
-                                    android:layout_width="fill_parent"
-                                    android:layout_height="2dp"
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_marginRight="5dp"
-                                    android:background="#000000" />
 
-                                <FrameLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_marginTop="10dp"
-                                    android:layout_weight="1.1">
-
-
-                                </FrameLayout>-->
                             </LinearLayout>
                         </FrameLayout>
 
@@ -225,12 +204,17 @@
                                             android:layout_height="wrap_content"
                                             android:text="Item Name"
                                             android:textAppearance="?android:attr/textAppearanceMedium" />
+                                        <EditText
+                                            android:layout_width="@dimen/_200dp_720dp_150dp_600dp"
+                                            android:layout_height="wrap_content"
+                                            android:text="hi"/>
 
                                         <AutoCompleteTextView
                                             android:id="@+id/autoTextItemLongNameValue"
+                                            android:visibility="gone"
                                             android:layout_width="@dimen/_200dp_720dp_150dp_600dp"
                                             android:layout_height="wrap_content"
-                                            android:imeOptions="flagNoExtractUi"
+                                            android:imeOptions="actionNext"
                                             android:drawableRight="@drawable/searchicon_img"
                                             android:inputType="text"
                                             android:textAppearance="?android:attr/textAppearanceMedium" />
