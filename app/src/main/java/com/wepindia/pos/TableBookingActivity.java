@@ -534,18 +534,18 @@ public class TableBookingActivity extends WepBaseActivity implements TableBookin
             //TableBookingResponse cc = (TableBookingResponse)v;
             Log.d("TableBooking Selection", "Code: " + iTBookId + " Name: " + strCustomerName);
 
-            int iResult = dbTableBooking.updateTableBooking(iTBookId, strCustomerName, strTimeBooking, iTableNo,
-                    strMobileNo);
-            Log.d("updateDept", "Updated Rows: " + String.valueOf(iResult));
-            ResetTableBooking();
-            if (iResult > 0) {
-                //    ClearTableBooking();
-                mTableBookingList.clear();
-                DisplayTableBooking();
-            } else {
-                MsgBox.Show("Warning", "Update failed");
+                int iResult = dbTableBooking.updateTableBooking(iTBookId, strCustomerName, strTimeBooking, iTableNo,
+                        strMobileNo);
+                Log.d("updateDept", "Updated Rows: " + String.valueOf(iResult));
+                ResetTableBooking();
+                if (iResult > 0) {
+                    //    ClearTableBooking();
+                    mTableBookingList.clear();
+                    DisplayTableBooking();
+                } else {
+                    MsgBox.Show("Warning", "Update failed");
+                }
             }
-        }
     }
 
     public void ClearTableBooking(View v) {

@@ -2217,7 +2217,7 @@ public class BillingHomeDeliveryActivity extends WepPrinterBaseActivity implemen
         else
         {
             Log.d("AddItemToOrderTable", "ItemNotFound Exception");
-            MsgBox.Show("Oops ","Item not found");
+           // MsgBox.Show("Oops ","Item not found");
         }
     }
 
@@ -8186,12 +8186,15 @@ public class BillingHomeDeliveryActivity extends WepPrinterBaseActivity implemen
         return super.onOptionsItemSelected(item);
     }
 
-    void additemtoKOT()
+    void addBarCodeItemToOrderTable()
     {
         String barcode = autoCompleteTextViewSearchItemBarcode.getText().toString().trim();
         System.out.println("Barcode = "+barcode);
         Cursor crsr = dbBillScreen.getItem(barcode);
-        AddItemToOrderTable(crsr);
+        if(crsr!=null && crsr.moveToFirst())
+            AddItemToOrderTable(crsr);
+        else
+            MsgBox.Show("Oops ","Item not found");
         autoCompleteTextViewSearchItemBarcode.setText("");
         linefeed="";
     }
@@ -8215,13 +8218,13 @@ public class BillingHomeDeliveryActivity extends WepPrinterBaseActivity implemen
         if(event.getKeyCode() == KeyEvent.KEYCODE_ENTER)
         {
             //System.out.println("Richa : Enter encountered for barcode");
-            additemtoKOT();
+            addBarCodeItemToOrderTable();
         }else if (event.getKeyCode() == KeyEvent.KEYCODE_J ||event.getKeyCode() == KeyEvent.KEYCODE_CTRL_LEFT   )
         //}else if (event.getKeyCode() == KeyEvent.KEYCODE_J ||event.getKeyCode() == KeyEvent.KEYCODE_CTRL_LEFT ||event.getKeyCode() == KeyEvent.KEYCODE_SHIFT_LEFT  )
         {
             linefeed +=String.valueOf(event.getKeyCode());
             if(linefeed.equalsIgnoreCase("38113")|| linefeed.equalsIgnoreCase("11338")) // line feed value
-                additemtoKOT();
+                addBarCodeItemToOrderTable();
         }else
         {
             linefeed = "";
