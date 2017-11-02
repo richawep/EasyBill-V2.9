@@ -693,9 +693,24 @@ public class PrinterUtil {
         esc.addText(getSpaceFormater("TOTAL",String.format("%.2f",item.getNetTotal()),48,1)+"\n");
         esc.addSelectJustification(EscCommand.JUSTIFICATION.CENTER);
         if(item.getRoundOff()>0){
-            esc.addText("------------------------------------------------\n");
+            //esc.addText("------------------------------------------------\n");
             esc.addText(getSpaceFormater("Total Roundoff to 1.00 ","",48,1)+"\n");
         }
+        if(item.getCardPaymentValue()>0 || item.geteWalletPaymentValue()>0 ||
+                    item.getCouponPaymentValue()>0 || item.getPettyCashPaymentValue()>0 ){
+            esc.addText("================================================"+"\n");
+            if(item.getCardPaymentValue()>0)
+                esc.addText(getSpaceFormater("Card Payment",String.format("%.2f",item.getCardPaymentValue()),48,1)+"\n");
+           if(item.geteWalletPaymentValue()>0)
+                esc.addText(getSpaceFormater("eWallet Payment",String.format("%.2f",item.geteWalletPaymentValue()),48,1)+"\n");
+           if(item.getCouponPaymentValue()>0)
+                esc.addText(getSpaceFormater("Coupon Payment",String.format("%.2f",item.getCouponPaymentValue()),48,1)+"\n");
+           if(item.getPettyCashPaymentValue()>0)
+                esc.addText(getSpaceFormater("PettyCash Payment",String.format("%.2f",item.getPettyCashPaymentValue()),48,1)+"\n");
+            if(item.getCashPaymentValue()>0)
+                esc.addText(getSpaceFormater("Cash Payment",String.format("%.2f",item.getCashPaymentValue()),48,1)+"\n");
+        }
+
         esc.addText("================================================"+"\n");
         if(!item.getFooterLine1().equals(""))
             esc.addText(item.getFooterLine1()+"\n");

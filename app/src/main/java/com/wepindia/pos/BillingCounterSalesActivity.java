@@ -3711,13 +3711,51 @@ public class BillingCounterSalesActivity extends WepPrinterBaseActivity implemen
                     item.setTotalSalesTaxAmount(tvTaxTotal.getText().toString());
                     item.setTotalServiceTaxAmount(tvServiceTaxTotal.getText().toString());
                     item.setRoundOff(fRoundOfValue);
+                    String date_today = tvDate.getText().toString();
+                    //Log.d("Date ", date_today);
+                    try {
+                        Date date1 = new SimpleDateFormat("dd-MM-yyyy").parse(date_today);
+                        Cursor paymentModeinBillcrsr = db.getBillDetail_counter((orderId),String.valueOf(date1.getTime()));
+                        if(paymentModeinBillcrsr!=null && paymentModeinBillcrsr.moveToFirst())
+                        {
+                            double cardValue = 0.00,eWalletValue = 0.00,couponValue = 0.00,pettyCashValue = 0.00,cashValue = 0.00;
+
+                            if(paymentModeinBillcrsr.getString(paymentModeinBillcrsr.getColumnIndex("CardPayment")) !=null)
+                                cardValue = paymentModeinBillcrsr.getDouble(paymentModeinBillcrsr.getColumnIndex("CardPayment"));
+                            if(paymentModeinBillcrsr.getString(paymentModeinBillcrsr.getColumnIndex("WalletPayment")) !=null)
+                                eWalletValue = paymentModeinBillcrsr.getDouble(paymentModeinBillcrsr.getColumnIndex("WalletPayment"));
+                            if(paymentModeinBillcrsr.getString(paymentModeinBillcrsr.getColumnIndex("CouponPayment")) !=null)
+                                couponValue = paymentModeinBillcrsr.getDouble(paymentModeinBillcrsr.getColumnIndex("CouponPayment"));
+                            if(paymentModeinBillcrsr.getString(paymentModeinBillcrsr.getColumnIndex("PettyCashPayment")) !=null)
+                                pettyCashValue = paymentModeinBillcrsr.getDouble(paymentModeinBillcrsr.getColumnIndex("PettyCashPayment"));
+                            if(paymentModeinBillcrsr.getString(paymentModeinBillcrsr.getColumnIndex("CashPayment")) !=null)
+                                cashValue = paymentModeinBillcrsr.getDouble(paymentModeinBillcrsr.getColumnIndex("CashPayment"));
+
+                            cardValue = Double.parseDouble(String.format("%.2f",cardValue));
+                            eWalletValue = Double.parseDouble(String.format("%.2f",eWalletValue));
+                            couponValue = Double.parseDouble(String.format("%.2f",couponValue));
+                            pettyCashValue = Double.parseDouble(String.format("%.2f",pettyCashValue));
+                            cashValue = Double.parseDouble(String.format("%.2f",cashValue));
+
+                            item.setCardPaymentValue(cardValue);
+                            item.seteWalletPaymentValue(eWalletValue);
+                            item.setCouponPaymentValue(couponValue);
+                            item.setPettyCashPaymentValue(pettyCashValue);
+                            item.setCashPaymentValue(cashValue);
+                        }
+
+                    }catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
+
                     if(reprintBillingMode == 0) {
                         item.setStrBillingModeName(CounterSalesCaption);
                         item.setDate(tvDate.getText().toString());
                         String strTime = new SimpleDateFormat("kk:mm:ss").format(Time.getTime());
                         item.setTime(strTime);
 
-                    }else
+                    }else // reprint
                     {
                         switch (reprintBillingMode)
                         {
@@ -5296,7 +5334,7 @@ public class BillingCounterSalesActivity extends WepPrinterBaseActivity implemen
                         case R.id.edtCustName:
                         case R.id.edtCustPhoneNo:
                             if (tx.equals("")) {
-                                //Toast.makeText(this, "Please select customer for billing , if required", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(this, "Please select customer for billing , if required", Toast.LENGTH_SHORT).show();
                             }
                         case R.id.edtCustAddress:
                             EditText ed = (EditText) findViewById(v.getId());

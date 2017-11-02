@@ -1195,6 +1195,7 @@ public class PayBillActivity extends FragmentActivity implements FragmentLogin.O
                                     textViewBalanceUpdate.setVisibility(View.VISIBLE);
                                    // btnNutral.setVisibility(View.INVISIBLE);
                                     btnOk.setText("Credit & Pay");
+                                    btnOk.setEnabled(true);
                                 }
                                 else {
                                     textViewBalanceUpdate.setText("");
@@ -1203,6 +1204,7 @@ public class PayBillActivity extends FragmentActivity implements FragmentLogin.O
                                     //btnNutral.setVisibility(View.VISIBLE);
                                     //btnNutral.setText("Credit & Pay");
                                     btnOk.setText("Pay Partially");
+                                    btnOk.setEnabled(true);
                                     rel6.setVisibility(View.VISIBLE);
                                     if(BILLAMOUNTROUNDOFF==1)
                                         editTextAmountAllowed.setText(String.format("%.2f",Math.floor(creditLimit+creditAmount)));
