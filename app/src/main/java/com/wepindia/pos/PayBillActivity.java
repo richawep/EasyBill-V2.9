@@ -489,16 +489,19 @@ public class PayBillActivity extends FragmentActivity implements FragmentLogin.O
             }
         }
 */
-            if(dTenderAmount == dTotalValue) {
-                Toast.makeText(myContext, "No Due is : " + strChange + ", Please Save the Bill.", Toast.LENGTH_SHORT).show();
-            }
-            else if(dTenderAmount > dTotalValue) {
-                Toast.makeText(myContext, "Change Due is : " + strChange + ", Please Give.", Toast.LENGTH_SHORT).show();
-            }
-            else if(dTenderAmount < dTotalValue && RESETCALLED==0) {
-                Toast.makeText(myContext, "Amount Due is : " + String.format("%.2f",dChangeAmount)+ ", Please Collect.", Toast.LENGTH_SHORT).show();
-            }
+            if(RESETCALLED ==0)
+            {
+                if(dTenderAmount == dTotalValue) {
+                    Toast.makeText(myContext, "No Due is : " + strChange + ", Please Save the Bill.", Toast.LENGTH_SHORT).show();
+                }
+                else if(dTenderAmount > dTotalValue) {
+                    Toast.makeText(myContext, "Change Due is : " + strChange + ", Please Give.", Toast.LENGTH_SHORT).show();
+                }
+                else if(dTenderAmount < dTotalValue && RESETCALLED==0) {
+                    Toast.makeText(myContext, "Amount Due is : " + String.format("%.2f",dChangeAmount)+ ", Please Collect.", Toast.LENGTH_SHORT).show();
+                }
 
+            }
         }catch (Exception e)
         {
             MsgBox.Show("Error","Some error occured in processing");
@@ -1583,26 +1586,36 @@ public class PayBillActivity extends FragmentActivity implements FragmentLogin.O
         }
 
         final Checkout co = new Checkout();
-
-        try {
-            JSONObject options = new JSONObject();
-            options.put("name", "Wep Solutions Ltd");
-            options.put("description", "Resturant bill payment");
-            //You can omit the image option to fetch the image from dashboard
-            options.put("image", "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSVnUM4lZzEAgU62oQU9yjp_Z0i6KkrNzdrlZZT5LyfxZUIJpnL");
-            options.put("currency", "INR");
-            toPayAmount = getIntegers(edtChange.getText().toString().trim());
-            options.put("amount", toPayAmount+"");
-            JSONObject preFill = new JSONObject();
-            preFill.put("email", "");
-            preFill.put("contact", phone);
-            options.put("prefill", preFill);
-            co.open(activity, options);
-            co.setKeyID(keyid);
-        } catch (Exception e) {
-            Toast.makeText(activity, "Error in payment: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-            e.printStackTrace();
+        Cursor ownercrsr = dbPayBill.getOwnerDetail();
+        if(ownercrsr != null && ownercrsr.moveToFirst() )
+        {
+            try {
+                String firmName = ownercrsr.getString(ownercrsr.getColumnIndex("FirmName"));
+                if(firmName== null)
+                    firmName = "";
+                JSONObject options = new JSONObject();
+                options.put("name", firmName);
+                options.put("description", "eWallet Payment");
+                //You can omit the image option to fetch the image from dashboard
+                options.put("image", "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSVnUM4lZzEAgU62oQU9yjp_Z0i6KkrNzdrlZZT5LyfxZUIJpnL");
+                options.put("currency", "INR");
+                toPayAmount = getIntegers(edtChange.getText().toString().trim());
+                options.put("amount", toPayAmount+"");
+                JSONObject preFill = new JSONObject();
+                preFill.put("email", "");
+                preFill.put("contact", phone);
+                options.put("prefill", preFill);
+                co.open(activity, options);
+                co.setKeyID(keyid);
+            } catch (Exception e) {
+                Toast.makeText(activity, "Error in payment: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+            }
+        }else
+        {
+            MsgBox.Show("Error","Issue occured in fetching owner details.");
         }
+
     }
 
     private int getIntegers(String txt) {
