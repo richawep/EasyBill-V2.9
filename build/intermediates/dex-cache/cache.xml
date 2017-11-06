@@ -30,21 +30,21 @@
     </item>
     <item
         is-multidex="true"
-        jar="E:\FnbProjects\WepFnB_GST\WepFnB_GST_5May\23sep\wepfnb_gst\mSwipe\build\intermediates\bundles\default\libs\simplyprintapi-android-1.3.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="1cd73303b1f95e4dd2198fdf09c6d7c0dc360257">
-        <dex dex="E:\FnbProjects\WepFnB_GST\WepFnB_GST_5May\23sep\wepfnb_gst\app\build\intermediates\transforms\dex\debug\folders\1000\8\simplyprintapi-android-1.3.0_678bb33f6d683fc3007e1410cbd50766bea02714\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="E:\FnbProjects\WepFnB_GST\WepFnB_GST_5May\23sep\wepfnb_gst\app\libs\imageLib.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
         sha1="442dbfb517b9ab5cb5c6da7ebf8cc28ec5bd0375">
         <dex dex="E:\FnbProjects\WepFnB_GST\WepFnB_GST_5May\23sep\wepfnb_gst\app\build\intermediates\transforms\dex\debug\folders\1000\2\imageLib_e3dcabc623e95a859bb7557984511ef244cc48e0\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\FnbProjects\WepFnB_GST\WepFnB_GST_5May\23sep\wepfnb_gst\mSwipe\build\intermediates\bundles\default\libs\simplyprintapi-android-1.3.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="1cd73303b1f95e4dd2198fdf09c6d7c0dc360257">
+        <dex dex="E:\FnbProjects\WepFnB_GST\WepFnB_GST_5May\23sep\wepfnb_gst\app\build\intermediates\transforms\dex\debug\folders\1000\8\simplyprintapi-android-1.3.0_678bb33f6d683fc3007e1410cbd50766bea02714\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -106,7 +106,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
-        sha1="c62c3181bfe17dcf117399330f01762e8ace1f7b">
+        sha1="5272bb267ba34b40735674c284220721177c8751">
         <dex dex="E:\FnbProjects\WepFnB_GST\WepFnB_GST_5May\23sep\wepfnb_gst\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_7bd8f77547104759e1148e7a2114a07c78e969c0\classes.dex" />
     </item>
 

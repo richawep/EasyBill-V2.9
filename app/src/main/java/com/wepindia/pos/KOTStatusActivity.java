@@ -179,7 +179,14 @@ public class KOTStatusActivity extends WepBaseActivity {
 			MsgBox.Show("Note","Please enter table no");
 			return;
 		}
-        Cursor crsrOccupiedTable = dbKOTStatus.getKOTStatusByTableNo(Integer.valueOf(txtSearchTable.getText().toString()));
+		int maxTables  = dbKOTStatus.getMaxTables();
+		int tableNo = Integer.valueOf(txtSearchTable.getText().toString());
+		if(tableNo > maxTables)
+		{
+			MsgBox.Show("Note","Maximum table configured is "+maxTables+". Please select table no with in range.");
+			return;
+		}
+        Cursor crsrOccupiedTable = dbKOTStatus.getKOTStatusByTableNo(tableNo);
 
         TableRow rowKOTStatus = null;
         TextView tvSNo, tvKOTNo, tvTableNo, tvWaiterNo, tvInTime, tvTimeCount, tvStatus;

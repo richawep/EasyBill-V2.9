@@ -11,9 +11,8 @@ android {
         minSdkVersion 18
         targetSdkVersion 24
         versionCode 1
-        versionName "2.8"
-        compileOptions {
-            sourceCompatibility JavaVersion.VERSION_1_7
+        versionName "2.9"
+        compileOptions {            sourceCompatibility JavaVersion.VERSION_1_7
             targetCompatibility JavaVersion.VERSION_1_7
         }
         multiDexEnabled true

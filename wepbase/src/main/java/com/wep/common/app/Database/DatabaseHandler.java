@@ -2884,6 +2884,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public Cursor getBillSetting() {
         return dbFNB.query(TBL_BILLSETTING, new String[]{"*"}, null, null, null, null, null);
     }
+    public int getMaxTables() {
+        Cursor crsrBillSetting = dbFNB.query(TBL_BILLSETTING, new String[]{KEY_MaximumTables}, null, null, null, null, null);
+        int maxTables  =0;
+        if (crsrBillSetting !=null && crsrBillSetting.moveToFirst())
+        {
+            maxTables = crsrBillSetting.getInt(crsrBillSetting.getColumnIndex("MaximumTables"));
+        }
+        return maxTables;
+    }
 
     // -----Retrieve Business Date-----
     public Cursor getCurrentDate() {
