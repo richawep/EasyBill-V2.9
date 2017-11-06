@@ -5658,7 +5658,8 @@ private void LoadModifyKOTItems_old(Cursor crsrBillItems) {
         // if(ItemwiseDiscountEnabled ==1)
         calculateDiscountAmount();
         float discount = Float.parseFloat(tvDiscountAmount.getText().toString());
-        objBillDetail.setTotalDiscountAmount(discount);
+        //objBillDetail.setTotalDiscountAmount(discount);
+        objBillDetail.setTotalDiscountAmount(fTotalDiscount);
         Log.d("InsertBillDetail", "Total Discount:" + discount);
 
         // Sales Tax Amount

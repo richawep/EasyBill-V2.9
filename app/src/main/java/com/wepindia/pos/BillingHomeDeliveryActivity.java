@@ -4870,7 +4870,8 @@ public class BillingHomeDeliveryActivity extends WepPrinterBaseActivity implemen
         //    if(ItemwiseDiscountEnabled ==1)
         calculateDiscountAmount();
         float discount = Float.parseFloat(tvDiscountAmount.getText().toString());
-        objBillDetail.setTotalDiscountAmount(discount);
+        //objBillDetail.setTotalDiscountAmount(discount);
+        objBillDetail.setTotalDiscountAmount(fTotalDiscount);
         Log.d("InsertBillDetail", "Total Discount:" + discount);
 
         // Sales Tax Amount

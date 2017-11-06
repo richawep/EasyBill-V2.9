@@ -21,17 +21,10 @@
   <component name="ChangeListManager">
     <list default="true" id="2b3634b2-61eb-4eec-9c17-c4e6f231d0c0" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/wepindia/pos/BillingDineInActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/wepindia/pos/BillingDineInActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/wepindia/pos/BillingHomeDeliveryActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/wepindia/pos/BillingHomeDeliveryActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/wepindia/pos/KOTStatusActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/wepindia/pos/KOTStatusActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/wepindia/pos/TableBookingActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/wepindia/pos/TableBookingActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_kotstatus.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_kotstatus.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_tablebooking.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_tablebooking.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" afterPath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wepbase/src/main/java/com/wep/common/app/Database/DatabaseHandler.java" afterPath="$PROJECT_DIR$/wepbase/src/main/java/com/wep/common/app/Database/DatabaseHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wepbase/wepbase.iml" afterPath="$PROJECT_DIR$/wepbase/wepbase.iml" />
     </list>
     <ignored path="wepfnb_datamini.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -7164,13 +7157,6 @@
       <option name="presentableId" value="Default" />
       <updated>1490860409349</updated>
     </task>
-    <task id="LOCAL-00122" summary="1. Mswipe : swipe card details not getting returned to our app.&#10;2. rectifying misallignment in reports.&#10;3. removing compulsory entry of secret key for razorpay in PaymentModeConfiguration&#10;4. Images taking underscore for all spaces in images name.">
-      <created>1505803213132</created>
-      <option name="number" value="00122" />
-      <option name="presentableId" value="LOCAL-00122" />
-      <option name="project" value="LOCAL" />
-      <updated>1505803213132</updated>
-    </task>
     <task id="LOCAL-00123" summary="1. item name list in autocomplete getting not getting refreshed after csv upload.&#10;2. department and category code configuration in item master through csv">
       <created>1505825918785</created>
       <option name="number" value="00123" />
@@ -7507,7 +7493,14 @@
       <option name="project" value="LOCAL" />
       <updated>1509612342024</updated>
     </task>
-    <option name="localTasksCounter" value="171" />
+    <task id="LOCAL-00171" summary="Issue - &quot;No kot present for tabl;e no xx&quot; is displayed even if maximum no table configured is less than xx">
+      <created>1509953448603</created>
+      <option name="number" value="00171" />
+      <option name="presentableId" value="LOCAL-00171" />
+      <option name="project" value="LOCAL" />
+      <updated>1509953448603</updated>
+    </task>
+    <option name="localTasksCounter" value="172" />
     <servers />
   </component>
   <component name="TodoView">
@@ -7588,7 +7581,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="dept and category not displaying properly when items are loaded from csv" />
     <MESSAGE value="tax amount not coming correct in reports(tax report)" />
     <MESSAGE value="tax slab not printing in bill after selecting the rider and printing the bill.&#10;Step 1. make bill with large amount&#10;step2. paybill by pettycash&#10;step3. Goto Delivery status, assign rider and printbill" />
     <MESSAGE value="reprintBill giving wrong billamount for large values" />
@@ -7613,7 +7605,8 @@
     <MESSAGE value="1. Issue - Upon changing quantity and pressing Ok button on soft keyboard, message coming as Item not found. &#10;2. Changing Wep Solutions to Wep Digital in login Screen&#10;3. &quot;Please select Cosutomer , if requred&quot; toast coming for long time if no mobile no is entered and barcode is scanned." />
     <MESSAGE value="uploading payBill, unnecessarily long toast is coming as &quot;Amount due is xx rs. Please collect&quot;" />
     <MESSAGE value="including partial payment display in bill" />
-    <option name="LAST_COMMIT_MESSAGE" value="including partial payment display in bill" />
+    <MESSAGE value="Issue - &quot;No kot present for tabl;e no xx&quot; is displayed even if maximum no table configured is less than xx" />
+    <option name="LAST_COMMIT_MESSAGE" value="Issue - &quot;No kot present for tabl;e no xx&quot; is displayed even if maximum no table configured is less than xx" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
