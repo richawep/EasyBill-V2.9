@@ -5283,6 +5283,8 @@ public class BillingCounterSalesActivity extends WepPrinterBaseActivity implemen
     {
         String barcode = autoCompleteTextViewSearchItemBarcode.getText().toString().trim();
         System.out.println("Barcode = "+barcode);
+        if(barcode == null || barcode.equals("") )
+            return;
         Cursor crsr = db.getItemssbyBarCode(barcode);
         if(crsr!=null && crsr.moveToFirst())
             AddItemToOrderTable(crsr);

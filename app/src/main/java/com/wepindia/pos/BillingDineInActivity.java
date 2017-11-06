@@ -8974,6 +8974,8 @@ private void LoadModifyKOTItems_old(Cursor crsrBillItems) {
     {
         String barcode = autoCompleteTextViewSearchItemBarcode.getText().toString().trim();
         System.out.println("Barcode = "+barcode);
+        if(barcode == null || barcode.equals("") )
+            return;
         Cursor crsr = dbBillScreen.getItem(barcode);
         if(crsr!=null && crsr.moveToFirst())
             AddItemToOrderTable(crsr);
