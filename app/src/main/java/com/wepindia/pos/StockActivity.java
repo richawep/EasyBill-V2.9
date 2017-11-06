@@ -606,6 +606,9 @@ public class StockActivity extends WepBaseActivity implements TextWatcher {
                 Float.parseFloat(String.format("%.2f",Float.parseFloat(strRate2))),
                 Float.parseFloat(String.format("%.2f",Float.parseFloat(strRate3))) );
 
+
+        txtNewStock.setText("0");
+        tvExistingStock.setText(String.format("%.2f",(Float.parseFloat(strExistingStock) + newStock)));
         //Toast.makeText(myContext, "Price & Stock Updated Successfully", Toast.LENGTH_LONG).show();
         //DisplayItems();
         // updating in table outwardStock
@@ -640,7 +643,7 @@ public class StockActivity extends WepBaseActivity implements TextWatcher {
         }
         stock_outward.updateOpeningStock_Outward( currentdate, Integer.parseInt(strMenuCode),itemName,OpeningQuantity, rate );
         stock_outward.updateClosingStock_Outward( currentdate, Integer.parseInt(strMenuCode),itemName,ClosingQuantity);
-        ResetStock();
+        //ResetStock();
 
     }
 

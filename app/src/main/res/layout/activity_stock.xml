@@ -192,158 +192,172 @@
                                     android:layout_weight="1"
                                     android:orientation="vertical">
 
-                                    <TableRow
+                                    <LinearLayout
                                         android:id="@+id/rowItemLongName"
-                                        android:layout_width="wrap_content"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentLeft="true">
 
                                         <TextView
                                             android:id="@+id/tvItemLongName"
-                                            android:layout_width="@dimen/_200dp_720dp_150dp_600dp"
+                                            android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:text="Item Name"
+                                            android:layout_weight="1.5"
                                             android:textAppearance="?android:attr/textAppearanceMedium" />
 
                                         <AutoCompleteTextView
                                             android:id="@+id/autoTextItemLongNameValue"
-                                            android:layout_width="@dimen/_200dp_720dp_150dp_600dp"
+                                            android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:imeOptions="actionNext"
+                                            android:layout_weight="1"
                                             android:drawableRight="@drawable/searchicon_img"
                                             android:inputType="text"
                                             android:textAppearance="?android:attr/textAppearanceMedium" />
-                                    </TableRow>
-                                    <TableRow
-                                        android:layout_width="wrap_content"
+                                    </LinearLayout>
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentLeft="true">
 
                                         <TextView
-                                            android:layout_width="@dimen/_200dp_720dp_150dp_600dp"
+                                            android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:text="Item Barcode"
+                                            android:layout_weight="1.5"
                                             android:textAppearance="?android:attr/textAppearanceMedium" />
 
                                         <AutoCompleteTextView
                                             android:id="@+id/AutoCompleteItemBarcodeValue"
-                                            android:layout_width="@dimen/_200dp_720dp_150dp_600dp"
+                                            android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:imeOptions="flagNoExtractUi"
+                                            android:layout_weight="1"
                                             android:drawableRight="@drawable/searchicon_img"
                                             android:inputType="text"
                                             android:textAppearance="?android:attr/textAppearanceMedium" />
-                                    </TableRow>
+                                    </LinearLayout>
 
-                                    <TableRow
+                                    <LinearLayout
                                         android:id="@+id/rowItemExistingStock"
-                                        android:layout_width="wrap_content"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content">
 
                                         <TextView
                                             android:id="@+id/tvItemExistingStock"
-                                            android:layout_width="@dimen/_200dp_720dp_150dp_600dp"
+                                            android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:text="Existing Stock"
+                                            android:layout_weight="1.5"
                                             android:textAppearance="?android:attr/textAppearanceMedium" />
 
                                         <TextView
                                             android:id="@+id/tvItemExistingStockValue"
-                                            android:layout_width="@dimen/_200dp_720dp_150dp_600dp"
+                                            android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:text="0"
+                                            android:layout_weight="1"
                                             android:textAppearance="?android:attr/textAppearanceMedium"
                                             android:textStyle="bold" />
-                                    </TableRow>
+                                    </LinearLayout>
 
-                                    <TableRow
+                                    <LinearLayout
                                         android:id="@+id/rowItemNewStock"
-                                        android:layout_width="wrap_content"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content">
 
                                         <TextView
                                             android:id="@+id/tvItemNewStock"
-                                            android:layout_width="@dimen/_200dp_720dp_150dp_600dp"
+                                            android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:text="New Stock"
+                                            android:layout_weight="1.5"
                                             android:textAppearance="?android:attr/textAppearanceMedium" />
 
                                         <EditText
                                             android:id="@+id/etItemNewStock"
-                                            android:layout_width="@dimen/_200dp_720dp_150dp_600dp"
+                                            android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:ems="5"
+                                            android:layout_weight="1"
                                             android:inputType="numberDecimal"
                                             android:selectAllOnFocus="true" />
-                                    </TableRow>
+                                    </LinearLayout>
 
-                                    <TableRow
+                                    <LinearLayout
                                         android:id="@+id/rowItemRate1"
-                                        android:layout_width="wrap_content"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content">
 
                                         <TextView
                                             android:id="@+id/tvItemRate1"
-                                            android:layout_width="@dimen/_200dp_720dp_150dp_600dp"
+                                            android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:text="Rate1"
+                                            android:layout_weight="1.5"
                                             android:textAppearance="?android:attr/textAppearanceMedium" />
 
                                         <EditText
                                             android:id="@+id/etItemRate1"
-                                            android:layout_width="@dimen/_200dp_720dp_150dp_600dp"
+                                            android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:ems="5"
+                                            android:layout_weight="1"
                                             android:inputType="numberDecimal"
                                             android:selectAllOnFocus="true" />
 
-                                    </TableRow>
+                                    </LinearLayout>
 
-                                    <TableRow
+                                    <LinearLayout
                                         android:id="@+id/rowItemRate2"
-                                        android:layout_width="wrap_content"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="0dp">
 
                                         <TextView
                                             android:id="@+id/tvItemRate2"
-                                            android:layout_width="@dimen/_200dp_720dp_150dp_600dp"
+                                            android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:text="Rate2"
+                                            android:layout_weight="1.5"
                                             android:textAppearance="?android:attr/textAppearanceMedium" />
 
                                         <EditText
                                             android:id="@+id/etItemRate2"
-                                            android:layout_width="@dimen/_200dp_720dp_150dp_600dp"
+                                            android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:ems="5"
+                                            android:layout_weight="1"
                                             android:inputType="numberDecimal"
                                             android:selectAllOnFocus="true" />
 
-                                    </TableRow>
+                                    </LinearLayout>
 
-                                    <TableRow
+                                    <LinearLayout
                                         android:id="@+id/rowItemRate3"
-                                        android:layout_width="wrap_content"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="0dp">
 
                                         <TextView
                                             android:id="@+id/tvItemRate3"
-                                            android:layout_width="@dimen/_200dp_720dp_150dp_600dp"
+                                            android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:text="Rate3"
+                                            android:layout_weight="1.5"
                                             android:textAppearance="?android:attr/textAppearanceMedium" />
 
                                         <EditText
                                             android:id="@+id/etItemRate3"
-                                            android:layout_width="@dimen/_200dp_720dp_150dp_600dp"
+                                            android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:ems="5"
+                                            android:layout_weight="1"
                                             android:inputType="numberDecimal"
                                             android:selectAllOnFocus="true" />
 
-                                    </TableRow>
+                                    </LinearLayout>
 
                                 </LinearLayout>
 
