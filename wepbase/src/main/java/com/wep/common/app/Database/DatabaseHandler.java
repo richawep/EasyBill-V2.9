@@ -4785,7 +4785,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    public long updateKOT(int ItemNo, float Qty, double Amount, double TaxAmt, double SerTaxAmt, int OrderMode, int PrintKOTStatus
+    public long updateKOTDineIn(int tblno, int tblsplitno,int ItemNo, float Qty, double Amount, double TaxAmt, double SerTaxAmt, int OrderMode
             ,float IAmt, double cessAmt, double taxableValue) {
         cvDbValues = new ContentValues();
         cvDbValues.put("Quantity", Qty);
@@ -4795,7 +4795,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cvDbValues.put(KEY_IGSTAmount, IAmt);
         cvDbValues.put(KEY_cessAmount, cessAmt);
         cvDbValues.put(KEY_TaxableValue, taxableValue);
-        return dbFNB.update(TBL_PENDINGKOT, cvDbValues, "ItemNumber=" + ItemNo + " AND OrderMode=" + OrderMode, null);// AND PrintKOTStatus = " + PrintKOTStatus, null);
+        return dbFNB.update(TBL_PENDINGKOT, cvDbValues, "ItemNumber=" + ItemNo + " AND OrderMode=" + OrderMode + " AND TableNumber=" + tblno + " AND TableSplitNo=" + tblsplitno, null);// AND PrintKOTStatus = " + PrintKOTStatus, null);
+    }
+    public long updateKOT(int ItemNo, float Qty, double Amount, double TaxAmt, double SerTaxAmt, int OrderMode
+            ,float IAmt, double cessAmt, double taxableValue) {
+        cvDbValues = new ContentValues();
+        cvDbValues.put("Quantity", Qty);
+        cvDbValues.put("Amount", Amount);
+        cvDbValues.put("TaxAmount", TaxAmt);
+        cvDbValues.put("ServiceTaxAmount", SerTaxAmt);
+        cvDbValues.put(KEY_IGSTAmount, IAmt);
+        cvDbValues.put(KEY_cessAmount, cessAmt);
+        cvDbValues.put(KEY_TaxableValue, taxableValue);
+        return dbFNB.update(TBL_PENDINGKOT, cvDbValues, "ItemNumber=" + ItemNo + " AND OrderMode=" + OrderMode , null);// AND PrintKOTStatus = " + PrintKOTStatus, null);
     }
 
     public long updateKOT_new(int ItemNo, float Qty, double Amount, float TaxAmt, float SerTaxAmt, int OrderMode, int PrintKOTStatus
@@ -4840,6 +4852,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    /*public Cursor getItemsForUpdatingKOT(int TableNo, int SubUdfNo, int TableSplitNo, int ItemNo, int OrderMode, int PrintStatus) {
+//        int PrintStatus = 0;
+        return dbFNB.query(TBL_PENDINGKOT, new String[]{"*"},
+                "TableNumber=" + TableNo + " AND SubUdfNumber=" + SubUdfNo + " AND TableSplitNo=" + TableSplitNo +
+                        " AND ItemNumber=" + ItemNo + " AND OrderMode=" + OrderMode + " AND PrintKOTStatus = " + PrintStatus
+                , null, null, null, null);
+    }*/
     public Cursor getItemsForUpdatingKOT(int TableNo, int SubUdfNo, int TableSplitNo, int ItemNo, int OrderMode) {
         int PrintStatus = 0;
         return dbFNB.query(TBL_PENDINGKOT, new String[]{"*"},
@@ -4864,6 +4883,37 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         finally {
             return cursor;
         }
+    }
+    // -----Retrieve KOT numbers for reprinting-----
+    public Cursor getKOTNumbers(int TableNumber, int TableSplitNo) {
+        String qq ="SELECT DISTINCT(TokenNumber) as TokenNumber FROM PendingKOT WHERE "+ "TableNumber=" + TableNumber + " AND TableSplitNo=" + TableSplitNo;
+        //int KOTNo = -1;
+        //return dbFNB.query(TBL_PENDINGKOT, new String[]{KEY_TokenNumber},"TableNumber=" + TableNumber + " AND TableSplitNo=" + TableSplitNo, null, null, null, null, null);
+        return dbFNB.rawQuery(qq, null);
+    }
+    // -----Retrieve KOT numbers for reprinting-----
+    public int getMaxKOTNoForTablePendingKot(int TableNumber, int TableSplitNo) {
+        String qq ="SELECT MAX(TokenNumber) as TokenNumber FROM PendingKOT WHERE "+ "TableNumber=" + TableNumber + " AND TableSplitNo=" + TableSplitNo;
+        int KOTNo = -1;
+        Cursor cursor = dbFNB.query(TBL_PENDINGKOT, new String[]{KEY_TokenNumber},
+                "TableNumber=" + TableNumber + " AND TableSplitNo=" + TableSplitNo, null, null, null, null, null);
+
+        cursor = dbFNB.rawQuery(qq, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            KOTNo = cursor.getInt(cursor.getColumnIndex(KEY_TokenNumber));
+        }
+        return KOTNo;
+    }
+    public Cursor getKOTNumberslast(int TableNumber, int TableSplitNo) {
+        return dbFNB.query(TBL_PENDINGKOT, new String[]{KEY_TokenNumber},
+                "TableNumber=" + TableNumber + " AND TableSplitNo=" + TableSplitNo +" AND PrintKOTStatus = 1 ", null, null, null, null, null);
+    }
+
+    // -----Retrieve KOT items for billing from Pending KOT table-----
+    public Cursor getKOTItemsForReprint(int TableNumber, int TableSplitNo, int KOTNo) {
+        return dbFNB.query(TBL_PENDINGKOT, new String[]{"*"},
+                "TableNumber=" + TableNumber + " AND TableSplitNo=" + TableSplitNo+ " AND TokenNumber=" + KOTNo, null, null, null, null);
     }
 
     // -----Retrieve KOT items for billing from Pending KOT table-----

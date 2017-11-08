@@ -17,71 +17,14 @@
         android:layout_marginStart="25dp"
         android:background="@drawable/home_back">
 
-        <RelativeLayout
-            android:id="@+id/boxTop"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:visibility="gone">
 
-            <ImageView
-                android:id="@+id/imageViewUser"
-                android:layout_width="@dimen/bar_icon"
-                android:layout_height="@dimen/bar_icon"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="7dp"
-                android:layout_marginTop="7dp"
-                android:src="@drawable/user" />
-
-            <TextView
-                android:id="@+id/txtViewUserName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="7dp"
-                android:layout_marginTop="7dp"
-                android:layout_toRightOf="@+id/imageViewUser"
-                android:text="Welcome User" />
-
-            <ImageView
-                android:id="@+id/imageViewBell"
-                android:layout_width="@dimen/bar_icon"
-                android:layout_height="@dimen/bar_icon"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="7dp"
-                android:layout_marginTop="7dp"
-                android:src="@drawable/bell"
-                android:visibility="invisible" />
-
-            <ImageView
-                android:id="@+id/imgScreenshot"
-                android:layout_width="@dimen/bar_icon"
-                android:layout_height="@dimen/bar_icon"
-                android:layout_centerHorizontal="true"
-                android:layout_marginLeft="7dp"
-                android:layout_marginTop="7dp"
-                android:onClick="Screenshot"
-                android:src="@drawable/screenshot" />
-
-            <TextView
-                android:id="@+id/textViewUser"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:gravity="bottom"
-                android:text="Welcome User"
-                android:textColor="@android:color/black"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
-        </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/boxContent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/boxButton"
-            android:layout_below="@+id/boxTop">
+           >
 
             <LinearLayout
                 android:layout_width="wrap_content"

@@ -138,6 +138,14 @@ public class InwardActivity extends WepBaseActivity {
             intentDelivery.putExtra("CUST_ID", 0);
             startActivity(intentDelivery);
 
+        }else if (v.getContentDescription().toString().equalsIgnoreCase("Home")) {
+
+            Intent intentDelivery = new Intent(myContext, HomeActivity.class);
+            intentDelivery.putExtra("USER_ID", strUserId);//spUser.getString("USER_ID", "GHOST"));
+            intentDelivery.putExtra("USER_NAME", strUserName);//spUser.getString("USER_NAME", "GHOST"));
+            intentDelivery.putExtra("CUST_ID", 0);
+            startActivity(intentDelivery);
+
         }
 
     }
