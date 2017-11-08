@@ -1581,7 +1581,7 @@ public class PayBillActivity extends FragmentActivity implements FragmentLogin.O
         }
 
         String keyid = paymentDetails.getString(paymentDetails.getColumnIndex("RazorPay_KeyId")).trim();
-        if(keyid == null || keyid.equals(""))
+        if(!(keyid != null &&  keyid.length()>=8))
         {
             MsgBox.Show("Invalid Credentials"," Please configure key id for razor pay in payment mode configuration module");
             return;
@@ -1607,8 +1607,9 @@ public class PayBillActivity extends FragmentActivity implements FragmentLogin.O
                 preFill.put("email", "");
                 preFill.put("contact", phone);
                 options.put("prefill", preFill);
-                co.open(activity, options);
                 co.setKeyID(keyid);
+                co.open(activity, options);
+
             } catch (Exception e) {
                 Toast.makeText(activity, "Error in payment: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
@@ -1624,7 +1625,8 @@ public class PayBillActivity extends FragmentActivity implements FragmentLogin.O
         Integer i = 0;
         try{
             Double d = Double.parseDouble(txt);
-            i = d.intValue()*100;
+            //i = d.intValue()*100;
+            i= Integer.valueOf(String.valueOf(d*100));
         }catch (Exception e){
 
         }
