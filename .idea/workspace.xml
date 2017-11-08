@@ -24,15 +24,12 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/wepindia/pos/BillingDineInActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/wepindia/pos/BillingDineInActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/wepindia/pos/BillingHomeDeliveryActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/wepindia/pos/BillingHomeDeliveryActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/wepindia/pos/BillingScreenActivity_Unused.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/wepindia/pos/BillingScreenActivity_Unused.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/wepindia/pos/InwardActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/wepindia/pos/InwardActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/wepindia/pos/GST/fragments/ValidationForAmendFields.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/wepindia/pos/GST/fragments/ValidationForAmendFields.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/wepindia/pos/TableBookingActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/wepindia/pos/TableBookingActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_billing_dinein.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_billing_dinein.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_home.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_home.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_inward.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_inward.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_master.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_master.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_tablebooking.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_tablebooking.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/tender_dinein.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/tender_dinein.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wepbase/src/main/java/com/wep/common/app/Database/DatabaseHandler.java" afterPath="$PROJECT_DIR$/wepbase/src/main/java/com/wep/common/app/Database/DatabaseHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/test_fragment__gstr2__b2_b__amend.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/test_fragment__gstr2__b2_b__amend.xml" />
     </list>
     <ignored path="wepfnb_datamini.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -75,8 +72,8 @@
       <file leaf-file-name="BillingDineInActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wepindia/pos/BillingDineInActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="191">
-              <caret line="6089" column="53" selection-start-line="6089" selection-start-column="53" selection-end-line="6089" selection-end-column="53" />
+            <state relative-caret-position="422">
+              <caret line="8095" column="45" selection-start-line="8095" selection-start-column="45" selection-end-line="8095" selection-end-column="45" />
               <folding>
                 <element signature="e#19747#22224#0" expanded="true" />
                 <element signature="e#22223#22224#0" expanded="true" />
@@ -161,109 +158,127 @@
                 <element signature="e#169234#169266#0" expanded="true" />
                 <element signature="e#175057#175058#0" expanded="true" />
                 <element signature="e#175128#175129#0" expanded="true" />
-                <element signature="e#200842#200874#0" expanded="true" />
-                <element signature="e#227684#230842#0" expanded="true" />
-                <element signature="e#228220#229665#0" expanded="true" />
-                <element signature="e#229664#229665#0" expanded="true" />
-                <element signature="e#230841#230842#0" expanded="true" />
-                <element signature="e#304284#304285#0" expanded="true" />
-                <element signature="e#304312#304313#0" expanded="true" />
-                <element signature="e#310223#311824#0" expanded="true" />
-                <element signature="e#311823#311824#0" expanded="true" />
-                <element signature="e#325168#325328#0" expanded="true" />
-                <element signature="e#325327#325328#0" expanded="true" />
-                <element signature="e#325571#328167#0" expanded="true" />
-                <element signature="e#328166#328167#0" expanded="true" />
-                <element signature="e#329431#329591#0" expanded="true" />
-                <element signature="e#329590#329591#0" expanded="true" />
-                <element signature="e#329819#336221#0" expanded="true" />
-                <element signature="e#336220#336221#0" expanded="true" />
-                <element signature="e#338265#338498#0" expanded="true" />
-                <element signature="e#338497#338498#0" expanded="true" />
-                <element signature="e#339832#341279#0" expanded="true" />
-                <element signature="e#341278#341279#0" expanded="true" />
-                <element signature="e#362914#362922#0" expanded="true" />
-                <element signature="e#363444#363452#0" expanded="true" />
-                <element signature="e#364084#364092#0" expanded="true" />
-                <element signature="e#364440#364453#0" expanded="true" />
-                <element signature="e#366148#366161#0" expanded="true" />
-                <element signature="e#369104#369117#0" expanded="true" />
-                <element signature="e#371893#371906#0" expanded="true" />
-                <element signature="e#374177#374190#0" expanded="true" />
-                <element signature="e#376468#376481#0" expanded="true" />
-                <element signature="e#379272#379292#0" expanded="true" />
-                <element signature="e#380589#380602#0" expanded="true" />
-                <element signature="e#381827#381840#0" expanded="true" />
-                <element signature="e#383077#383090#0" expanded="true" />
-                <element signature="e#384882#384902#0" expanded="true" />
-                <element signature="e#385625#385641#0" expanded="true" />
-                <element signature="e#386638#386658#0" expanded="true" />
-                <element signature="e#398720#398740#0" expanded="true" />
-                <element signature="e#398815#398828#0" expanded="true" />
-                <element signature="e#417478#417498#0" expanded="true" />
-                <element signature="e#417573#417586#0" expanded="true" />
-                <element signature="e#438316#438317#0" expanded="true" />
-                <element signature="e#438374#438375#0" expanded="true" />
-                <element signature="e#439061#441964#0" expanded="true" />
-                <element signature="e#441963#441964#0" expanded="true" />
-                <element signature="e#442384#442416#0" expanded="true" />
-                <element signature="e#460597#460905#0" expanded="true" />
-                <element signature="e#460904#460905#0" expanded="true" />
+                <element signature="e#200571#200603#0" expanded="true" />
+                <element signature="e#227412#230574#0" expanded="true" />
+                <element signature="e#227948#229393#0" expanded="true" />
+                <element signature="e#229392#229393#0" expanded="true" />
+                <element signature="e#230573#230574#0" expanded="true" />
+                <element signature="e#304016#304017#0" expanded="true" />
+                <element signature="e#304044#304045#0" expanded="true" />
+                <element signature="e#309955#311556#0" expanded="true" />
+                <element signature="e#311555#311556#0" expanded="true" />
+                <element signature="e#324900#325060#0" expanded="true" />
+                <element signature="e#325059#325060#0" expanded="true" />
+                <element signature="e#325303#327899#0" expanded="true" />
+                <element signature="e#327898#327899#0" expanded="true" />
+                <element signature="e#329163#329323#0" expanded="true" />
+                <element signature="e#329322#329323#0" expanded="true" />
+                <element signature="e#329551#335953#0" expanded="true" />
+                <element signature="e#335952#335953#0" expanded="true" />
+                <element signature="e#337997#338230#0" expanded="true" />
+                <element signature="e#338229#338230#0" expanded="true" />
+                <element signature="e#339564#341011#0" expanded="true" />
+                <element signature="e#341010#341011#0" expanded="true" />
+                <element signature="e#362646#362654#0" expanded="true" />
+                <element signature="e#363176#363184#0" expanded="true" />
+                <element signature="e#363816#363824#0" expanded="true" />
+                <element signature="e#364172#364185#0" expanded="true" />
+                <element signature="e#365880#365893#0" expanded="true" />
+                <element signature="e#368836#368849#0" expanded="true" />
+                <element signature="e#371625#371638#0" expanded="true" />
+                <element signature="e#373909#373922#0" expanded="true" />
+                <element signature="e#376200#376213#0" expanded="true" />
+                <element signature="e#379004#379024#0" expanded="true" />
+                <element signature="e#380321#380334#0" expanded="true" />
+                <element signature="e#381559#381572#0" expanded="true" />
+                <element signature="e#382809#382822#0" expanded="true" />
+                <element signature="e#384614#384634#0" expanded="true" />
+                <element signature="e#385357#385373#0" expanded="true" />
+                <element signature="e#386370#386390#0" expanded="true" />
+                <element signature="e#398530#398550#0" expanded="true" />
+                <element signature="e#398625#398638#0" expanded="true" />
+                <element signature="e#417288#417308#0" expanded="true" />
+                <element signature="e#417383#417396#0" expanded="true" />
+                <element signature="e#438168#438169#0" expanded="true" />
+                <element signature="e#438226#438227#0" expanded="true" />
+                <element signature="e#438913#441816#0" expanded="true" />
+                <element signature="e#441815#441816#0" expanded="true" />
+                <element signature="e#442236#442268#0" expanded="true" />
+                <element signature="e#460449#460757#0" expanded="true" />
+                <element signature="e#460756#460757#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tender_dinein.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/tender_dinein.xml">
-          <provider editor-type-id="android-designer2">
-            <state />
-          </provider>
+      <file leaf-file-name="TabbedAmmendActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wepindia/pos/TabbedAmmendActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="299">
-              <caret line="76" column="47" selection-start-line="76" selection-start-column="47" selection-end-line="76" selection-end-column="47" />
+            <state relative-caret-position="238">
+              <caret line="75" column="65" selection-start-line="75" selection-start-column="65" selection-end-line="75" selection-end-column="65" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="InwardActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wepindia/pos/InwardActivity.java">
+      <file leaf-file-name="Fragment_GSTR2_B2B_Amend.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wepindia/pos/GST/fragments/Fragment_GSTR2_B2B_Amend.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-39">
-              <caret line="124" column="0" selection-start-line="124" selection-start-column="0" selection-end-line="124" selection-end-column="0" />
+            <state relative-caret-position="364">
+              <caret line="404" column="9" selection-start-line="404" selection-start-column="9" selection-end-line="404" selection-end-column="9" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="activity_inward.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_inward.xml">
-          <provider editor-type-id="android-designer2">
-            <state />
-          </provider>
+      <file leaf-file-name="ValidationForAmendFields.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wepindia/pos/GST/fragments/ValidationForAmendFields.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="148">
-              <caret line="291" column="47" selection-start-line="291" selection-start-column="47" selection-end-line="291" selection-end-column="47" />
-              <folding>
-                <element signature="e#5037#5068#0" expanded="true" />
-                <element signature="e#6095#6122#0" expanded="true" />
-                <element signature="e#10978#11009#0" expanded="true" />
-                <element signature="e#12236#12267#0" expanded="true" />
-                <element signature="e#13127#13154#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="186">
+              <caret line="257" column="46" selection-start-line="257" selection-start-column="46" selection-end-line="257" selection-end-column="46" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="activity_master.xml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="FragmentSettingsDisplayOwnerDetail.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wepindia/pos/fragments/FragmentSettingsDisplayOwnerDetail.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="235">
+              <caret line="143" column="9" selection-start-line="139" selection-start-column="9" selection-end-line="143" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HeyDeyBaseActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/printers/src/main/java/com/wepindia/printers/HeyDeyBaseActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="220">
+              <caret line="510" column="34" selection-start-line="510" selection-start-column="34" selection-end-line="510" selection-end-column="34" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PrinterUtil.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/printers/src/main/java/com/wepindia/printers/utils/PrinterUtil.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="169">
+              <caret line="694" column="27" selection-start-line="694" selection-start-column="16" selection-end-line="694" selection-end-column="27" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="activity_master.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_master.xml">
           <provider editor-type-id="android-designer2">
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="191">
-              <caret line="24" column="38" selection-start-line="24" selection-start-column="38" selection-end-line="24" selection-end-column="38" />
+            <state relative-caret-position="361">
+              <caret line="34" column="47" selection-start-line="34" selection-start-column="47" selection-end-line="34" selection-end-column="47" />
               <folding>
                 <element signature="e#1015#1032#0" expanded="true" />
                 <element signature="e#1071#1088#0" expanded="true" />
@@ -281,19 +296,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="59">
               <caret line="64" column="0" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="activity_home.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_home.xml">
-          <provider editor-type-id="android-designer2">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="17" column="48" selection-start-line="13" selection-start-column="8" selection-end-line="17" selection-end-column="48" />
               <folding />
             </state>
           </provider>
@@ -6614,8 +6616,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/com/wepindia/pos/utils/StockInwardMaintain.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_item_supplier_linkage.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/wepindia/pos/adapters/ItemInwardAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/wepindia/pos/GenericClasses/ReportHelper.java" />
         <option value="$PROJECT_DIR$/wepbase/src/main/java/com/wep/common/app/models/ItemInward.java" />
@@ -6663,8 +6663,10 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/wepindia/pos/InwardActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_inward.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_home.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/wepindia/pos/BillingDineInActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_master.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/wepindia/pos/BillingDineInActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/test_fragment__gstr2__b2_b__amend.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/wepindia/pos/GST/fragments/ValidationForAmendFields.java" />
       </list>
     </option>
   </component>
@@ -6746,6 +6748,50 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="pos" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wepfnb_gst" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pos" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="GST" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wepfnb_gst" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pos" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fragments" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -7282,13 +7328,6 @@
       <option name="presentableId" value="Default" />
       <updated>1490860409349</updated>
     </task>
-    <task id="LOCAL-00128" summary="Outward item csv including department code, categ code, hsn and barcode">
-      <created>1506420539441</created>
-      <option name="number" value="00128" />
-      <option name="presentableId" value="LOCAL-00128" />
-      <option name="project" value="LOCAL" />
-      <updated>1506420539441</updated>
-    </task>
     <task id="LOCAL-00129" summary="views being overlapped by soft keyboard">
       <created>1506430574067</created>
       <option name="number" value="00129" />
@@ -7625,7 +7664,14 @@
       <option name="project" value="LOCAL" />
       <updated>1510140384137</updated>
     </task>
-    <option name="localTasksCounter" value="177" />
+    <task id="LOCAL-00177" summary="issue - inward module not having hone option">
+      <created>1510142844606</created>
+      <option name="number" value="00177" />
+      <option name="presentableId" value="LOCAL-00177" />
+      <option name="project" value="LOCAL" />
+      <updated>1510142844606</updated>
+    </task>
+    <option name="localTasksCounter" value="178" />
     <servers />
   </component>
   <component name="TodoView">
@@ -7647,15 +7693,15 @@
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40443686" sideWeight="0.22692889" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2662116" sideWeight="0.7980333" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3161876" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2662116" sideWeight="0.7980333" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29425114" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35153583" sideWeight="0.48473284" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31740615" sideWeight="0.49389312" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38395905" sideWeight="0.48778626" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32423207" sideWeight="0.51221377" order="5" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18683812" sideWeight="0.49317408" order="7" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27987897" sideWeight="0.49317408" order="7" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24885496" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -7706,7 +7752,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="1. Correcting GSTIn validation in customer, ownerdetails and billing screens&#10;2. Implementing Credit limit for customers" />
     <MESSAGE value="remeber me not reflecting properly.Once remember me is checked, it remains checked everytime application is opened" />
     <MESSAGE value="stock not allowed to update if bill was made for that day in ItemManagement" />
     <MESSAGE value="issue in department and category report for quantity in decimal" />
@@ -7731,7 +7776,8 @@
     <MESSAGE value="removing the clearing of screen upon stock update" />
     <MESSAGE value="role list not updating on deleting any newly added role." />
     <MESSAGE value="1. issue - razorpay payment happening even on giving wrong keyid&#10;2. making Mswipe transaction in production environment permanently" />
-    <option name="LAST_COMMIT_MESSAGE" value="1. issue - razorpay payment happening even on giving wrong keyid&#10;2. making Mswipe transaction in production environment permanently" />
+    <MESSAGE value="issue - inward module not having hone option" />
+    <option name="LAST_COMMIT_MESSAGE" value="issue - inward module not having hone option" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -7797,59 +7843,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$USER_HOME$/AppData/Local/Android/sdk/extras/android/m2repository/com/android/support/appcompat-v7/25.1.1/appcompat-v7-25.1.1-sources.jar!/android/support/v7/app/AppCompatActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="139">
-          <caret line="540" column="0" selection-start-line="540" selection-start-column="0" selection-end-line="540" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/AppData/Local/Android/sdk/extras/android/m2repository/com/android/support/appcompat-v7/25.1.1/appcompat-v7-25.1.1-sources.jar!/android/support/v7/app/AppCompatDelegateImplBase.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="139">
-          <caret line="318" column="0" selection-start-line="318" selection-start-column="0" selection-end-line="318" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/AppData/Local/Android/sdk/extras/android/m2repository/com/android/support/appcompat-v7/25.1.1/appcompat-v7-25.1.1-sources.jar!/android/support/v7/view/WindowCallbackWrapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="139">
-          <caret line="58" column="0" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
-          <folding>
-            <element signature="e#1947#1948#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Android/sdk/sources/android-24/android/app/Activity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="139">
-          <caret line="2706" column="0" selection-start-line="2706" selection-start-column="0" selection-end-line="2706" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_inward_item.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="111">
-          <caret line="251" column="52" selection-start-line="251" selection-start-column="51" selection-end-line="251" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wepindia/pos/InwardItemActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="131" column="42" selection-start-line="131" selection-start-column="42" selection-end-line="131" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/wepbase/src/main/java/com/wep/common/app/ActionBarUtils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="475">
@@ -7918,21 +7911,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/printers/src/main/java/com/wepindia/printers/HeyDeyBaseActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="510" column="39" selection-start-line="510" selection-start-column="39" selection-end-line="510" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/printers/src/main/java/com/wepindia/printers/utils/PrinterUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="709" column="18" selection-start-line="709" selection-start-column="18" selection-end-line="709" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_tablebooking.xml">
       <provider editor-type-id="android-designer2">
         <state />
@@ -7985,6 +7963,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="269">
           <caret line="361" column="41" selection-start-line="361" selection-start-column="20" selection-end-line="361" selection-end-column="41" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -8241,10 +8220,44 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_master.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="34" column="47" selection-start-line="34" selection-start-column="47" selection-end-line="34" selection-end-column="47" />
+          <folding>
+            <element signature="e#1015#1032#0" expanded="true" />
+            <element signature="e#1071#1088#0" expanded="true" />
+            <element signature="e#1877#1894#0" expanded="true" />
+            <element signature="e#1933#1950#0" expanded="true" />
+            <element signature="e#2361#2378#0" expanded="true" />
+            <element signature="e#2417#2434#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/printers/src/main/java/com/wepindia/printers/HeyDeyBaseActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="510" column="34" selection-start-line="510" selection-start-column="34" selection-end-line="510" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/printers/src/main/java/com/wepindia/printers/utils/PrinterUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="169">
+          <caret line="694" column="27" selection-start-line="694" selection-start-column="16" selection-end-line="694" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wepindia/pos/BillingDineInActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="6089" column="53" selection-start-line="6089" selection-start-column="53" selection-end-line="6089" selection-end-column="53" />
+        <state relative-caret-position="422">
+          <caret line="8095" column="45" selection-start-line="8095" selection-start-column="45" selection-end-line="8095" selection-end-column="45" />
           <folding>
             <element signature="e#19747#22224#0" expanded="true" />
             <element signature="e#22223#22224#0" expanded="true" />
@@ -8329,73 +8342,109 @@
             <element signature="e#169234#169266#0" expanded="true" />
             <element signature="e#175057#175058#0" expanded="true" />
             <element signature="e#175128#175129#0" expanded="true" />
-            <element signature="e#200842#200874#0" expanded="true" />
-            <element signature="e#227684#230842#0" expanded="true" />
-            <element signature="e#228220#229665#0" expanded="true" />
-            <element signature="e#229664#229665#0" expanded="true" />
-            <element signature="e#230841#230842#0" expanded="true" />
-            <element signature="e#304284#304285#0" expanded="true" />
-            <element signature="e#304312#304313#0" expanded="true" />
-            <element signature="e#310223#311824#0" expanded="true" />
-            <element signature="e#311823#311824#0" expanded="true" />
-            <element signature="e#325168#325328#0" expanded="true" />
-            <element signature="e#325327#325328#0" expanded="true" />
-            <element signature="e#325571#328167#0" expanded="true" />
-            <element signature="e#328166#328167#0" expanded="true" />
-            <element signature="e#329431#329591#0" expanded="true" />
-            <element signature="e#329590#329591#0" expanded="true" />
-            <element signature="e#329819#336221#0" expanded="true" />
-            <element signature="e#336220#336221#0" expanded="true" />
-            <element signature="e#338265#338498#0" expanded="true" />
-            <element signature="e#338497#338498#0" expanded="true" />
-            <element signature="e#339832#341279#0" expanded="true" />
-            <element signature="e#341278#341279#0" expanded="true" />
-            <element signature="e#362914#362922#0" expanded="true" />
-            <element signature="e#363444#363452#0" expanded="true" />
-            <element signature="e#364084#364092#0" expanded="true" />
-            <element signature="e#364440#364453#0" expanded="true" />
-            <element signature="e#366148#366161#0" expanded="true" />
-            <element signature="e#369104#369117#0" expanded="true" />
-            <element signature="e#371893#371906#0" expanded="true" />
-            <element signature="e#374177#374190#0" expanded="true" />
-            <element signature="e#376468#376481#0" expanded="true" />
-            <element signature="e#379272#379292#0" expanded="true" />
-            <element signature="e#380589#380602#0" expanded="true" />
-            <element signature="e#381827#381840#0" expanded="true" />
-            <element signature="e#383077#383090#0" expanded="true" />
-            <element signature="e#384882#384902#0" expanded="true" />
-            <element signature="e#385625#385641#0" expanded="true" />
-            <element signature="e#386638#386658#0" expanded="true" />
-            <element signature="e#398720#398740#0" expanded="true" />
-            <element signature="e#398815#398828#0" expanded="true" />
-            <element signature="e#417478#417498#0" expanded="true" />
-            <element signature="e#417573#417586#0" expanded="true" />
-            <element signature="e#438316#438317#0" expanded="true" />
-            <element signature="e#438374#438375#0" expanded="true" />
-            <element signature="e#439061#441964#0" expanded="true" />
-            <element signature="e#441963#441964#0" expanded="true" />
-            <element signature="e#442384#442416#0" expanded="true" />
-            <element signature="e#460597#460905#0" expanded="true" />
-            <element signature="e#460904#460905#0" expanded="true" />
+            <element signature="e#200571#200603#0" expanded="true" />
+            <element signature="e#227412#230574#0" expanded="true" />
+            <element signature="e#227948#229393#0" expanded="true" />
+            <element signature="e#229392#229393#0" expanded="true" />
+            <element signature="e#230573#230574#0" expanded="true" />
+            <element signature="e#304016#304017#0" expanded="true" />
+            <element signature="e#304044#304045#0" expanded="true" />
+            <element signature="e#309955#311556#0" expanded="true" />
+            <element signature="e#311555#311556#0" expanded="true" />
+            <element signature="e#324900#325060#0" expanded="true" />
+            <element signature="e#325059#325060#0" expanded="true" />
+            <element signature="e#325303#327899#0" expanded="true" />
+            <element signature="e#327898#327899#0" expanded="true" />
+            <element signature="e#329163#329323#0" expanded="true" />
+            <element signature="e#329322#329323#0" expanded="true" />
+            <element signature="e#329551#335953#0" expanded="true" />
+            <element signature="e#335952#335953#0" expanded="true" />
+            <element signature="e#337997#338230#0" expanded="true" />
+            <element signature="e#338229#338230#0" expanded="true" />
+            <element signature="e#339564#341011#0" expanded="true" />
+            <element signature="e#341010#341011#0" expanded="true" />
+            <element signature="e#362646#362654#0" expanded="true" />
+            <element signature="e#363176#363184#0" expanded="true" />
+            <element signature="e#363816#363824#0" expanded="true" />
+            <element signature="e#364172#364185#0" expanded="true" />
+            <element signature="e#365880#365893#0" expanded="true" />
+            <element signature="e#368836#368849#0" expanded="true" />
+            <element signature="e#371625#371638#0" expanded="true" />
+            <element signature="e#373909#373922#0" expanded="true" />
+            <element signature="e#376200#376213#0" expanded="true" />
+            <element signature="e#379004#379024#0" expanded="true" />
+            <element signature="e#380321#380334#0" expanded="true" />
+            <element signature="e#381559#381572#0" expanded="true" />
+            <element signature="e#382809#382822#0" expanded="true" />
+            <element signature="e#384614#384634#0" expanded="true" />
+            <element signature="e#385357#385373#0" expanded="true" />
+            <element signature="e#386370#386390#0" expanded="true" />
+            <element signature="e#398530#398550#0" expanded="true" />
+            <element signature="e#398625#398638#0" expanded="true" />
+            <element signature="e#417288#417308#0" expanded="true" />
+            <element signature="e#417383#417396#0" expanded="true" />
+            <element signature="e#438168#438169#0" expanded="true" />
+            <element signature="e#438226#438227#0" expanded="true" />
+            <element signature="e#438913#441816#0" expanded="true" />
+            <element signature="e#441815#441816#0" expanded="true" />
+            <element signature="e#442236#442268#0" expanded="true" />
+            <element signature="e#460449#460757#0" expanded="true" />
+            <element signature="e#460756#460757#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_master.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wepindia/pos/TabbedAmmendActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="75" column="65" selection-start-line="75" selection-start-column="65" selection-end-line="75" selection-end-column="65" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_fragment_settings_display_owner_detail.xml">
       <provider editor-type-id="android-designer2">
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="24" column="38" selection-start-line="24" selection-start-column="38" selection-end-line="24" selection-end-column="38" />
-          <folding>
-            <element signature="e#1015#1032#0" expanded="true" />
-            <element signature="e#1071#1088#0" expanded="true" />
-            <element signature="e#1877#1894#0" expanded="true" />
-            <element signature="e#1933#1950#0" expanded="true" />
-            <element signature="e#2361#2378#0" expanded="true" />
-            <element signature="e#2417#2434#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="-853">
+          <caret line="47" column="30" selection-start-line="47" selection-start-column="30" selection-end-line="47" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/test_fragment__gstr2__b2_b__amend.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="371">
+          <caret line="85" column="44" selection-start-line="85" selection-start-column="44" selection-end-line="85" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wepindia/pos/fragments/FragmentSettingsDisplayOwnerDetail.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="143" column="9" selection-start-line="139" selection-start-column="9" selection-end-line="143" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wepindia/pos/GST/fragments/ValidationForAmendFields.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="257" column="46" selection-start-line="257" selection-start-column="46" selection-end-line="257" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wepindia/pos/GST/fragments/Fragment_GSTR2_B2B_Amend.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="364">
+          <caret line="404" column="9" selection-start-line="404" selection-start-column="9" selection-end-line="404" selection-end-column="9" />
+          <folding />
         </state>
       </provider>
     </entry>

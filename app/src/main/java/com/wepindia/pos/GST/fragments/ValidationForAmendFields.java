@@ -1,8 +1,10 @@
 package com.wepindia.pos.GST.fragments;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.wepindia.pos.GenericClasses.MessageDialog;
+import com.wepindia.pos.utils.GSTINValidation;
 
 /**
  * Created by RichaA on 8/29/2017.
@@ -262,7 +264,7 @@ public class ValidationForAmendFields {
         boolean  mFlag = false;
 
         try{
-            if(gstin_ori.trim().length() == 0 )
+            /*if(gstin_ori.trim().length() == 0 )
             {mFlag = true;}
             else if (gstin_ori.trim().length() > 0 && gstin_ori.length() == 15) {
                 String[] part = gstin_ori.split("(?<=\\D)(?=\\d)|(?<=\\d)(?=\\D)");
@@ -278,8 +280,8 @@ public class ValidationForAmendFields {
                         && CHECK_STRING_VALUE == checkDataypeValue(part[5],"String")
                         && CHECK_INTEGER_VALUE == checkDataypeValue(part[6],"Int")) {
 
-                               /* int length = gstin.length() -1;
-                                if(Integer.parseInt(String.valueOf(gstin.charAt(length))) ==  checksumGSTIN(gstin.substring(0,length)))*/
+                               *//* int length = gstin.length() -1;
+                                if(Integer.parseInt(String.valueOf(gstin.charAt(length))) ==  checksumGSTIN(gstin.substring(0,length)))*//*
                     mFlag = true;
                 } else {
                     mFlag = false;
@@ -287,12 +289,16 @@ public class ValidationForAmendFields {
             } else {
                 mFlag = false;
             }
-            if(!mFlag)
+            */
+
+            gstin_ori = gstin_ori.trim();
+            if(!GSTINValidation.checkGSTINValidation(gstin_ori))
             {
                 MsgBx.Show("Error","Please enter valid original GSTIN");
                 status = false;
                 return status;
             }
+
             if(!(Double.parseDouble(taxval) >= 0 && Double.parseDouble(taxval) <=9999.99))
             {
                 MsgBx.Show("Error","Please enter taxable value between 0 and 9999.99");
