@@ -2726,7 +2726,10 @@ public void onFocusChange(View v, boolean hasFocus) {
         Log.d("Item", "Row Id:" + String.valueOf(lRowId));
     }
 
-    private void ReadData(int Type) {
+    private long ReadData(int Type) {
+
+        long lRowId =0;
+
         String strMenuCode = "", strLongName = "", strShortName = "", strBarcode = "";
         int iDeptCode = 0, iCategCode = 0, iKitchenCode = 0, iSalesTaxId = 0, iAdditionalTaxId = 0, iOptionalTaxId1 = 0,
                 iOptionalTaxId2 = 0, iDiscountId = 0, iPriceChange = 0, iDiscountEnable = 0, iBillWithStock = 0,iTaxType = 0;
@@ -2801,7 +2804,7 @@ public void onFocusChange(View v, boolean hasFocus) {
                 ItemOutward item_add = new ItemOutward(iMenuCode,strLongName, fDineIn1, fDineIn2,fDineIn3,fStock,
                         iDeptCode,iCategCode,iKitchenCode, strBarcode,strImageUri,iMenuCode, fCGSTTax,fSGSTTax,fIGSTTax,fcessTax,
                         MOU_str, hsnCode,taxationtype_str, g_s ,itemDiscount) ;
-                long lRowId = dbItems.addItem(item_add);
+                 lRowId = dbItems.addItem(item_add);
                 if (lRowId>0)
                 {
                     Log.d("Item Management : ", strLongName+" added sucessfully at Row Id:" + String.valueOf(lRowId));
@@ -2826,15 +2829,15 @@ public void onFocusChange(View v, boolean hasFocus) {
             }
             else if (Type == 2)
             {
-                int iRowId = dbItems.updateItem(Integer.parseInt(edtMenuCode.getText().toString()), strLongName, strShortName, strBarcode,
+                lRowId = dbItems.updateItem(Integer.parseInt(edtMenuCode.getText().toString()), strLongName, strShortName, strBarcode,
                         iDeptCode, iCategCode, iKitchenCode, fDineIn1, fDineIn2, fDineIn3, fTakeAway, fPickUp, fDelivery,
                         iSalesTaxId, iAdditionalTaxId, iOptionalTaxId1, iOptionalTaxId2, iDiscountId, fStock, iPriceChange,
                         iDiscountEnable, iBillWithStock, strImageUri, iTaxType, frate, hsnCode, g_s, MOU_str,
                         taxationtype_str, fIGSTTax, fCGSTTax, fSGSTTax,fcessTax,
                         fSalesTax, fServiceTax, Integer.valueOf(strItemId), itemDiscount);
-                if (iRowId > 0)
+                if (lRowId > 0)
                 {
-                    Log.d("Item Management : ", "Updated Rows: " + String.valueOf(iRowId));
+                    Log.d("Item Management : ", "Updated Rows: " + String.valueOf(lRowId));
                     // updating outwardStock table
                     double rate =0;
                     if(Double.parseDouble(txtDineIn1.getText().toString()) >0)
@@ -2862,6 +2865,7 @@ public void onFocusChange(View v, boolean hasFocus) {
             ResetItem();
             Toast.makeText(myContext, " Negative Values not allowed for GST Tax and Quantity", Toast.LENGTH_SHORT).show();
         }
+        return lRowId;
     }
 
 
@@ -3105,7 +3109,7 @@ public void onFocusChange(View v, boolean hasFocus) {
 
         new AsyncTask<Void,Void,Void>(){
             ProgressDialog pd;
-
+            long lRowId=0;
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
@@ -3118,8 +3122,10 @@ public void onFocusChange(View v, boolean hasFocus) {
             @Override
             protected Void doInBackground(Void... params) {
 
+                lRowId=0;
                 try {
-                    ReadData(1); // 2 - updateItem
+                     lRowId = ReadData(1);
+                    lRowId ++;// 2 - updateItem
                     //ResetItem();
                     //ClearItemTable();
                     //DisplayItems();
@@ -3130,14 +3136,20 @@ public void onFocusChange(View v, boolean hasFocus) {
                 return null;
             }
 
+
+
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
                 try{
+                    if (lRowId > 0) {
+                        Toast.makeText(myContext, AutoCompleteItemLongName.getText().toString().toUpperCase()+" added successfully", Toast.LENGTH_SHORT).show();
+                    }
                     ResetItem();
                     loadAutoCompleteData_ItemNames();
                     //ClearItemTable();
                     DisplayItemList();
+
                     //Toast.makeText(myContext, "Item Added Successfully", Toast.LENGTH_LONG).show();
                     pd.dismiss();
                 }catch (Exception e){
@@ -3285,7 +3297,7 @@ public void onFocusChange(View v, boolean hasFocus) {
 
             new AsyncTask<Void, Void, Void>() {
                 ProgressDialog pd;
-
+                long lRowId =0;
                 @Override
                 protected void onPreExecute() {
                     super.onPreExecute();
@@ -3298,8 +3310,9 @@ public void onFocusChange(View v, boolean hasFocus) {
                 @Override
                 protected Void doInBackground(Void... params) {
 
+                    lRowId =0;
                     try {
-                        ReadData(2); // 2 - updateItem
+                        lRowId = ReadData(2); // 2 - updateItem
                         //ResetItem();
 //                    ClearItemTable();
 //                    DisplayItems();
@@ -3310,15 +3323,19 @@ public void onFocusChange(View v, boolean hasFocus) {
                     return null;
                 }
 
+
                 @Override
                 protected void onPostExecute(Void aVoid) {
                     super.onPostExecute(aVoid);
                     try {
+                        if(lRowId>0)
+                        {
+                            Toast.makeText(myContext, AutoCompleteItemLongName.getText().toString().toUpperCase()+" updated Successfully", Toast.LENGTH_LONG).show();
+                        }
                         ResetItem();
                         loadAutoCompleteData_ItemNames();
                         //ClearItemTable();
                         DisplayItemList();
-                        Toast.makeText(myContext, "Item Updated Successfully", Toast.LENGTH_LONG).show();
                         pd.dismiss();
 
                     } catch (Exception e) {
