@@ -470,7 +470,11 @@ public class StockActivity extends WepBaseActivity implements TextWatcher {
                         Item = dbStock.getItemss(itemCode);
                         if (Item.moveToNext()) {
                             strMenuCode = Item.getString(Item.getColumnIndex("MenuCode"));
+                            ItemLongName.setThreshold(1000);
+                            AutoCompleteItemBarcodeValue.setThreshold(1000);
                             ItemLongName.setText(Item.getString(Item.getColumnIndex("ItemName")));
+                            ItemLongName.setThreshold(1);
+                            AutoCompleteItemBarcodeValue.setThreshold(1);
                             AutoCompleteItemBarcodeValue.setText(Item.getString(Item.getColumnIndex("ItemBarcode")));
                             tvExistingStock.setText(String.format("%.2f", Item.getDouble(Item.getColumnIndex("Quantity"))));
                             txtRate1.setText(String.format("%.2f", Item.getDouble(Item.getColumnIndex("DineInPrice1"))));
