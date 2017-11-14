@@ -4152,6 +4152,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return dbFNB.delete(TBL_CUSTOMER, "CustId=" + CustId, null);
     }
 
+    public int DeleteAllCustomer() {
+
+        return dbFNB.delete(TBL_CUSTOMER,null, null);
+    }
+
     /************************************************************************************************************************************/
     /*******************************************************
      * Table - Employee
@@ -4786,12 +4791,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     public long updateKOTDineIn(int tblno, int tblsplitno,int ItemNo, float Qty, double Amount, double TaxAmt, double SerTaxAmt, int OrderMode
-            ,float IAmt, double cessAmt, double taxableValue) {
+            ,float IAmt, double cessAmt, double taxableValue, double discountAmt) {
         cvDbValues = new ContentValues();
         cvDbValues.put("Quantity", Qty);
         cvDbValues.put("Amount", Amount);
         cvDbValues.put("TaxAmount", TaxAmt);
         cvDbValues.put("ServiceTaxAmount", SerTaxAmt);
+        cvDbValues.put(KEY_DiscountAmount, discountAmt);
         cvDbValues.put(KEY_IGSTAmount, IAmt);
         cvDbValues.put(KEY_cessAmount, cessAmt);
         cvDbValues.put(KEY_TaxableValue, taxableValue);
@@ -5069,9 +5075,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // -----Delete finalized KOT items from Pending KOT table by Token Number-----
-    public int deleteKOTItemsByItemToken(String ItemNumber, int TokenNumber, int SubUdfNumber) {
+    public int deleteKOTItemsByItemToken(String ItemNumber, int TokenNumber, int TableNumber) {
 
-        return dbFNB.delete(TBL_PENDINGKOT, "ItemNumber=" + ItemNumber + " AND TokenNumber=" + TokenNumber + " AND SubUdfNumber=" + SubUdfNumber, null);
+        return dbFNB.delete(TBL_PENDINGKOT, "ItemNumber=" + ItemNumber + " AND TokenNumber=" + TokenNumber + " AND TableNumber=" + TableNumber, null);
     }
     public int deleteKOTItemsByItemToken_new(String ItemNumber, int TokenNumber, int SubUdfNumber) {
 
@@ -5827,7 +5833,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return dbFNB.insert(TBL_PREVIEWBILLITEM, null, cvDbValues);
     }
 
+    public Cursor getPreviewBillItem() {
 
+        String query = "SELECT * FROM "+TBL_PREVIEWBILLITEM;
+        Cursor cursor = dbFNB.rawQuery(query,null);
+        return cursor;
+    }
     // -----Insert Bill Items-----
     public long addBillItem_inward(BillItem objBillItem) {
         cvDbValues = new ContentValues();
@@ -9094,6 +9105,20 @@ public Cursor getGSTR1B2CL_invoices_ammend(String InvoiceNo, String InvoiceDate,
 
     }
 
+    public Cursor getItemsForcessTaxPreviewPrints(int InvoiceNo, String InvoiceDate) {
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = null;
+        try{
+            cursor = db.rawQuery("Select SUM(cessAmount) as cessAmount, cessRate from " + TBL_PREVIEWBILLITEM +
+                    " where InvoiceNo = '" + InvoiceNo + "' AND "+KEY_InvoiceDate+" LIKE '"+InvoiceDate+"' GROUP BY cessRate", null);
+        }catch (Exception e){
+            e.printStackTrace();
+            cursor = null;
+        }finally {
+            //db.close();
+        }
+        return cursor;
+    }
     /*public Cursor getItemsForSGSTTaxPrint(int InvoiceNo) {
 
         Cursor cursor = null;
