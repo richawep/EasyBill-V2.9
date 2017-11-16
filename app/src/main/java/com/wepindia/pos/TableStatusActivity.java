@@ -27,12 +27,13 @@ import com.wepindia.pos.utils.ActionBarUtils;
 
 import java.util.Date;
 
-public class TableStatusActivity extends WepBaseActivity implements View.OnClickListener {
+public class TableStatusActivity extends WepBaseActivity  {
 
 
         // Context object
     Context myContext;
     private static final int FILE_SELECT_CODE = 345;
+    int  TABLESPILTENABLE =0;
     // DatabaseHandler object
     DatabaseHandler dbTableStatus = new DatabaseHandler(TableStatusActivity.this);
     // MessageDialog object
@@ -84,7 +85,11 @@ public class TableStatusActivity extends WepBaseActivity implements View.OnClick
         try {
             dbTableStatus.CreateDatabase();
             dbTableStatus.OpenDatabase();
-
+            Cursor billSettingcrsr = dbTableStatus.getBillSetting();
+            if(billSettingcrsr!=null && billSettingcrsr.moveToFirst())
+            {
+                TABLESPILTENABLE = billSettingcrsr.getInt(billSettingcrsr.getColumnIndex("TableSpliting"));
+            }
             LoadTableStatus();
         } catch (Exception exp) {
             Toast.makeText(myContext, "OnCreate: " + exp.getMessage(), Toast.LENGTH_LONG).show();
@@ -96,25 +101,7 @@ public class TableStatusActivity extends WepBaseActivity implements View.OnClick
         txtTableSearchTable.setText("");
     }
 
-    private void showFileChooser() {
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        //intent.setType("*/*");      //all files
-        intent.setType("text/xml");   //XML file only
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-        try {
-            startActivityForResult(Intent.createChooser(intent, "Select a File to Upload"), FILE_SELECT_CODE);
-        } catch (android.content.ActivityNotFoundException ex) {
-            // Potentially direct the user to the Market with a Dialog
-            Toast.makeText(this, "Please install a File Manager.", Toast.LENGTH_SHORT).show();
-        }
-    }
 
-    public void onClick(View view) {
-        int id = view.getId();
-        if (id == R.id.textViewAttachment) {
-            showFileChooser();
-        }
-    }
 
     @SuppressWarnings("deprecation")
     private void LoadTableStatus() {
@@ -125,6 +112,7 @@ public class TableStatusActivity extends WepBaseActivity implements View.OnClick
         TextView tvSNo, tvTableNo, tvInTime, tvTimeCount, tvStatus;
 
         int i = 1;
+
 
         if (crsrOccupiedTable.moveToFirst()) {
             do {
@@ -142,12 +130,15 @@ public class TableStatusActivity extends WepBaseActivity implements View.OnClick
                 tvTableNo = new TextView(myContext);
                 tvTableNo.setTextSize(18);
                 tvTableNo.setGravity(Gravity.CENTER);
-                if(crsrOccupiedTable.getString(2).equalsIgnoreCase("1")) {
-                    tvTableNo.setText(crsrOccupiedTable.getString(0));
+                if(0 == TABLESPILTENABLE) {
+                    if(crsrOccupiedTable.getString(2).equalsIgnoreCase("1"))
+                        tvTableNo.setText(crsrOccupiedTable.getString(0));
+                    else
+                        tvTableNo.setText(crsrOccupiedTable.getString(0) + " ( " + crsrOccupiedTable.getString(2) + " )");
                 }
                 else
                 {
-                    tvTableNo.setText(crsrOccupiedTable.getString(0) + " ( " + crsrOccupiedTable.getString(0) + " )");
+                    tvTableNo.setText(crsrOccupiedTable.getString(0) + " ( " + crsrOccupiedTable.getString(2) + " )");
                 }
                 rowTableStatus.addView(tvTableNo);
 
