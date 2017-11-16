@@ -6584,9 +6584,7 @@ public class ReportFragment extends Fragment implements View.OnClickListener {
 
 
                             TextView Price1 = (TextView) rowItem.getChildAt(6);
-                            float rate = Float.parseFloat(Report.getString(Report.getColumnIndex("Value")));
-                            float discount = Float.parseFloat(Report.getString(Report.getColumnIndex("DiscountAmount")));
-                            double price = (rate - discount) * qty_d;
+                            double price = Double.parseDouble(Report.getString(Report.getColumnIndex("TaxableValue")));
                             double price_present = Double.parseDouble(Price1.getText().toString());
                             Price1.setText(String.format("%.2f", price + price_present));
 
@@ -6647,11 +6645,9 @@ public class ReportFragment extends Fragment implements View.OnClickListener {
                     SoldQty.setPadding(5,0,0,0);
 
                     Price = new TextView(myContext);
-                    float rate = Float.parseFloat(Report.getString(Report.getColumnIndex("Value")));
-                    float discount = Float.parseFloat(Report.getString(Report.getColumnIndex("DiscountAmount")));
-                    float quant = Float.parseFloat(SoldQty.getText().toString());
+                    double rate = Double.parseDouble(Report.getString(Report.getColumnIndex("TaxableValue")));
 
-                    Price.setText(String.format("%.2f",(rate*quant)-discount));
+                    Price.setText(String.format("%.2f",rate));
                     Price.setGravity(Gravity.END);
                     Price.setPadding(0,0,20,0);
 
