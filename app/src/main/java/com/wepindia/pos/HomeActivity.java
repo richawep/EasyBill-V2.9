@@ -156,14 +156,15 @@ public class HomeActivity extends WepBaseActivity implements HTTPAsyncTask.OnHTT
                         Cursor cursor = dbHomeScreen.getInvoice_outward(Long.toString(milli));
                         if(cursor!=null && cursor.moveToNext())
                         {
-                            int billcount = cursor.getCount();
+                            int billcount = 10;
+                            //int billcount = cursor.getCount();
                             Cursor cursor_owner = dbHomeScreen.getOwnerDetail();
                             if(cursor_owner!= null && cursor_owner.moveToNext())
                             {
                                 String deviceid = cursor_owner.getString(cursor_owner.getColumnIndex("DeviceId"));
                                 String deviceName = cursor_owner.getString(cursor_owner.getColumnIndex("DeviceName"));
-                                String Email = cursor_owner.getString(cursor_owner.getColumnIndex("Email"));
-                                String paramStr ="data="+deviceid+","+Email+","+businessdate+","+billcount+","+deviceName;
+                                String Email = cursor_owner.getString(cursor_owner.getColumnIndex("refNo"));
+                                String paramStr ="data="+deviceid+","+Email+","+businessdate+","+billcount+",POS";
                                 new HTTPAsyncTask(HomeActivity.this,HTTPAsyncTask.HTTP_GET,"",Upload_Invoice_Count, Config.Upload_No_of_Invoices+paramStr).execute();
                             }
                             else
@@ -370,19 +371,21 @@ public class HomeActivity extends WepBaseActivity implements HTTPAsyncTask.OnHTT
                                     Date dd = new SimpleDateFormat("dd-MM-yyyy").parse(businessdate);
                                     long milli = dd.getTime();
                                     Cursor cursor = getDb().getInvoice_outward(Long.toString(milli));
-                                    if(cursor!=null && cursor.moveToNext())
+                                    if(true)//cursor!=null && cursor.moveToNext())
                                     {
-                                        int billcount = cursor.getCount();
+                                        //int billcount = cursor.getCount();
+                                        int billcount = 10;
                                         Cursor cursor_owner = getDb().getOwnerDetail();
                                         if(cursor_owner!= null && cursor_owner.moveToNext())
                                         {
                                             String deviceid = cursor_owner.getString(cursor_owner.getColumnIndex("DeviceId"));
                                             String deviceName = cursor_owner.getString(cursor_owner.getColumnIndex("DeviceName"));
-                                            String Email = cursor_owner.getString(cursor_owner.getColumnIndex("Email"));
+                                            String Email = "poplo";//cursor_owner.getString(cursor_owner.getColumnIndex("refNo"));
                                             //Date newDate = new Date(milli);
                                             //String dd1 = new SimpleDateFormat("yyyy-MM-dd").format(newDate);
-                                            String paramStr ="data="+deviceid+","+Email+","+businessdate+","+billcount+","+deviceName;
+                                            String paramStr ="data="+deviceid+","+Email+","+businessdate+","+billcount+","+"POS";
                                             //String paramStr ="data="+deviceid+","+Email+","+dd1+","+billcount+","+deviceName;
+                                            System.out.println("Richa : Mtering Data : "+paramStr);
                                             new HTTPAsyncTask(HomeActivity.this,HTTPAsyncTask.HTTP_GET,"",Upload_Invoice_Count, Config.Upload_No_of_Invoices+paramStr).execute();
                                         }
                                         else

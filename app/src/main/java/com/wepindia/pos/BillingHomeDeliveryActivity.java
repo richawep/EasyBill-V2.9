@@ -149,7 +149,8 @@ public class BillingHomeDeliveryActivity extends WepPrinterBaseActivity implemen
     double dPettCashPayment = 0;
     float dDiscPercent = 0;
     float fWalletPayment = 0;
-    float fChangePayment = 0, fRoundOfValue =0;
+    double dChangePayment = 0;
+    float fRoundOfValue =0;
     double dFinalBillValue=0;
     double dServiceTaxPercent = 0, dOtherChrgs = 0;
     String strPaymentStatus = "", strMakeOrder = "";
@@ -3260,6 +3261,15 @@ public class BillingHomeDeliveryActivity extends WepPrinterBaseActivity implemen
         fRoundOfValue =0;
         AMOUNTPRINTINNEXTLINE =0;
 
+        fCashPayment = 0;
+        fCardPayment = 0;
+        fCouponPayment = 0;
+        fPaidTotalPayment = 0;
+        dPettCashPayment = 0;
+        dChangePayment = 0;
+        fWalletPayment = 0;
+        dFinalBillValue = 0;
+
     }
 
 
@@ -3516,7 +3526,7 @@ public class BillingHomeDeliveryActivity extends WepPrinterBaseActivity implemen
                 double  taxableValue = Double.valueOf(TaxableValue.getText().toString()) +
                         Double.valueOf(crsrItemsUpdate.getString(crsrItemsUpdate.getColumnIndex("TaxableValue")));
 
-                lResult = dbBillScreen.updateKOT(itemno, Qty, Amt, TaxAmt, SerTaxAmt, jBillingMode, Status,IAmt,cessAmount,taxableValue);
+                lResult = dbBillScreen.updateKOT(itemno, Qty, Amt, TaxAmt, SerTaxAmt, jBillingMode, IAmt,cessAmount,taxableValue);
                 Log.d("UpdateKOT", "KOT item updated at position:" + lResult);
             } else {
 
@@ -4984,8 +4994,9 @@ public class BillingHomeDeliveryActivity extends WepPrinterBaseActivity implemen
             Log.d("InsertBillDetail", "PaidTotalPayment:" + fPaidTotalPayment);
 
             // Change Payment
-            objBillDetail.setChangePayment(fChangePayment);
-            Log.d("InsertBillDetail", "ChangePayment:" + fChangePayment);
+            objBillDetail.setChangePayment(dChangePayment);
+            Log.d("InsertBillDetail", "ChangePayment:" + dChangePayment);
+
             objBillDetail.setfRoundOff(fRoundOfValue);
             Log.d("InsertBillDetail", "RoundOfValue:" + fRoundOfValue);
 
@@ -5020,8 +5031,8 @@ public class BillingHomeDeliveryActivity extends WepPrinterBaseActivity implemen
                 Log.d("InsertBillDetail", "PaidTotalPayment:" + fPaidTotalPayment);
 
                 // Change Payment
-                objBillDetail.setChangePayment(fChangePayment);
-                Log.d("InsertBillDetail", "ChangePayment:" + fChangePayment);
+                objBillDetail.setChangePayment(dChangePayment);
+                Log.d("InsertBillDetail", "ChangePayment:" + dChangePayment);
                 objBillDetail.setfRoundOff(fRoundOfValue);
                 Log.d("InsertBillDetail", "RoundOfValue:" + fRoundOfValue);
             } else {
@@ -5053,8 +5064,8 @@ public class BillingHomeDeliveryActivity extends WepPrinterBaseActivity implemen
                 Log.d("InsertBillDetail", "PaidTotalPayment:" + fPaidTotalPayment);
 
                 // Change Payment
-                objBillDetail.setChangePayment(fChangePayment);
-                Log.d("InsertBillDetail", "ChangePayment:" + fChangePayment);
+                objBillDetail.setChangePayment(dChangePayment);
+                Log.d("InsertBillDetail", "ChangePayment:" + dChangePayment);
                 objBillDetail.setfRoundOff(fRoundOfValue);
                 Log.d("InsertBillDetail", "RoundOfValue:" + fRoundOfValue);
             }
@@ -6525,7 +6536,7 @@ public class BillingHomeDeliveryActivity extends WepPrinterBaseActivity implemen
                         dPettCashPayment = data.getDoubleExtra(PayBillActivity.TENDER_PETTYCASH_VALUE, 0);
                         fPaidTotalPayment = data.getFloatExtra(PayBillActivity.TENDER_PAIDTOTAL_VALUE, 0);
                         fWalletPayment = data.getFloatExtra(PayBillActivity.TENDER_WALLET_VALUE, 0);
-                        fChangePayment = data.getFloatExtra(PayBillActivity.TENDER_CHANGE_AMOUNT, 0);
+                        dChangePayment = data.getDoubleExtra(PayBillActivity.TENDER_CHANGE_VALUE, 0);
                         fRoundOfValue = data.getFloatExtra(PayBillActivity.TENDER_ROUNDOFF, 0);
                         dFinalBillValue = data.getDoubleExtra(PayBillActivity.TENDER_FINALBILL_VALUE, 0);
 
@@ -7545,7 +7556,8 @@ public class BillingHomeDeliveryActivity extends WepPrinterBaseActivity implemen
                         Cursor paymentModeinBillcrsr = db.getBillDetail_counter((orderId),String.valueOf(date1.getTime()));
                         if(paymentModeinBillcrsr!=null && paymentModeinBillcrsr.moveToFirst())
                         {
-                            double cardValue = 0.00,eWalletValue = 0.00,couponValue = 0.00,pettyCashValue = 0.00,cashValue = 0.00;
+                            double cardValue = 0.00,eWalletValue = 0.00,couponValue = 0.00,pettyCashValue = 0.00,
+                                    cashValue = 0.00,changeValue = 0.00;
 
                             if(paymentModeinBillcrsr.getString(paymentModeinBillcrsr.getColumnIndex("CardPayment")) !=null)
                                 cardValue = paymentModeinBillcrsr.getDouble(paymentModeinBillcrsr.getColumnIndex("CardPayment"));
@@ -7557,18 +7569,23 @@ public class BillingHomeDeliveryActivity extends WepPrinterBaseActivity implemen
                                 pettyCashValue = paymentModeinBillcrsr.getDouble(paymentModeinBillcrsr.getColumnIndex("PettyCashPayment"));
                             if(paymentModeinBillcrsr.getString(paymentModeinBillcrsr.getColumnIndex("CashPayment")) !=null)
                                 cashValue = paymentModeinBillcrsr.getDouble(paymentModeinBillcrsr.getColumnIndex("CashPayment"));
+                            if(paymentModeinBillcrsr.getString(paymentModeinBillcrsr.getColumnIndex("ChangePayment")) !=null)
+                                changeValue = paymentModeinBillcrsr.getDouble(paymentModeinBillcrsr.getColumnIndex("ChangePayment"));
+
 
                             cardValue = Double.parseDouble(String.format("%.2f",cardValue));
                             eWalletValue = Double.parseDouble(String.format("%.2f",eWalletValue));
                             couponValue = Double.parseDouble(String.format("%.2f",couponValue));
                             pettyCashValue = Double.parseDouble(String.format("%.2f",pettyCashValue));
                             cashValue = Double.parseDouble(String.format("%.2f",cashValue));
+                            changeValue = Double.parseDouble(String.format("%.2f",changeValue));
 
                             item.setCardPaymentValue(cardValue);
                             item.seteWalletPaymentValue(eWalletValue);
                             item.setCouponPaymentValue(couponValue);
                             item.setPettyCashPaymentValue(pettyCashValue);
                             item.setCashPaymentValue(cashValue);
+                            item.setChangePaymentValue(changeValue);
                         }
 
                     }catch (Exception e)

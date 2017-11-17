@@ -96,7 +96,7 @@
                         android:layout_marginLeft="@dimen/_15dp_720dp_10dp_600dp"
                         android:layout_marginStart="@dimen/_15dp_720dp_10dp_600dp"
                         android:layout_weight="2.5"
-                        android:text="Mobile No"
+                        android:text="Phone No"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:textColor="@color/txtColorAccent"
                         android:textSize="@dimen/table_standard_text_heading_18sp_720dp_16sp_600dp" />
@@ -222,7 +222,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="5dp"
                     android:ems="5"
-                    android:hint="Mobile No"
+                    android:hint="Phone No"
                     android:inputType="number"
                     android:maxLength="10" />
 

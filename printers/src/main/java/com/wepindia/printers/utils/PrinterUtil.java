@@ -418,7 +418,7 @@ public class PrinterUtil {
             BillKotItem billKotItem = (BillKotItem) it.next();
             int id = billKotItem.getItemId();
             String name = getFormatedCharacterForPrint(billKotItem.getItemName(),16,1);
-            String qty = billKotItem.getQty()+"";
+            String qty = String.format("%.2f",billKotItem.getQty());
             String pre = getPostAddedSpaceFormat("",String.valueOf(id),10,1)+name;
             esc.addText(getPreAddedSpaceFormat(pre,qty,38,1)+"\n");
         }
@@ -711,6 +711,10 @@ public class PrinterUtil {
                 esc.addText(getSpaceFormater("Cash Payment",String.format("%.2f",item.getCashPaymentValue()),48,1)+"\n");
         }
 
+        if (item.getChangePaymentValue()>0) {
+            esc.addText("------------------------------------------------"+"\n");
+            esc.addText(getSpaceFormater("Due amount",String.format("%.2f",item.getChangePaymentValue()),48,1)+"\n");
+        }
         esc.addText("================================================"+"\n");
         if(!item.getFooterLine1().equals(""))
             esc.addText(item.getFooterLine1()+"\n");

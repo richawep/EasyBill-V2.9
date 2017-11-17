@@ -64,6 +64,7 @@ public class PrintKotBillItem implements Serializable {
     private  double eWalletPaymentValue =0.00;
     private  double couponPaymentValue =0.00;
     private  double cashPaymentValue =0.00;
+    private double changePaymentValue =0.00;
 
     public PrintKotBillItem() {
     }
@@ -129,6 +130,14 @@ public class PrintKotBillItem implements Serializable {
         this.UTGSTEnabled = UTGSTEnabled;
         this.HSNPrintEnabled_out = HSNPrintEnabled_out;
         this.roundOff = roundOff;
+    }
+
+    public double getChangePaymentValue() {
+        return changePaymentValue;
+    }
+
+    public void setChangePaymentValue(double changePaymentValue) {
+        this.changePaymentValue = changePaymentValue;
     }
 
     public double getCardPaymentValue() {

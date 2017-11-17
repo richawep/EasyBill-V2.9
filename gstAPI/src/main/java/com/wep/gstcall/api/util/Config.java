@@ -34,7 +34,8 @@ public class Config {
 
     public static final String GSTR1_DAY= BASE_URL+"/API/API/Outward?";
 
-    public static final String Upload_No_of_Invoices = "http://metering.wepaspservices.com/api/Device/addBillCount?";
+    //public static final String Upload_No_of_Invoices = "http://metering.wepaspservices.com/api/Device/addBillCount?";
+    public static final String Upload_No_of_Invoices = "http://metering.wepgst.com/api/Device/addBillCount?";
 
     public static final String HeaderAuthorizationData_POST_APIS_DEMO_TESTING ="Ocp-Apim-Subscription-Key@07cde031cc1646efae45746a8c844974"+
             ",SOURCE_TYPE@POS";
